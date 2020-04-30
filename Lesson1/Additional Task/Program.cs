@@ -15,6 +15,7 @@ namespace Additional_Task
         private T[] massive;
         private object[] massiveTwo;
         int indexRemoveValue = -1;
+        bool isReadOnly = false;
 
         public MyCollection()
         {
@@ -22,19 +23,26 @@ namespace Additional_Task
         }
         public void Add(T value)
         {
-            T[] massiveNew = new T[massive.Length + 1];
-            for (int i = 0; i < massive.Length; i++)
+            if (!IsReadOnly)
             {
-                massiveNew[i] = massive[i];
+                T[] massiveNew = new T[massive.Length + 1];
+                for (int i = 0; i < massive.Length; i++)
+                {
+                    massiveNew[i] = massive[i];
+                }
+                massiveNew[massiveNew.Length - 1] = value;
+                massive = massiveNew;
             }
-            massiveNew[massiveNew.Length - 1] = value;
-            massive = massiveNew;
         }
         public bool IsReadOnly
         {
             get
             {
-                return false;
+                return isReadOnly;
+            }
+            set
+            {
+                isReadOnly = value;
             }
         }
         public void CopyTo(T[] massive, int per)
@@ -64,12 +72,12 @@ namespace Additional_Task
 
         public bool Contains(T value)
         {
-
-            object item = new object();
-            item = value;
+            object item = value;
+            object[] massiveObject = new object[massive.Length];
             for (int i = 0; i < massive.Length; i++)
             {
-                if ((massive[i] != null) && (massive[i] as object == item))
+                massiveObject[i] = massive[i];
+                if ((massive[i] != null) && (massiveObject[i].Equals(item)))
                 {
                     indexRemoveValue = i;
                     return true;
@@ -79,19 +87,23 @@ namespace Additional_Task
         }
         public bool Remove(T value)
         {
+            int j = 0;
             T[] massiveRemove = new T[massive.Length - 1];
             if (Contains(value))
             {
-                for (int i = 0; i < massive.Length; i++)
+                for (int i = 0; i < massiveRemove.Length; i++)
                 {
                     if (i == indexRemoveValue)
                     {
+                        j = i + 1;
+                        massiveRemove[i] = massive[massiveRemove.Length - j++];
                         continue;
                     }
-                    massiveRemove[i] = massive[i];
+                    massiveRemove[i] = massive[j++];
                 }
                 massive = massiveRemove;
                 indexRemoveValue = -1;
+                return true;
             }
             return false;
         }
@@ -134,6 +146,10 @@ namespace Additional_Task
             massiveTwo = myMassiv;
             foreach (var item in massiveTwo)
             {
+                if (item == null)
+                {
+                    continue;
+                }
                 yield return item;
             }
         }
@@ -155,15 +171,22 @@ namespace Additional_Task
                 9,
                 10
             };
+            mycollection.IsReadOnly = false;
+            mycollection.Add(15);
+            int count = mycollection.Count;
+            bool contain = mycollection.Contains(6);
+            //mycollection.Clear();
+            bool remove = mycollection.Remove(144);
             foreach (int item in mycollection)
             {
                 Console.WriteLine(item);
             }
 
             Console.WriteLine(new string('-', 20));
+
             int index = 0;
             int[] massive = new int[mycollection.Count + index];
-            mycollection.CopyTo(massive, 0);
+            mycollection.CopyTo(massive, index);
 
             foreach (var item in mycollection.ConvertToAnotherOperation(massive))
             {

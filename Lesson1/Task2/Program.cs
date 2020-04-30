@@ -61,9 +61,9 @@ namespace Task2
         {
             for (int i = 0; i < informationDays.Length; i++)
             {
-                for (int j = 0; j < 2; j++)
+                for (int j = 0; j < 1; j++)
                 {
-                    informationDays[i] += daysOfMonths[i, j] + " ";
+                    informationDays[i] = daysOfMonths[i, j] + " ";
                 }
                 yield return informationDays[i];
             }
@@ -75,7 +75,7 @@ namespace Task2
             {
                 if (index <= 12 && index >= 0)
                 {
-                    return informationDays[index - 1].ToString()+"\n";
+                    return "    " + (index).ToString() + "\t     " + listMonth[index].ToString() + "\t    " + informationDays[index - 1].ToString() + "\n";
                 }
                 else if (index >= 28 && index <= 31)
                 {
@@ -83,7 +83,7 @@ namespace Task2
                     {
                         if (informationDays[i].Contains(index.ToString()))
                         {
-                            Console.WriteLine(informationDays[i]);
+                            Console.WriteLine("    " + (i + 1).ToString() + "\t     " + listMonth[i + 1].ToString() + "\t    " + informationDays[i].ToString());
                         }
                     }
                     return null;
@@ -91,40 +91,45 @@ namespace Task2
                 return null;
             }
         }
-
-
     }
 
     class Program
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Сalendar program".PadLeft(30).ToUpper());
+            Console.Write("Enter the year you are interested in: ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            int year = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine(new string('-', 42));
+            Console.WriteLine(" | Number " + "|" + "   Month   " + "|" + " Days of month |");
+            Console.WriteLine(new string('-', 42));
+            MyListMonth list = new MyListMonth(year);
 
-            MyListMonth list = new MyListMonth(2020);
             foreach (var item in list.listMonth)
             {
-                Console.WriteLine(item.Key + " " + item.Value);
+                Console.WriteLine("    " + item.Key + "\t    " + item.Value + " \t ");
             }
-
-            Console.WriteLine(new string('-', 20));
+            Console.CursorTop = 5;
 
             foreach (var item in list.DaysOfMonth())
             {
+                Console.CursorLeft = 28;
                 Console.WriteLine(item);
             }
+            Console.WriteLine(new string('-', 42));
 
-            Console.WriteLine(new string('-', 20));
+            while (true)
+            {
+                Console.WriteLine(new string('-', 42));
 
-            Console.Write(list[9]);
-
-            Console.WriteLine(new string('-', 20));
-
-            Console.Write(list[31]);
-
-            Console.WriteLine(new string('-', 20));
-
-
-            Console.ReadKey();
+                Console.Write("Find the month you are interested in by consecutive number\nor number of days in the month: ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                int index = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine(new string('-', 42));
+                Console.Write(list[index]);
+                Console.WriteLine(new string('-', 42));
+            }
         }
     }
 }

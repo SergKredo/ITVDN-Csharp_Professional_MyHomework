@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Additional_Task;
+using Additional_Task;              //Объявление пространства имен проекта Additional Task данной сборки
 
 namespace Task2
 {
@@ -88,7 +88,7 @@ namespace Task2
             Console.WriteLine(new string('-', 20));
 
             // Создаем новый экземпляр коллекции типа CustomerCollection, вызов конструктора которого реализует возможность сортировки элементов (обратный алфавитный порядок) по ключу ранее созданной нами коллекции
-            CustomerCollection collectionTwo = new CustomerCollection(collection, new DescendingCompare());
+            CustomerCollection collectionTwo = new CustomerCollection(collection, new DescendingCompare()); // Доступ к классу DescendingCompare можно получить подключив пространство имен Additional_Task
             foreach (DictionaryEntry item in collectionTwo)
             {
                 Console.WriteLine(item.Key + " - " + item.Value);

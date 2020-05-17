@@ -144,6 +144,55 @@ namespace Task3
         }
     }
 
+
+    //3-й способ реализации проекта
+    public class OrderedDictionary : System.Collections.Specialized.OrderedDictionary   // Объявление неуниверсального набора данных пар (ключ-значение). Класс наследуется от системного класса OrderedDictionary
+    {
+        Company company;
+        bool expenses = false;
+        double amountInTheAccount, amountArrivals, amountOfExpenses;
+
+
+        public OrderedDictionary()
+        {
+            company = new Company();
+            this.amountInTheAccount = company.AmountInTheAccount;
+            Add(this.amountArrivals);
+
+        }
+
+        public void Add(double money)     // Добавление нового элемента пар (ключ-значение) в коллекцию
+        {
+
+            expenses = (money < 0) ? false : true;
+            if (expenses)   // Приращение суммы (доходы) к основной сумме на счете компании
+            {
+                this.amountArrivals = money;
+                this[money, company] = this.amountInTheAccount + this.amountArrivals;
+            }
+            else   // Вычитание суммы (расходы) от основной суммы на счете компании
+            {
+                this.amountOfExpenses = money;
+                this[money, company] = this.amountInTheAccount + this.amountOfExpenses;
+            }
+
+        }
+        public double? this[double index, Company i]   // Блок индексатора. Добавление нового элемента пар (ключ-значение) в коллекцию
+        {
+            set
+            {
+                Dictionary<double, double> instance = new Dictionary<double, double>();
+                i = new Company(index, amountInTheAccount);
+                amountInTheAccount = i.AmountInTheAccount;
+                instance[index] = (double)value;
+                this[index] = instance[index];
+            }
+            get
+            {
+                return null;
+            }
+        }
+    }
     static class Override     // Объявление статического класса Override. Класс содержит статический расширяющий метод OverrideCollection(this Hashtable collection) 
     {
         public static void OverrideCollection(this Hashtable collection)  // Расширяющий метод. Метод сортирует элементы входящей колекции в обратном порядке
@@ -203,6 +252,27 @@ namespace Task3
             collection.Add(-56565.13232);
             collection.OverrideCollection();  // Вызов расширяющего метода для обратной сортировки элементов данной коллекции
             foreach (DictionaryEntry item in collection)
+            {
+                Console.WriteLine(item.Key + " \t     " + "\t" + item.Value);
+            }
+
+            Console.WriteLine("\n\n");
+
+
+            Console.WriteLine("Method3:");
+            Console.WriteLine(new string('-', 40));
+
+            // Реализация задачи 3-м способом: положительное число - приращение к сумме на счету; отрицательное число - вычитание от суммы на счету;
+            OrderedDictionary orderedDictionary = new OrderedDictionary()
+            {
+                144.55, 125.88, -789.323, -5656.1232, 8856565.48565
+            };
+            orderedDictionary.Add(-4562.56);
+            orderedDictionary.Add(5656.2845);
+            orderedDictionary.Add(23232.2323);
+            orderedDictionary.Add(-565323.13232);
+            
+            foreach (DictionaryEntry item in orderedDictionary)
             {
                 Console.WriteLine(item.Key + " \t     " + "\t" + item.Value);
             }

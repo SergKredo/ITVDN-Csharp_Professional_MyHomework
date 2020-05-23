@@ -19,118 +19,128 @@ namespace Task3
     {
         static void Main(string[] args)
         {
-
-            Console.Write("Enter a file name to search: ".ToUpper());
-            string nameFile = Console.ReadLine();
-            Console.WriteLine(new string('-', 100));
-            float timeSpan;
-            long timeIN, timeOut;
-            int countFiles = 0;
-            string fullName = null;
-            DriveInfo[] drivers = DriveInfo.GetDrives();
-            timeIN = DateTime.Now.Ticks;
-
-            foreach (var item in drivers)
+            Console.InputEncoding = Encoding.Unicode;
+            Console.OutputEncoding = Encoding.Unicode;
+            while (true)
             {
-                DirectoryInfo searchFiels = new DirectoryInfo(@item.RootDirectory.FullName);
-                FileInfo[] filesThour = searchFiels.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
-                if (filesThour.Length != 0)
-                {
-                    Console.WriteLine("[{0}] - " + filesThour[0].FullName, ++countFiles);
-                }
+                Console.Write("Enter a file name to search: ".ToUpper());
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                string nameFile = Console.ReadLine();
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine(new string('-', 148));
+                float timeSpan;
+                long timeIN, timeOut;
+                int countFiles = 0;
+                string fullName = null;
+                DriveInfo[] drivers = DriveInfo.GetDrives();
+                timeIN = DateTime.Now.Ticks;
 
-                DirectoryInfo[] filesOne = searchFiels.GetDirectories();
-
-                foreach (var items in filesOne)
+                foreach (var item in drivers)
                 {
-                    try
+                    DirectoryInfo searchFiels = new DirectoryInfo(@item.RootDirectory.FullName);
+                    FileInfo[] filesThour = searchFiels.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
+                    if (filesThour.Length != 0)
                     {
-                        string nameDirectory = items.FullName;
-                        DirectoryInfo searchOne = new DirectoryInfo(@nameDirectory);
-                        DirectoryInfo[] filesTwo = searchOne.GetDirectories();
-                        foreach (var itemTwo in filesTwo)
-                        {
-                            try
-                            {
-                                string nameDirectoryh = itemTwo.FullName;
-                                DirectoryInfo searchOneh = new DirectoryInfo(nameDirectoryh);
-                                var filesFive = searchOneh.GetDirectories();
-                                foreach (var itemFive in filesFive)
-                                {
-                                    try
-                                    {
-                                        FileInfo[] files = itemFive.GetFiles(@nameFile, SearchOption.AllDirectories);
-                                        if (files.Length != 0)
-                                        {
-                                            fullName = files[0].FullName;
-                                            Console.WriteLine("[{0}] - " + files[0].FullName, ++countFiles);
-                                        }
-                                    }
-                                    catch (Exception) { }
+                        Console.WriteLine("[{0}] - " + filesThour[0].FullName, ++countFiles);
+                    }
 
-                                    string nameDirectoryss = itemFive.FullName;
-                                    DirectoryInfo searchOness = new DirectoryInfo(@nameDirectoryss);
-                                    try
+                    DirectoryInfo[] filesOne = searchFiels.GetDirectories();
+
+                    foreach (var items in filesOne)
+                    {
+                        try
+                        {
+                            string nameDirectory = items.FullName;
+                            DirectoryInfo searchOne = new DirectoryInfo(@nameDirectory);
+                            DirectoryInfo[] filesTwo = searchOne.GetDirectories();
+                            foreach (var itemTwo in filesTwo)
+                            {
+                                try
+                                {
+                                    string nameDirectoryh = itemTwo.FullName;
+                                    DirectoryInfo searchOneh = new DirectoryInfo(nameDirectoryh);
+                                    var filesFive = searchOneh.GetDirectories();
+                                    foreach (var itemFive in filesFive)
                                     {
-                                        FileInfo[] filesTHreesss = searchOness.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
-                                        if (filesTHreesss.Length != 0)
+                                        try
                                         {
-                                            if (fullName == filesTHreesss[0].FullName)
+                                            FileInfo[] files = itemFive.GetFiles(@nameFile, SearchOption.AllDirectories);
+                                            if (files.Length != 0)
                                             {
-                                                continue;
+                                                fullName = files[0].FullName;
+                                                Console.WriteLine("[{0}] - " + files[0].FullName, ++countFiles);
                                             }
-                                            Console.WriteLine("[{0}] - " + filesTHreesss[0].FullName, ++countFiles);
+                                        }
+                                        catch (Exception) { }
+
+                                        string nameDirectoryss = itemFive.FullName;
+                                        DirectoryInfo searchOness = new DirectoryInfo(@nameDirectoryss);
+                                        try
+                                        {
+                                            FileInfo[] filesTHreesss = searchOness.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
+                                            if (filesTHreesss.Length != 0)
+                                            {
+                                                if (fullName == filesTHreesss[0].FullName)
+                                                {
+                                                    continue;
+                                                }
+                                                Console.WriteLine("[{0}] - " + filesTHreesss[0].FullName, ++countFiles);
+                                            }
+                                        }
+                                        catch (Exception)
+                                        {
+                                            continue;
                                         }
                                     }
-                                    catch (Exception)
+                                }
+                                catch (Exception) { }
+
+                                string nameDirectorysss = itemTwo.FullName;
+                                DirectoryInfo searchOnesss = new DirectoryInfo(@nameDirectorysss);
+                                try
+                                {
+                                    FileInfo[] filesTHreessss = searchOnesss.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
+                                    if (filesTHreessss.Length != 0)
                                     {
-                                        continue;
+                                        Console.WriteLine("[{0}] - " + filesTHreessss[0].FullName, ++countFiles);
                                     }
                                 }
-                            }
-                            catch (Exception) { }
-
-                            string nameDirectorysss = itemTwo.FullName;
-                            DirectoryInfo searchOnesss = new DirectoryInfo(@nameDirectorysss);
-                            try
-                            {
-                                FileInfo[] filesTHreessss = searchOnesss.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
-                                if (filesTHreessss.Length != 0)
+                                catch (Exception)
                                 {
-                                    Console.WriteLine("[{0}] - "  + filesTHreessss[0].FullName, ++countFiles);
+                                    continue;
                                 }
                             }
-                            catch (Exception)
+                        }
+                        catch (Exception) { }
+
+                        string nameDirectorys = items.FullName;
+                        DirectoryInfo searchOnes = new DirectoryInfo(@nameDirectorys);
+                        try
+                        {
+                            FileInfo[] filesTHreesh = searchOnes.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
+                            if (filesTHreesh.Length != 0)
                             {
-                                continue;
+                                Console.WriteLine("[{0}] - " + filesTHreesh[0].FullName, ++countFiles);
                             }
                         }
-                    }
-                    catch (Exception) { }
-
-                    string nameDirectorys = items.FullName;
-                    DirectoryInfo searchOnes = new DirectoryInfo(@nameDirectorys);
-                    try
-                    {
-                        FileInfo[] filesTHreesh = searchOnes.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
-                        if (filesTHreesh.Length != 0)
+                        catch (Exception)
                         {
-                            Console.WriteLine("[{0}] - " + filesTHreesh[0].FullName, ++countFiles);
+                            continue;
                         }
                     }
-                    catch (Exception)
-                    {
-                        continue;
-                    }
                 }
-            }
 
-            Console.WriteLine(new string('-', 100));
-            timeOut = DateTime.Now.Ticks;
-            timeSpan = timeOut - timeIN;
-            Console.WriteLine("Number of files: {0}", countFiles);
-            Console.WriteLine("Search time = {0} sec", timeSpan / 10000000);
-            Console.ReadKey();
+                Console.WriteLine(new string('-', 148));
+                timeOut = DateTime.Now.Ticks;
+                timeSpan = timeOut - timeIN;
+                Console.WriteLine("Number of files: {0}", countFiles);
+                Console.WriteLine("Search time = {0} sec\n", timeSpan / 10000000);
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine(new string('*', 148));
+                Console.WriteLine(new string('*', 148));
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.ReadKey();
+            }
         }
     }
 }

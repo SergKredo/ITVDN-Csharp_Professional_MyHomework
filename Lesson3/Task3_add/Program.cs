@@ -8,7 +8,7 @@ using System.Security.Permissions;
 using System.Security.AccessControl;
 using System.Security.Principal;
 
-namespace Task3
+namespace Task3_add
 {
     /*Задание 3
 Напишите приложение для поиска заданного файла на диске. Добавьте код, использующий
@@ -33,13 +33,19 @@ namespace Task3
             foreach (var item in drivers)
             {
                 DirectoryInfo searchFiels = new DirectoryInfo(@item.RootDirectory.FullName);
-                FileInfo[] filesThour = searchFiels.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
-                if (filesThour.Length != 0)
+                DirectoryInfo[] filesOne = searchFiels.GetDirectories();
+                foreach (var itemM in filesOne)
                 {
-                    Console.WriteLine("[{0}] - " + filesThour[0].FullName, ++countFiles);
+                    FileInfo[] filesThour = itemM.GetFiles();
+                    foreach (var itemI in filesThour)
+                    {
+                        if (itemI.Name == nameFile)
+                        {
+                            Console.WriteLine("[{0}] - " + filesThour[0].FullName, ++countFiles);
+                        }
+                    }
                 }
 
-                DirectoryInfo[] filesOne = searchFiels.GetDirectories();
 
                 foreach (var items in filesOne)
                 {
@@ -97,7 +103,7 @@ namespace Task3
                                 FileInfo[] filesTHreessss = searchOnesss.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
                                 if (filesTHreessss.Length != 0)
                                 {
-                                    Console.WriteLine("[{0}] - "  + filesTHreessss[0].FullName, ++countFiles);
+                                    Console.WriteLine("[{0}] - " + filesTHreessss[0].FullName, ++countFiles);
                                 }
                             }
                             catch (Exception)

@@ -33,9 +33,10 @@ namespace Task2
                 writer.Write(date[i]);    // Последовательная запись в файл отдельных литералов
             }
 
+            writer.Flush();
             writer.Close();  // Метод Close() закрывает текущий объект StreamWriter и базовый поток.
 
-
+            Console.ReadKey();
             Console.WriteLine(new string('-', 100));
             Console.WriteLine("Open the file you created".ToUpper());
             Console.Write("Enter file path: ");

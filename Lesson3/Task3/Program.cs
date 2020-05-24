@@ -149,7 +149,7 @@ namespace Task3
             while (true)
             {
                 Console.Write("Select the file number you would like to read: ");
-                int numberOfFile = Convert.ToInt32(Console.ReadLine());    // Указание в консоли адресной строки к файлу
+                int numberOfFile = Convert.ToInt32(Console.ReadLine());    
                 string pathFile = list[--numberOfFile];
 
                 FileStream fileOpen = File.OpenRead(@pathFile);     // Создание потока для чтения данных из файла

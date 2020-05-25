@@ -37,101 +37,108 @@ namespace Task3
 
             foreach (var item in drivers)
             {
-                DirectoryInfo searchFiels = new DirectoryInfo(@item.RootDirectory.FullName);
-                FileInfo[] filesThour = searchFiels.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
-                if (filesThour.Length != 0)
+                try
                 {
-                    list.Add(filesThour[0].FullName);
-                    Console.WriteLine("[{0}] - " + filesThour[0].FullName, ++countFiles);
-                }
-
-                DirectoryInfo[] filesOne = searchFiels.GetDirectories();
-
-                foreach (var items in filesOne)
-                {
-                    try
+                    DirectoryInfo searchFiels = new DirectoryInfo(@item.RootDirectory.FullName);
+                    FileInfo[] filesThour = searchFiels.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
+                    if (filesThour.Length != 0)
                     {
-                        string nameDirectory = items.FullName;
-                        DirectoryInfo searchOne = new DirectoryInfo(@nameDirectory);
-                        DirectoryInfo[] filesTwo = searchOne.GetDirectories();
-                        foreach (var itemTwo in filesTwo)
-                        {
-                            try
-                            {
-                                string nameDirectoryh = itemTwo.FullName;
-                                DirectoryInfo searchOneh = new DirectoryInfo(nameDirectoryh);
-                                var filesFive = searchOneh.GetDirectories();
-                                foreach (var itemFive in filesFive)
-                                {
-                                    try
-                                    {
-                                        FileInfo[] files = itemFive.GetFiles(@nameFile, SearchOption.AllDirectories);
-                                        if (files.Length != 0)
-                                        {
-                                            list.Add(files[0].FullName);
-                                            fullName = files[0].FullName;
-                                            Console.WriteLine("[{0}] - " + files[0].FullName, ++countFiles);
-                                        }
-                                    }
-                                    catch (Exception) { }
+                        list.Add(filesThour[0].FullName);
+                        Console.WriteLine("[{0}] - " + filesThour[0].FullName, ++countFiles);
+                    }
 
-                                    string nameDirectoryss = itemFive.FullName;
-                                    DirectoryInfo searchOness = new DirectoryInfo(@nameDirectoryss);
-                                    try
+                    DirectoryInfo[] filesOne = searchFiels.GetDirectories();
+
+                    foreach (var items in filesOne)
+                    {
+                        try
+                        {
+                            string nameDirectory = items.FullName;
+                            DirectoryInfo searchOne = new DirectoryInfo(@nameDirectory);
+                            DirectoryInfo[] filesTwo = searchOne.GetDirectories();
+                            foreach (var itemTwo in filesTwo)
+                            {
+                                try
+                                {
+                                    string nameDirectoryh = itemTwo.FullName;
+                                    DirectoryInfo searchOneh = new DirectoryInfo(nameDirectoryh);
+                                    var filesFive = searchOneh.GetDirectories();
+                                    foreach (var itemFive in filesFive)
                                     {
-                                        FileInfo[] filesTHreesss = searchOness.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
-                                        if (filesTHreesss.Length != 0)
+                                        try
                                         {
-                                            if (fullName == filesTHreesss[0].FullName)
+                                            FileInfo[] files = itemFive.GetFiles(@nameFile, SearchOption.AllDirectories);
+                                            if (files.Length != 0)
                                             {
-                                                continue;
+                                                list.Add(files[0].FullName);
+                                                fullName = files[0].FullName;
+                                                Console.WriteLine("[{0}] - " + files[0].FullName, ++countFiles);
                                             }
-                                            list.Add(filesTHreesss[0].FullName);
-                                            Console.WriteLine("[{0}] - " + filesTHreesss[0].FullName, ++countFiles);
+                                        }
+                                        catch (Exception) { }
+
+                                        string nameDirectoryss = itemFive.FullName;
+                                        DirectoryInfo searchOness = new DirectoryInfo(@nameDirectoryss);
+                                        try
+                                        {
+                                            FileInfo[] filesTHreesss = searchOness.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
+                                            if (filesTHreesss.Length != 0)
+                                            {
+                                                if (fullName == filesTHreesss[0].FullName)
+                                                {
+                                                    continue;
+                                                }
+                                                list.Add(filesTHreesss[0].FullName);
+                                                Console.WriteLine("[{0}] - " + filesTHreesss[0].FullName, ++countFiles);
+                                            }
+                                        }
+                                        catch (Exception)
+                                        {
+                                            continue;
                                         }
                                     }
-                                    catch (Exception)
+                                }
+                                catch (Exception) { }
+
+                                string nameDirectorysss = itemTwo.FullName;
+                                DirectoryInfo searchOnesss = new DirectoryInfo(@nameDirectorysss);
+                                try
+                                {
+                                    FileInfo[] filesTHreessss = searchOnesss.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
+                                    if (filesTHreessss.Length != 0)
                                     {
-                                        continue;
+                                        list.Add(filesTHreessss[0].FullName);
+                                        Console.WriteLine("[{0}] - " + filesTHreessss[0].FullName, ++countFiles);
                                     }
                                 }
-                            }
-                            catch (Exception) { }
-
-                            string nameDirectorysss = itemTwo.FullName;
-                            DirectoryInfo searchOnesss = new DirectoryInfo(@nameDirectorysss);
-                            try
-                            {
-                                FileInfo[] filesTHreessss = searchOnesss.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
-                                if (filesTHreessss.Length != 0)
+                                catch (Exception)
                                 {
-                                    list.Add(filesTHreessss[0].FullName);
-                                    Console.WriteLine("[{0}] - " + filesTHreessss[0].FullName, ++countFiles);
+                                    continue;
                                 }
                             }
-                            catch (Exception)
+                        }
+                        catch (Exception) { }
+
+                        string nameDirectorys = items.FullName;
+                        DirectoryInfo searchOnes = new DirectoryInfo(@nameDirectorys);
+                        try
+                        {
+                            FileInfo[] filesTHreesh = searchOnes.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
+                            if (filesTHreesh.Length != 0)
                             {
-                                continue;
+                                list.Add(filesTHreesh[0].FullName);
+                                Console.WriteLine("[{0}] - " + filesTHreesh[0].FullName, ++countFiles);
                             }
                         }
-                    }
-                    catch (Exception) { }
-
-                    string nameDirectorys = items.FullName;
-                    DirectoryInfo searchOnes = new DirectoryInfo(@nameDirectorys);
-                    try
-                    {
-                        FileInfo[] filesTHreesh = searchOnes.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
-                        if (filesTHreesh.Length != 0)
+                        catch (Exception)
                         {
-                            list.Add(filesTHreesh[0].FullName);
-                            Console.WriteLine("[{0}] - " + filesTHreesh[0].FullName, ++countFiles);
+                            continue;
                         }
                     }
-                    catch (Exception)
-                    {
-                        continue;
-                    }
+                }
+                catch (Exception)
+                {
+                    continue;
                 }
             }
 
@@ -149,7 +156,7 @@ namespace Task3
             while (true)
             {
                 Console.Write("Select the file number you would like to read: ");
-                int numberOfFile = Convert.ToInt32(Console.ReadLine());    
+                int numberOfFile = Convert.ToInt32(Console.ReadLine());
                 string pathFile = list[--numberOfFile];
 
                 FileStream fileOpen = File.OpenRead(@pathFile);     // Создание потока для чтения данных из файла
@@ -189,62 +196,95 @@ namespace Task3
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.Write(new string('#', 1));
                     Console.Write(new string(" "[0], 3));
+                    int count = 0;
                     for (int k = j; k < length; k++)
                     {
-
-                        if (literals.Count - 1 < k)
+                        count = k;
+                        try
                         {
-                            Console.Write(" ");
+                            if ((literals.Count - 1 < k) && k > 0 && (literals[k - 1] == '\r' || literals[k - 1] == '\n'))
+                            {
+                                j = ++length;
+                                length += 140;
+                                break;
+                            }
+                            else if (literals.Count - 1 < k)
+                            {
+                                Console.Write(" ");
+                            }
+                            else
+                            {
+                                if (literals[k] == '\r' || literals[k] == '\n')
+                                {
+                                    if (literals[k - 1] == '\r' && literals[k] == '\n')
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.White;
+                                        Console.Write(new string('#', 1));
+                                        Console.Write(new string(" "[0], 3));
+                                        for (int l = 0; l < 140; l++)
+                                        {
+                                            Console.Write(" ");
+                                        }
+                                    }
+                                    else if (literals[k - 1] == '\n' && literals[k] == '\r')
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.White;
+                                        Console.Write(new string('#', 1));
+                                        Console.Write(new string(" "[0], 3));
+                                        for (int l = 0; l < 140; l++)
+                                        {
+                                            Console.Write(" ");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int l = k; l < length; l++)
+                                        {
+                                            Console.Write(" ");
+                                        }
+                                    }
+                                    Console.Write(new string(" "[0], 3));
+                                    Console.Write(new string('#', 1) + "\n");
+                                    Console.ForegroundColor = ConsoleColor.Black;
+                                    continue;
+                                }
+                                else if (k > 0 && literals[k - 1] == '\n')
+                                {
+                                    Console.BackgroundColor = ConsoleColor.White;
+                                    Console.Write(new string('#', 1));
+                                    Console.Write(new string(" "[0], 3));
+                                    int coeff = length - k;
+                                    int addCoeff = 140 - coeff;
+                                    length += addCoeff;
+                                }
+
+                                Console.Write(literals[k]);
+                            }
                         }
-                        else
+                        catch (Exception)
                         {
-                            if (literals[k] == '\r' || literals[k] == '\n')
+                            if (literals.Count - 1 < k)
                             {
-                                if (literals[k - 1] == '\r' && literals[k] == '\n')
-                                {
-                                    Console.BackgroundColor = ConsoleColor.White;
-                                    Console.Write(new string('#', 1));
-                                    Console.Write(new string(" "[0], 3));
-                                    for (int l = 0; l < 140; l++)
-                                    {
-                                        Console.Write(" ");
-                                    }
-                                }
-                                else if (literals[k - 1] == '\n' && literals[k] == '\r')
-                                {
-                                    Console.BackgroundColor = ConsoleColor.White;
-                                    Console.Write(new string('#', 1));
-                                    Console.Write(new string(" "[0], 3));
-                                    for (int l = 0; l < 140; l++)
-                                    {
-                                        Console.Write(" ");
-                                    }
-                                }
-                                else
-                                {
-                                    for (int l = k; l < length; l++)
-                                    {
-                                        Console.Write(" ");
-                                    }
-                                }
-                                Console.Write(new string(" "[0], 3));
-                                Console.Write(new string('#', 1) + "\n");
-                                Console.ForegroundColor = ConsoleColor.Black;
-                                continue;
+                                Console.Write(" ");
                             }
-                            else if (k > 0 && literals[k - 1] == '\n')
-                            {
-                                Console.BackgroundColor = ConsoleColor.White;
-                                Console.Write(new string('#', 1));
-                                Console.Write(new string(" "[0], 3));
-                                int coeff = length - k;
-                                int addCoeff = 140 - coeff;
-                                length += addCoeff;
-                            }
-
-                            Console.Write(literals[k]);
+                            continue;
                         }
                     }
+                    try
+                    {
+                        if (count < length && literals[count] == '\n')
+                        {
+                            j = ++length;
+                            length += 140;
+                            continue;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        break;
+                    }
+                    
+
                     j = length;
                     length += 140;
                     Console.Write(new string(" "[0], 3));

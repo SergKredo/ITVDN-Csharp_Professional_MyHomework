@@ -19,6 +19,11 @@ namespace Task3
     {
         static void Main(string[] args)
         {
+
+            Console.SetWindowSize(149, 35);
+            Console.SetBufferSize(149, 9001);
+
+            Again:
             Console.InputEncoding = Encoding.Unicode;
             Console.OutputEncoding = Encoding.Unicode;
             List<string> list = new List<string>();
@@ -155,152 +160,164 @@ namespace Task3
 
             while (true)
             {
-                Console.Write("Select the file number you would like to read: ");
-                int numberOfFile = Convert.ToInt32(Console.ReadLine());
-                string pathFile = list[--numberOfFile];
-
-                FileStream fileOpen = File.OpenRead(@pathFile);     // Создание потока для чтения данных из файла
-                StreamReader reader = new StreamReader(fileOpen, Encoding.Default);  // Класс StreamReader используется для чтения строк из потока
-                int numberLiterals = reader.ReadToEnd().Length;
-                fileOpen.Position = 0;
-                string text = reader.ReadToEnd();
-                List<char> literals = new List<char>();
-                for (int i = 0; i < numberLiterals; i++)
+                try
                 {
-                    literals.Add(text[i]);
-                }
-
-                int numberLines = 1;
-                if (numberLiterals > 140)
-                {
-                    numberLines += numberLiterals / 140;
-                }
-
-                Encoding code = Encoding.Default;
-                byte[] sym = new byte[256];
-                for (int i = 0; i < 256; i++)
-                {
-                    sym[i] = (byte)i;
-                }
-                char[] chart = new char[256];
-                chart = code.GetChars(sym);
-
-                Console.BackgroundColor = ConsoleColor.White;
-                Console.ForegroundColor = ConsoleColor.Black;
-                Console.WriteLine(new string('#', 148));
-                Console.BackgroundColor = ConsoleColor.Black;
-                int j = 0;
-                int length = 140;
-                for (int i = 0; i < numberLines; i++)
-                {
-                    Console.BackgroundColor = ConsoleColor.White;
-                    Console.Write(new string('#', 1));
-                    Console.Write(new string(" "[0], 3));
-                    int count = 0;
-                    for (int k = j; k < length; k++)
+                    Console.Write("Select the file number you would like to read: ");
+                    string word = Console.ReadLine();
+                    if (word.ToLowerInvariant() == "back")
                     {
-                        count = k;
+                        goto Again;
+                    }
+                    int numberOfFile = Convert.ToInt32(word);
+                    string pathFile = list[--numberOfFile];
+
+                    FileStream fileOpen = File.OpenRead(@pathFile);     // Создание потока для чтения данных из файла
+                    StreamReader reader = new StreamReader(fileOpen, Encoding.Default);  // Класс StreamReader используется для чтения строк из потока
+                    int numberLiterals = reader.ReadToEnd().Length;
+                    fileOpen.Position = 0;
+                    string text = reader.ReadToEnd();
+                    List<char> literals = new List<char>();
+                    for (int i = 0; i < numberLiterals; i++)
+                    {
+                        literals.Add(text[i]);
+                    }
+
+                    int numberLines = 1;
+                    if (numberLiterals > 140)
+                    {
+                        numberLines += numberLiterals / 140;
+                    }
+
+                    Encoding code = Encoding.Default;
+                    byte[] sym = new byte[256];
+                    for (int i = 0; i < 256; i++)
+                    {
+                        sym[i] = (byte)i;
+                    }
+                    char[] chart = new char[256];
+                    chart = code.GetChars(sym);
+
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.WriteLine(new string('#', 148));
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    int j = 0;
+                    int length = 140;
+                    for (int i = 0; i < numberLines; i++)
+                    {
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.Write(new string('#', 1));
+                        Console.Write(new string(" "[0], 3));
+                        int count = 0;
+                        for (int k = j; k < length; k++)
+                        {
+                            count = k;
+                            try
+                            {
+                                if ((literals.Count - 1 < k) && k > 0 && (literals[k - 1] == '\r' || literals[k - 1] == '\n'))
+                                {
+                                    j = ++length;
+                                    length += 140;
+                                    break;
+                                }
+                                else if (literals.Count - 1 < k)
+                                {
+                                    Console.Write(" ");
+                                }
+                                else
+                                {
+                                    if (literals[k] == '\r' || literals[k] == '\n')
+                                    {
+                                        if (literals[k - 1] == '\r' && literals[k] == '\n')
+                                        {
+                                            Console.BackgroundColor = ConsoleColor.White;
+                                            Console.Write(new string('#', 1));
+                                            Console.Write(new string(" "[0], 3));
+                                            for (int l = 0; l < 140; l++)
+                                            {
+                                                Console.Write(" ");
+                                            }
+                                        }
+                                        else if (literals[k - 1] == '\n' && literals[k] == '\r')
+                                        {
+                                            Console.BackgroundColor = ConsoleColor.White;
+                                            Console.Write(new string('#', 1));
+                                            Console.Write(new string(" "[0], 3));
+                                            for (int l = 0; l < 140; l++)
+                                            {
+                                                Console.Write(" ");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            for (int l = k; l < length; l++)
+                                            {
+                                                Console.Write(" ");
+                                            }
+                                        }
+                                        Console.Write(new string(" "[0], 3));
+                                        Console.Write(new string('#', 1) + "\n");
+                                        Console.ForegroundColor = ConsoleColor.Black;
+                                        continue;
+                                    }
+                                    else if (k > 0 && literals[k - 1] == '\n')
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.White;
+                                        Console.Write(new string('#', 1));
+                                        Console.Write(new string(" "[0], 3));
+                                        int coeff = length - k;
+                                        int addCoeff = 140 - coeff;
+                                        length += addCoeff;
+                                    }
+
+                                    Console.Write(literals[k]);
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                if (literals.Count - 1 < k)
+                                {
+                                    Console.Write(" ");
+                                }
+                                continue;
+                            }
+                        }
                         try
                         {
-                            if ((literals.Count - 1 < k) && k > 0 && (literals[k - 1] == '\r' || literals[k - 1] == '\n'))
+                            if (count < length && literals[count] == '\n')
                             {
                                 j = ++length;
                                 length += 140;
-                                break;
-                            }
-                            else if (literals.Count - 1 < k)
-                            {
-                                Console.Write(" ");
-                            }
-                            else
-                            {
-                                if (literals[k] == '\r' || literals[k] == '\n')
-                                {
-                                    if (literals[k - 1] == '\r' && literals[k] == '\n')
-                                    {
-                                        Console.BackgroundColor = ConsoleColor.White;
-                                        Console.Write(new string('#', 1));
-                                        Console.Write(new string(" "[0], 3));
-                                        for (int l = 0; l < 140; l++)
-                                        {
-                                            Console.Write(" ");
-                                        }
-                                    }
-                                    else if (literals[k - 1] == '\n' && literals[k] == '\r')
-                                    {
-                                        Console.BackgroundColor = ConsoleColor.White;
-                                        Console.Write(new string('#', 1));
-                                        Console.Write(new string(" "[0], 3));
-                                        for (int l = 0; l < 140; l++)
-                                        {
-                                            Console.Write(" ");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        for (int l = k; l < length; l++)
-                                        {
-                                            Console.Write(" ");
-                                        }
-                                    }
-                                    Console.Write(new string(" "[0], 3));
-                                    Console.Write(new string('#', 1) + "\n");
-                                    Console.ForegroundColor = ConsoleColor.Black;
-                                    continue;
-                                }
-                                else if (k > 0 && literals[k - 1] == '\n')
-                                {
-                                    Console.BackgroundColor = ConsoleColor.White;
-                                    Console.Write(new string('#', 1));
-                                    Console.Write(new string(" "[0], 3));
-                                    int coeff = length - k;
-                                    int addCoeff = 140 - coeff;
-                                    length += addCoeff;
-                                }
-
-                                Console.Write(literals[k]);
+                                continue;
                             }
                         }
                         catch (Exception)
                         {
-                            if (literals.Count - 1 < k)
-                            {
-                                Console.Write(" ");
-                            }
-                            continue;
+                            break;
                         }
-                    }
-                    try
-                    {
-                        if (count < length && literals[count] == '\n')
-                        {
-                            j = ++length;
-                            length += 140;
-                            continue;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        break;
-                    }
-                    
 
-                    j = length;
-                    length += 140;
-                    Console.Write(new string(" "[0], 3));
-                    Console.Write(new string('#', 1) + "\n");
-                    Console.ForegroundColor = ConsoleColor.Black;
+
+                        j = length;
+                        length += 140;
+                        Console.Write(new string(" "[0], 3));
+                        Console.Write(new string('#', 1) + "\n");
+                        Console.ForegroundColor = ConsoleColor.Black;
+                    }
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.WriteLine(new string('#', 148) + "\n");
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.WriteLine(" ");
+                    reader.Close();   // Метод Close() закрывает текущий объект StreamReader и базовый поток.
+
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine(new string('*', 148));
+                    Console.WriteLine(new string('*', 148));
+                    Console.ForegroundColor = ConsoleColor.Gray;
                 }
-                Console.BackgroundColor = ConsoleColor.White;
-                Console.WriteLine(new string('#', 148) + "\n");
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.WriteLine(" ");
-                reader.Close();   // Метод Close() закрывает текущий объект StreamReader и базовый поток.
-
-                Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine(new string('*', 148));
-                Console.WriteLine(new string('*', 148));
-                Console.ForegroundColor = ConsoleColor.Gray;
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
 
 

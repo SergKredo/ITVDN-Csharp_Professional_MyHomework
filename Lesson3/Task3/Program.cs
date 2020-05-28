@@ -163,7 +163,7 @@ namespace Task3
             Console.WriteLine(new string('*', 148));
             Console.ForegroundColor = ConsoleColor.Gray;
 
-
+        Read:
             while (true)   // Бесконечный цикл для повторения заданного алгоритма действий в коде программы
             {
                 try
@@ -322,60 +322,217 @@ namespace Task3
 
 
                     reader.Close();   // Метод Close() закрывает текущий объект StreamReader и базовый поток.
-
+                    fileOpen.Close();
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.WriteLine(new string('*', 148));
                     Console.WriteLine(new string('*', 148));
                     Console.ForegroundColor = ConsoleColor.Gray;
+
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
+
             }
-            
 
 
-            // Алгоритм позволяет делать компрессию данного файла в виде архива ZIP. Архивация осуществляется двумя способами. 
+
+        // Алгоритм позволяет делать компрессию данного файла в виде архива ZIP. Архивация осуществляется двумя способами. 
         Next:
-            Console.Write("Select the file number you would like to archive: ".ToUpper());
-            string newWord = Console.ReadLine();
-            if (newWord.ToLowerInvariant() == "back")
-            {
-                goto Again;
-            }
-            int numberOfFileToArchive = Convert.ToInt32(newWord);
-            string pathFileToArchive = list[--numberOfFileToArchive];
-
-
-            // 1-й метод архивирования файла. Архивировать можно только файлы по отдельности
-            FileStream fileOpenToArchive = File.Open(@pathFileToArchive, FileMode.OpenOrCreate);   // Создаем поток в файле с операциями чтения и записи по заданному пути
-            FileStream fileArchive = File.Create(@Path.ChangeExtension(@pathFileToArchive, ".zip"));   // Создаем новый файл типа архив с расширение zip и поток данного файла для записи и чтения. Используя класс Path добавляем расширение zip к адресной строке файла
-           
-            StreamReader strNewFile = new StreamReader(fileOpenToArchive);  // Объект класса StreamReader позволяет считывать символы из потока файла
-            string textArchiveNew = strNewFile.ReadToEnd();  // Присваиваем переменной строковое значение, которое считал объект типа StreamReader
-            byte[] byteMassiveNew = new byte[textArchiveNew.Length];  // Создаем новый одномерный массив типа byte. Данный массив байтов будет хранить значения литералов, коотрые хранятся в переменной textArchiveNew
-
-            for (int i = 0; i < textArchiveNew.Length; i++)
-            {
-                byteMassiveNew[i] = (byte)textArchiveNew[i];
-            }
-            GZipStream compressor = new GZipStream(fileArchive, CompressionMode.Compress);  // Создаем экземпялр объекта типа GZipStream, который осуществляет сжатие и распаковку потока файла
-            compressor.Write(byteMassiveNew, 0, textArchiveNew.Length);  //Записывает сжатые байты в основной поток из указанного массива байтов.
-            compressor.Close();   // Закрываем текущий поток и отключаем все ресурсы занимаемые потоком в памяти
-            fileOpenToArchive.Close();
-            fileArchive.Close();
-            strNewFile.Close();
             try
-            {  // 2-й метод архивирования. Архивировать можно целую директорию с файлами и вложенными подкаталогами
-                ZipFile.CreateFromDirectory(@"D:\Test", @"D:\Test\testMy.zip");   // Создаем архив типа zip. Первый аргумент указывает на место расположения файлов, которые нужно архивировать. Второй - путь расположения архива и его название
-            }
-            catch (Exception) { }
-            finally
             {
-                FileInfo deleteFile = new FileInfo(@Path.ChangeExtension(@pathFileToArchive, ".zip"));   // Создаем объект, который будет содержать всю основную информацию о файле
-                deleteFile.Delete(); // Удаляем из каталога созданный 1-м путем архив
+                while (true)
+                {
+                    Console.Write("Select the file number you would like to archive: ".ToUpper());
+                    string newWord = Console.ReadLine();
+                    if (newWord.ToLowerInvariant() == "back")
+                    {
+                        goto Again;
+                    }
+                    if (newWord.ToLowerInvariant() == "read")
+                    {
+                        goto Read;
+                    }
+                    int numberOfFileToArchive = Convert.ToInt32(newWord);
+                    string pathFileToArchive = list[--numberOfFileToArchive];
+
+
+                    // 1-й метод архивирования файла. Архивировать можно только файлы по отдельности
+                    FileStream fileOpenToArchive = File.Open(@pathFileToArchive, FileMode.OpenOrCreate, FileAccess.ReadWrite);   // Создаем поток в файле с операциями чтения и записи по заданному пути
+                    string pathFileZipperOne = @pathFileToArchive.Substring(0, pathFileToArchive.LastIndexOf(@"\"[0]));
+                    string pathCompressFile = @Path.ChangeExtension(pathFileZipperOne + @"\_1Method.txt", ".zip");
+                    FileStream fileArchive = File.Create(@pathCompressFile);   // Создаем новый файл типа архив с расширение zip и поток данного файла для записи и чтения. Используя класс Path добавляем расширение zip к адресной строке файла
+
+                    StreamReader strNewFile = new StreamReader(fileOpenToArchive);  // Объект класса StreamReader позволяет считывать символы из потока файла
+                    string textArchiveNew = strNewFile.ReadToEnd();  // Присваиваем переменной строковое значение, которое считал объект типа StreamReader
+                    byte[] byteMassiveNew = new byte[textArchiveNew.Length];  // Создаем новый одномерный массив типа byte. Данный массив байтов будет хранить значения литералов, коотрые хранятся в переменной textArchiveNew
+
+                    for (int i = 0; i < textArchiveNew.Length; i++)
+                    {
+                        byteMassiveNew[i] = (byte)textArchiveNew[i];
+                    }
+                    GZipStream compressor = new GZipStream(fileArchive, CompressionMode.Compress);  // Создаем экземпялр объекта типа GZipStream, который осуществляет сжатие и распаковку потока файла
+                    compressor.Write(byteMassiveNew, 0, textArchiveNew.Length);  //Записывает сжатые байты в основной поток из указанного массива байтов.
+                    compressor.Close();   // Закрываем текущий поток и отключаем все ресурсы занимаемые потоком в памяти
+                    fileOpenToArchive.Close();
+                    fileArchive.Close();
+                    strNewFile.Close();
+
+                    string pathFileZipper = @pathFileToArchive.Substring(0, pathFileToArchive.LastIndexOf(@"\"[0]));
+                    try
+                    {  // 2-й метод архивирования. Архивировать можно целую директорию с файлами и вложенными подкаталогами
+                        ZipFile.CreateFromDirectory(@pathFileZipper, Path.ChangeExtension(@pathFileZipper + @"\_2Method.txt", ".zip"));   // Создаем архив типа zip. Первый аргумент указывает на место расположения файлов, которые нужно архивировать. Второй - путь расположения архива и его название
+                    }
+                    catch (Exception) { }
+                    finally
+                    {
+                        FileInfo zipExist = new FileInfo(@Path.ChangeExtension(@pathFileZipper + @"\_2Method.txt", ".zip"));
+                        if (zipExist.Exists)
+                        {
+                            Console.WriteLine(new string('-', 148));
+                            Console.WriteLine("[1] - {0}", zipExist.FullName);
+                            Console.WriteLine(new string('-', 148));
+                        }
+                        else
+                        {
+                            Console.WriteLine(new string('-', 148));
+                            Console.WriteLine("Unfortunately, the archive could not be created!");
+                            Console.WriteLine(new string('-', 148));
+                        }
+                        FileInfo deleteFile = new FileInfo(@pathCompressFile);   // Создаем объект, который будет содержать всю основную информацию о файле
+                        deleteFile.Delete(); // Удаляем из каталога созданный 1-м путем архив
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.ReadKey();
             }
         }
     }
 }
+
+/*RESULT:*/
+/*
+ ENTER A FILE NAME TO SEARCH: test.txt
+----------------------------------------------------------------------------------------------------------------------------------------------------
+[1] - D:\Android\android-sdk\platform-tools\systrace\catapult\telemetry\third_party\modulegraph\modulegraph_tests\testdata\test.txt
+[2] - D:\Dropbox\Программирование на С#_ITVDN\csharp-for-professional\HomeWorkAnswers\Lesson 003\Task_1\bin\Debug\test.txt
+[3] - D:\Test\test.txt
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Number of files: 3
+Search time = 64,05241 sec
+
+****************************************************************************************************************************************************
+****************************************************************************************************************************************************
+SELECT THE FILE NUMBER YOU WOULD LIKE TO READ: 2
+####################################################################################################################################################
+#   Hello world!!!                                                                                                                                 #
+#                                                                                                                                                  #
+####################################################################################################################################################
+
+
+****************************************************************************************************************************************************
+****************************************************************************************************************************************************
+SELECT THE FILE NUMBER YOU WOULD LIKE TO READ: next
+SELECT THE FILE NUMBER YOU WOULD LIKE TO ARCHIVE: 2
+----------------------------------------------------------------------------------------------------------------------------------------------------
+[1] - D:\Dropbox\Программирование на С#_ITVDN\csharp-for-professional\HomeWorkAnswers\Lesson 003\Task_1\bin\Debug\_2Method.zip
+----------------------------------------------------------------------------------------------------------------------------------------------------
+SELECT THE FILE NUMBER YOU WOULD LIKE TO ARCHIVE: read
+SELECT THE FILE NUMBER YOU WOULD LIKE TO READ: 3
+####################################################################################################################################################
+#   Hi! Sergey! You're welcome! Привет. Сергей!                                                                                                    #                                                                                                                                                                    
+####################################################################################################################################################
+
+
+****************************************************************************************************************************************************
+****************************************************************************************************************************************************
+SELECT THE FILE NUMBER YOU WOULD LIKE TO READ: next
+SELECT THE FILE NUMBER YOU WOULD LIKE TO ARCHIVE: 3
+----------------------------------------------------------------------------------------------------------------------------------------------------
+[1] - D:\Test\_2Method.zip
+----------------------------------------------------------------------------------------------------------------------------------------------------
+SELECT THE FILE NUMBER YOU WOULD LIKE TO ARCHIVE: back
+ENTER A FILE NAME TO SEARCH: Proton.txt
+----------------------------------------------------------------------------------------------------------------------------------------------------
+[1] - C:\Proton.txt
+[2] - C:\Program Files\Proton.txt
+[3] - C:\Users\Serg\Downloads\Documents\Proton.txt
+[4] - C:\Users\Serg\Proton.txt
+[5] - C:\Users\Proton.txt
+[6] - D:\Android\android-sdk\system-images\android-27\google_apis\x86\Proton.txt
+[7] - D:\Dropbox\Программирование на С#_ITVDN\csharp-for-professional\Proton.txt
+[8] - D:\Jiayu\Proton.txt
+[9] - D:\Данные с компьютера и старого ноутбука\программы\Proton.txt
+[10] - D:\Данные с компьютера и старого ноутбука\Фото и видео со смартфона\huawei\DCIM\Camera\Proton.txt
+[11] - D:\Данные с компьютера и старого ноутбука\Proton.txt
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Number of files: 11
+Search time = 63,07287 sec
+
+****************************************************************************************************************************************************
+****************************************************************************************************************************************************
+SELECT THE FILE NUMBER YOU WOULD LIKE TO READ: 4
+####################################################################################################################################################
+#   Резюме:                                                                                                                                        #
+#                                                                                                                                                  #
+#   - Для перечисления объектов файловой системы и получения подробной информации об                                                               #
+#                                                                                                                                                  #
+#   их свойствах можно использовать классы FileInfo, DirectoryInfo и DriveInfo.                                                                    #
+#                                                                                                                                                  #
+#   - Класс Path позволяет получать подробную информацию о путях файловой системы,                                                                 #
+#                                                                                                                                                  #
+#   его следует использовать вместо ручного разбора путей.                                                                                         #
+#                                                                                                                                                  #
+#   - Для отслеживания изменений файловой системы, таких как добавление, удаление и                                                                #
+#                                                                                                                                                  #
+#   переименование файлов и папок, можно использовать класс FileSystemWatсher.                                                                     #
+#                                                                                                                                                  #
+#   - Класс File позволяет открывать, создавать, читать и записывать файлы целиком либо                                                            #
+#                                                                                                                                                  #
+#   по частям.                                                                                                                                     #
+#                                                                                                                                                  #
+#   - Класс FileStream представляет файл и позволяет выполнять чтение и запись.                                                                    #
+#                                                                                                                                                  #
+#   - Чтобы упростить чтение-запись строк в потоки, используются классы StreamReader и                                                             #
+#                                                                                                                                                  #
+#   StreamWriter.                                                                                                                                  #
+#                                                                                                                                                  #
+#   - Класс MemoryStream – специализированный поток, поддерживающий создание в памяти                                                              #
+#                                                                                                                                                  #
+#   буфера чтения-записи и запись данных буферизированного потока в другие потоки.                                                                 #
+#                                                                                                                                                  #
+#   - Классы потоков сжатия (GZipStream и DeflateStream) поддерживают сжатие-                                                                      #
+#                                                                                                                                                  #
+#   декомпрессию данных объемом до 4-х Гб.                                                                                                         #
+#                                                                                                                                                  #
+#   - Классы потоков сжатия служат оболочками потоков, хранящих сжатые данные.                                                                     #                                                                
+####################################################################################################################################################
+
+
+****************************************************************************************************************************************************
+****************************************************************************************************************************************************
+SELECT THE FILE NUMBER YOU WOULD LIKE TO READ: next
+SELECT THE FILE NUMBER YOU WOULD LIKE TO ARCHIVE: 4
+----------------------------------------------------------------------------------------------------------------------------------------------------
+[1] - C:\Users\Serg\_2Method.zip
+----------------------------------------------------------------------------------------------------------------------------------------------------
+SELECT THE FILE NUMBER YOU WOULD LIKE TO ARCHIVE: read
+SELECT THE FILE NUMBER YOU WOULD LIKE TO READ: 8
+####################################################################################################################################################
+#   kflk;l;lg;gl;glg;s                                                                                                                             #                                                                                                               
+####################################################################################################################################################
+
+
+****************************************************************************************************************************************************
+****************************************************************************************************************************************************
+SELECT THE FILE NUMBER YOU WOULD LIKE TO READ: next
+SELECT THE FILE NUMBER YOU WOULD LIKE TO ARCHIVE: 8
+----------------------------------------------------------------------------------------------------------------------------------------------------
+[1] - D:\Jiayu\_2Method.zip
+----------------------------------------------------------------------------------------------------------------------------------------------------
+SELECT THE FILE NUMBER YOU WOULD LIKE TO ARCHIVE:
+*/

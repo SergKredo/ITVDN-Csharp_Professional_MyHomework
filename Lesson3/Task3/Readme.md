@@ -4,4 +4,4 @@
 Эффективность поиска составила порядка 100%. Удалось найти все 11 тестовых файлов. 
 Также в приложении есть возможность просматривать данные текстовых файлов.
 
-<div class="LI-profile-badge"  data-version="v1" data-size="medium" data-locale="ru_RU" data-type="vertical" data-theme="dark" data-vanity="sergey-kredentser-05369811b"><a class="LI-simple-link" href='https://ua.linkedin.com/in/sergey-kredentser-05369811b?trk=profile-badge'>Sergey Kredentser</a></div>
+Ссылка на Linkedin: <div class="LI-profile-badge"  data-version="v1" data-size="medium" data-locale="ru_RU" data-type="vertical" data-theme="dark" data-vanity="sergey-kredentser-05369811b"><a class="LI-simple-link" href='https://ua.linkedin.com/in/sergey-kredentser-05369811b?trk=profile-badge'>Sergey Kredentser</a></div>

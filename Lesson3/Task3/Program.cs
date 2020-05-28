@@ -382,6 +382,7 @@ namespace Task3
                     string pathFileZipper = @pathFileToArchive.Substring(0, pathFileToArchive.LastIndexOf(@"\"[0]));
                     try
                     {  // 2-й метод архивирования. Архивировать можно целую директорию с файлами и вложенными подкаталогами
+                       // Для получения доступа к классу-объекту ZipFile в проект добавлена ссылка на сборку System.IO.Compression.FileSystem
                         ZipFile.CreateFromDirectory(@pathFileZipper, Path.ChangeExtension(@pathFileZipper + @"\_2Method.txt", ".zip"));   // Создаем архив типа zip. Первый аргумент указывает на место расположения файлов, которые нужно архивировать. Второй - путь расположения архива и его название
                     }
                     catch (Exception) { }

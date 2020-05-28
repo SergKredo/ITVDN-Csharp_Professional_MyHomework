@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Security.Permissions;
 using System.Security.AccessControl;
 using System.Security.Principal;
+using System.IO.Compression;
 
 namespace Task3
 {
@@ -15,15 +16,17 @@ namespace Task3
 класс FileStream и позволяющий просматривать файл в текстовом окне. В заключение
 добавьте возможность сжатия найденного файла.*/
 
+
     class Program
     {
+
         static void Main(string[] args)
         {
 
             Console.SetWindowSize(149, 35);
             Console.SetBufferSize(149, 9001);
 
-            Again:
+        Again:
             Console.InputEncoding = Encoding.Unicode;
             Console.OutputEncoding = Encoding.Unicode;
             List<string> list = new List<string>();
@@ -162,11 +165,15 @@ namespace Task3
             {
                 try
                 {
-                    Console.Write("Select the file number you would like to read: ");
+                    Console.Write("Select the file number you would like to read: ".ToUpper());
                     string word = Console.ReadLine();
                     if (word.ToLowerInvariant() == "back")
                     {
                         goto Again;
+                    }
+                    if (word.ToLowerInvariant() == "next")
+                    {
+                        goto Next;
                     }
                     int numberOfFile = Convert.ToInt32(word);
                     string pathFile = list[--numberOfFile];
@@ -323,6 +330,39 @@ namespace Task3
 
             Console.ReadKey();
 
+
+        Next:
+            Console.Write("Select the file number you would like to archive: ".ToUpper());
+            string newWord = Console.ReadLine();
+            if (newWord.ToLowerInvariant() == "back")
+            {
+                goto Again;
+            }
+            int numberOfFileToArchive = Convert.ToInt32(newWord);
+            string pathFileToArchive = list[--numberOfFileToArchive];
+
+            FileStream fileOpenToArchive = File.Open(@pathFileToArchive, FileMode.OpenOrCreate);
+            FileStream fileArchive = File.Create(@Path.ChangeExtension(@pathFileToArchive, ".zip"));
+           
+            StreamReader strNewFile = new StreamReader(fileOpenToArchive);
+            string textArchiveNew = strNewFile.ReadToEnd();
+            byte[] byteMassiveNew = new byte[textArchiveNew.Length];
+
+            for (int i = 0; i < textArchiveNew.Length; i++)
+            {
+                byteMassiveNew[i] = (byte)textArchiveNew[i];
+            }
+            GZipStream compressor = new GZipStream(fileArchive, CompressionMode.Compress);
+            compressor.Write(byteMassiveNew, 0, textArchiveNew.Length);
+            compressor.Close();
+            fileOpenToArchive.Close();
+            fileArchive.Close();
+            strNewFile.Close();
+            try
+            {
+                ZipFile.CreateFromDirectory(@"D:\Test", @"D:\Test\testMy.zip");
+            }
+            catch (Exception) { }
         }
     }
 }

@@ -409,7 +409,7 @@ namespace Task3
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                Console.ReadKey();
+                goto Next;
             }
         }
     }

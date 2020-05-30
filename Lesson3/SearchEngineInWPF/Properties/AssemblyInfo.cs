@@ -7,11 +7,11 @@ using System.Windows;
 // Управление общими сведениями о сборке осуществляется с помощью 
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("SearchEngineInWPF")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Search Engine & Archiver")]
+[assembly: AssemblyDescription("Search engine, view and file archiver")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SearchEngineInWPF")]
+[assembly: AssemblyCompany("by SergKredo")]
+[assembly: AssemblyProduct("Search Engine & Archiver")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

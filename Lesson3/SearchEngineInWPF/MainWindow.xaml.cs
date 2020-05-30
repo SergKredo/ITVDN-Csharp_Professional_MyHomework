@@ -26,52 +26,51 @@ namespace SearchEngineInWPF
         string word;       // Номер файла в окне ResulttextBox, который был найден на компьютере
         string newWord;    // Номер файла в окне ResulttextBox, который был найден на компьютере
 
-        bool DeleteTextINSearchBox = true;
-        bool DeleteTextINFileNumberBox = true;
-        List<string> listLookAt;
-        List<string> listArchive;
+        bool DeleteTextINSearchBox = true;   // Поле определяет повторный доступ редактирования текста в окне SearchTextBox
+        bool DeleteTextINFileNumberBox = true;   // Поле определяет повторный доступ редактирования текста в окне FileNumber
+        List<string> listLookAt, listArchive;   // Объявление универсальной коллекции List<T>, в которой хранятся полные адреса найденных файлов
 
         public MainWindow()
         {
-            InitializeComponent();
-            this.LookTextBox.IsReadOnly = true;
-            this.ResulttextBox.IsReadOnly = true;
+            InitializeComponent();   // Инициализация основных компонентов программы
+            this.LookTextBox.IsReadOnly = true;   // TextBox только для чтения
+            this.ResulttextBox.IsReadOnly = true;   // TextBox только для чтения
         }
 
-        private void DeleteText(object sender, MouseEventArgs e)
+        private void DeleteText(object sender, MouseEventArgs e)  // Метод-обработчик события GotMouseCapture объекта SearchTextBox. Событие GotMouseCapture происходит при захвате мыши данным элементом.
         {
             if (DeleteTextINSearchBox)
             {
-                this.SearchTextBox.Text = this.SearchTextBox.Text.Remove(0);
+                this.SearchTextBox.Text = this.SearchTextBox.Text.Remove(0);   // При первом клике мыши по окну SearchTextBox происходит удаление информационного текста в окне
                 DeleteTextINSearchBox = false;
             }
         }
 
-        private void DeleteTextINFileNumber(object sender, MouseEventArgs e)
+        private void DeleteTextINFileNumber(object sender, MouseEventArgs e)   // Метод-обработчик события GotMouseCapture объекта FileNumber. Событие GotMouseCapture происходит при захвате мыши данным элементом.
         {
             if (DeleteTextINFileNumberBox)
             {
-                this.FileNumber.Text = this.FileNumber.Text.Remove(0);
+                this.FileNumber.Text = this.FileNumber.Text.Remove(0);   // При первом клике мыши по окну FileNumber происходит удаление информационного текста в окне
                 DeleteTextINFileNumberBox = false;
             }
         }
 
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        private void SearchButton_Click(object sender, RoutedEventArgs e)   // Метод-обработчик события Click объекта SearchButton. Событие Click происходит при нажатии на кнопку.
         {
             nameFile = this.SearchTextBox.Text;
-            SearchFiles();
+            SearchFiles();       // Вызывается метод, который реализует алгоритм поиска файлов на компьютере
         }
 
-        private void LookButton_Click(object sender, RoutedEventArgs e)
+        private void LookButton_Click(object sender, RoutedEventArgs e)   // Метод-обработчик события Click объекта LookButton. Событие Click происходит при нажатии на кнопку.
         {
             word = this.FileNumber.Text;
-            LookAtFile();
+            LookAtFile();    // Вызывается метод, который реализует алгоритм отображения информации выбранного файла в окне LookTextBox
         }
 
-        private void ArchiveButton_Click(object sender, RoutedEventArgs e)
+        private void ArchiveButton_Click(object sender, RoutedEventArgs e)   // Метод-обработчик события Click объекта ArchiveButton. Событие Click происходит при нажатии на кнопку.
         {
             newWord = this.FileNumber.Text;
-            ArchiveFile();
+            ArchiveFile();       // Вызывается метод, который реализует алгоритм компрессии (архивирования) информации выбранного файла
         }
 
         public void SearchFiles()    // Метод выполняет поиск файлов на дисках компьютера
@@ -90,17 +89,17 @@ namespace SearchEngineInWPF
 
             foreach (var item in drivers)   // Осуществляется перебор элементов коллекции логических дисков на компьютере
             {
-                if (this.checkBox_AllDrives.IsChecked != true && this.checkBox_C_Drive.IsChecked != true && this.checkBox_D_Drive.IsChecked != true)
+                if (this.checkBox_AllDrives.IsChecked != true && this.checkBox_C_Drive.IsChecked != true && this.checkBox_D_Drive.IsChecked != true)   // Условная конструкция, которая срабатывает, когда checkBox c именем checkBox_AllDrives неактивный (false)
                 {
-                    break;
+                    break;   // Выход из цикла оператора foreach
                 }
-                if (item.Name == @"C:\" && this.checkBox_C_Drive.IsChecked != true && this.checkBox_AllDrives.IsChecked != true)
+                if (item.Name == @"C:\" && this.checkBox_C_Drive.IsChecked != true && this.checkBox_AllDrives.IsChecked != true)  // Условная конструкция, которая срабатывает, когда checkBox c именем checkBox_C_Drive неактивный (false)
                 {
-                    continue;
+                    continue;   //  Пропускаем поиск в текущем диске и переходим на следующий
                 }
-                if (item.Name == @"D:\" && this.checkBox_D_Drive.IsChecked != true && this.checkBox_AllDrives.IsChecked != true)
+                if (item.Name == @"D:\" && this.checkBox_D_Drive.IsChecked != true && this.checkBox_AllDrives.IsChecked != true)   // Условная конструкция, которая срабатывает, когда checkBox c именем checkBox_D_Drive неактивный (false)
                 {
-                    continue;
+                    continue;   //  Пропускаем поиск в текущем диске и переходим на следующий
                 }
                 try
                 {
@@ -223,7 +222,7 @@ namespace SearchEngineInWPF
         }
 
 
-        public void LookAtFile()
+        public void LookAtFile()   // Метод отображает информацию выбранного файла в окне LookTextBox
         {
             try
             {
@@ -242,7 +241,7 @@ namespace SearchEngineInWPF
         }
 
 
-        public void ArchiveFile()
+        public void ArchiveFile()   // Метод архивирует выбранный файл
         {
             try
             {

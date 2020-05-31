@@ -24,5 +24,18 @@ namespace ColorPicker
         {
             InitializeComponent();
         }
+
+        private void Windows_Loading(object sender, RoutedEventArgs e)
+        {
+            this.label.Background = this.colorPicker.Background;          
+        }
+
+        private void ChangeColor(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            string colorText = this.colorPicker.SelectedColorText;
+            this.label.Content = colorText;
+            BrushConverter converterColor = new BrushConverter();
+            this.label.Background = (Brush)converterColor.ConvertFromString(colorText);
+        }
     }
 }

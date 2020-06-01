@@ -70,7 +70,7 @@ namespace ColorPicker
             writer.WriteLine(this.label.Background.ToString());
             writer.Close();
             file.Close();
-            this.label.Content = string.Format("          Color {0}\n is stored in isolated storage.".ToUpper(), this.label.Background.ToString());
+            this.label.Content = string.Format(new string(" "[0], 14)+"Color {0}\n is stored in isolated storage.".ToUpper(), this.label.Background.ToString());
         }
     }
 }

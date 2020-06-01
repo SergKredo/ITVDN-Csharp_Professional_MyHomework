@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO.IsolatedStorage;
+using System.IO;
 
 namespace ColorPicker
 {
@@ -20,14 +22,37 @@ namespace ColorPicker
     /// </summary>
     public partial class MainWindow : Window
     {
+        IsolatedStorageFile isolateFile;
+        FileStream file;
+        StreamWriter writer;
+        StreamReader reader;
+        string saveColor;
         public MainWindow()
         {
             InitializeComponent();
+            isolateFile = IsolatedStorageFile.GetUserStoreForAssembly();
+            if (!(isolateFile.DirectoryExists(@"\ColorPicker") && isolateFile.FileExists(@"\ColorPicker\DateAboatColorApp.txt")))
+            {
+                isolateFile.CreateDirectory(@"\ColorPicker");
+                file = isolateFile.CreateFile(@"\ColorPicker\DateAboatColorApp.txt");
+                writer = new StreamWriter(file);
+                writer.WriteLine(this.label.Background.ToString());
+                writer.Close();
+                file.Close();
+            }
+
         }
 
         private void Windows_Loading(object sender, RoutedEventArgs e)
         {
-            this.label.Background = this.colorPicker.Background;          
+            file = isolateFile.OpenFile(@"\ColorPicker\DateAboatColorApp.txt", FileMode.Open, FileAccess.Read);
+            reader = new StreamReader(file);
+            saveColor = reader.ReadToEnd();
+            this.label.Content = string.Format("\r"+saveColor);
+            BrushConverter converterColor = new BrushConverter();
+            this.label.Background = (Brush)converterColor.ConvertFromString(saveColor);
+            reader.Close();
+            file.Close();
         }
 
         private void ChangeColor(object sender, RoutedPropertyChangedEventArgs<Color?> e)
@@ -36,6 +61,16 @@ namespace ColorPicker
             this.label.Content = colorText;
             BrushConverter converterColor = new BrushConverter();
             this.label.Background = (Brush)converterColor.ConvertFromString(colorText);
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            file = isolateFile.OpenFile(@"\ColorPicker\DateAboatColorApp.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            writer = new StreamWriter(file);
+            writer.WriteLine(this.label.Background.ToString());
+            writer.Close();
+            file.Close();
+            this.label.Content = string.Format("          Color {0}\n is stored in isolated storage.".ToUpper(), this.label.Background.ToString());
         }
     }
 }

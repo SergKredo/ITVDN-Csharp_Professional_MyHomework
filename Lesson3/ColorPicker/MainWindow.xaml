@@ -11,5 +11,7 @@
         <Button x:Name="button" Content="Save" HorizontalAlignment="Left" Margin="184,239,0,0" VerticalAlignment="Top" Width="158" Height="36" FontSize="20" Background="#FF8EC560" Click="button_Click"/>
         <Label x:Name="label" Content="test" HorizontalAlignment="Left" Margin="19,18,0,0" VerticalAlignment="Top" Width="474" Height="80" BorderBrush="Black" BorderThickness="1" Background="White" FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Cursor=""/>
         <xctk:ColorPicker x:Name="colorPicker" Margin="167,142,138,141" Background="White" SelectedColorChanged="ChangeColor"/>
+        <DocumentViewer x:Name="documentViewer" HorizontalAlignment="Left" Margin="194,40,0,0" VerticalAlignment="Top" Height="193" Width="250"/>
+        
     </Grid>
 </Window>

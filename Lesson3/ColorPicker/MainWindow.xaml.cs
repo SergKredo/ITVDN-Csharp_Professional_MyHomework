@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO.IsolatedStorage;
 using System.IO;
+using System.Windows.Xps.Packaging;
+using System.Windows.Xps;
 
 namespace ColorPicker
 {
@@ -71,6 +73,10 @@ namespace ColorPicker
             writer.Close();
             file.Close();
             this.label.Content = string.Format(new string(" "[0], 14)+"Color {0}\n is stored in isolated storage.".ToUpper(), this.label.Background.ToString());
+            XpsDocument doc = new XpsDocument(@"D:\Dropbox\CV_Kredentser.xps", FileAccess.Read);
+            documentViewer.Document = doc.GetFixedDocumentSequence();
+            doc.Close();
+           
         }
     }
 }

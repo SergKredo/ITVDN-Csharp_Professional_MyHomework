@@ -231,27 +231,32 @@ namespace SeacherAndTextViewer
         {
             try
             {
-                XpsDocument doc = new XpsDocument(@"D:\Dropbox\CV_Креденцер.xps", FileAccess.Read);
+                int numberOfFile = Convert.ToInt32(this.word);
+                string pathFile = listLookAt[--numberOfFile];
+                if (System.IO.Path.GetExtension(pathFile) != ".xps")
+                {
+                    string path = @"D:\Dropbox\";
+                    Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application(); // создаём экземпляр приложения Word
+                    Document file = word.Documents.Open(path + "Skype_Яны.txt"); // создаём экземпляр документа и открываем word файл
+                    file.ExportAsFixedFormat(path + "Skype_Яны.pdf", WdExportFormat.wdExportFormatPDF); // преобразование файла в PDF формат
+                    file.ExportAsFixedFormat(path + "Skype_Яны.xps", WdExportFormat.wdExportFormatXPS); // преобразование файла в XPS формат
+
+                    word.Quit(); // закрываем Word
+                }
+                XpsDocument doc = new XpsDocument(@pathFile, FileAccess.Read);
                 LookTextBox.Document = doc.GetFixedDocumentSequence();
                 doc.Close();
 
-                string path = @"D:\Dropbox\";
-                Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application(); // создаём экземпляр приложения Word
-                Document file = word.Documents.Open(path + "Skype_Яны.txt"); // создаём экземпляр документа и открываем word файл
-                file.ExportAsFixedFormat(path + "Skype_Яны.pdf", WdExportFormat.wdExportFormatPDF); // преобразование файла в PDF формат
-                file.ExportAsFixedFormat(path + "Skype_Яны.xps", WdExportFormat.wdExportFormatXPS); // преобразование файла в XPS формат
 
-                word.Quit(); // закрываем Word
+                this.UserCont.Visibility = Visibility.Hidden;
 
-
-
-            //int numberOfFile = Convert.ToInt32(word);
-            //string pathFile = listLookAt[--numberOfFile];
-            //FileStream fileOpen = File.OpenRead(@pathFile);     // Создание потока для чтения данных из файла
-            //StreamReader reader = new StreamReader(fileOpen, Encoding.Default);  // Класс StreamReader используется для чтения строк из потока. Кодировка по умолчанию.
-            //this.LookTextBox.Text = reader.ReadToEnd();
-            //reader.Close();                                     // Метод Close() закрывает текущий объект StreamReader и базовый поток.
-            //fileOpen.Close();
+                //int numberOfFile = Convert.ToInt32(word);
+                //string pathFile = listLookAt[--numberOfFile];
+                //FileStream fileOpen = File.OpenRead(@pathFile);     // Создание потока для чтения данных из файла
+                //StreamReader reader = new StreamReader(fileOpen, Encoding.Default);  // Класс StreamReader используется для чтения строк из потока. Кодировка по умолчанию.
+                //this.LookTextBox.Text = reader.ReadToEnd();
+                //reader.Close();                                     // Метод Close() закрывает текущий объект StreamReader и базовый поток.
+                //fileOpen.Close();
             }
             catch (Exception e)
             {
@@ -314,5 +319,6 @@ namespace SeacherAndTextViewer
                 this.ResulttextBox.Text += string.Format("\n" + e.Message + "\n");
             }
         }
+
     }
 }

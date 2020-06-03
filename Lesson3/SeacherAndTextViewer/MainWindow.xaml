@@ -16,7 +16,8 @@
         <CheckBox x:Name="checkBox_D_Drive" Content="D:\" HorizontalAlignment="Left" Margin="873,-84,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FFEDEEE5"/>
         <TextBox x:Name="ResulttextBox" HorizontalAlignment="Left" Height="176" Margin="-167,-123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="693" RenderTransformOrigin="0.473,0.488" BorderBrush="White" BorderThickness="3" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="5" FontWeight="Bold" FontSize="10" Background="#FFF0F0F0"/>
         <TextBox x:Name="FileNumber" HorizontalAlignment="Left" Height="34" Margin="868,-55,0,0" TextWrapping="Wrap" Text="FILE NUMBER" VerticalAlignment="Top" Width="88" BorderBrush="White" BorderThickness="3" HorizontalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Center" Padding="2,0,0,0" GotMouseCapture="DeleteTextINFileNumber" Background="#FFF0F0F0"/>
-        <DocumentViewer x:Name="LookTextBox" HorizontalAlignment="Left" Margin="-165,63,-180,-121" RenderTransformOrigin="0.493,0.492" Width="1305"/>
+        <DocumentViewer x:Name="LookTextBox" HorizontalAlignment="Left" Margin="-165,63,-184,-121" RenderTransformOrigin="0.493,0.492" Width="1305" BorderBrush="#FFF0F0F0" BorderThickness="3"/>
+        <local:UserControl1 x:Name="UserCont" HorizontalAlignment="Left" Margin="-168,61,-184,-125" Width="1308" Visibility="Visible" Height="Auto" BorderBrush="#FFF0F0F0" BorderThickness="3"/>
 
     </Grid>
 </Window>

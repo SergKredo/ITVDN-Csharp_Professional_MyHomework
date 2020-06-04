@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SeacherAndTextViewer"
         mc:Ignorable="d"
-        Title="Search Engine &amp; File Archiver by SergKredo" MinWidth="1000" MinHeight="530" ScrollViewer.HorizontalScrollBarVisibility="Visible" Background="#FF233232" SnapsToDevicePixels="True" Cursor="Arrow" ScrollViewer.CanContentScroll="True" Height="768" Width="1366" BorderBrush="#FF3E3E42" BorderThickness="2">
+        Title="Search Engine &amp; File Archiver by SergKredo" MinWidth="1000" MinHeight="530" ScrollViewer.HorizontalScrollBarVisibility="Visible" Background="#FF233232" SnapsToDevicePixels="True" Cursor="Arrow" ScrollViewer.CanContentScroll="True" Height="768" Width="1366" BorderBrush="#FF3E3E42" BorderThickness="2" Closed="DeleteCreateFiles">
     <Grid Margin="196,137,202,141">
         <Button x:Name="SearchButton" Content="SEARCH" HorizontalAlignment="Left" VerticalAlignment="Top" Width="94" Background="#FFDBEC39" IsCancel="True" Cursor="Arrow" Height="35" FontWeight="Bold" Click="SearchButton_Click" Margin="554,-56,0,0"/>
         <TextBox x:Name="SearchTextBox" HorizontalAlignment="Left" Height="51" TextWrapping="Wrap" VerticalAlignment="Top" Width="304" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" MinWidth="304" MinHeight="51" MaxWidth="304" MaxHeight="51" BorderThickness="3" BorderBrush="White" RenderTransformOrigin="0.316,0.471" Text="                   ENTER FILE NAME" VerticalContentAlignment="Center" Padding="10,5" FontWeight="Bold" TextDecorations="{x:Null}" FontFamily="Arial" FontSize="14" GotMouseCapture="DeleteText" Background="#FFF0F0F0" Margin="551,-124,0,0"/>

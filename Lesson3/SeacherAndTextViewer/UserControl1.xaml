@@ -7,7 +7,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              xmlns:WPFPdfViewer="clr-namespace:WPFPdfViewer;assembly=WPFPdfViewer" Height="450" Width="625" Loaded="WindowLoaded">
-    <DockPanel LastChildFill="True">
+    <DockPanel LastChildFill="True" Background="#FFF0F0F0">
+        <StackPanel DockPanel.Dock="Top" Margin="5" Orientation="Horizontal" Background="#FFF0F0F0">
+            <TextBlock Margin="0,0,5,0" VerticalAlignment="Center" Width="105">Pdf File Location:</TextBlock>
+            <TextBox x:Name="txtFileLoaction" Width="328"></TextBox>
+            <Button Margin="5,0,5,0" Click="ButtonClick" Width="13">...</Button>
+            <Button Margin="5,0,5,0" Width="82" Click="Button_Click">Open</Button>
+        </StackPanel>
         <WPFPdfViewer:SeacherAndTextViewer x:Name="pdfViewer">
         </WPFPdfViewer:SeacherAndTextViewer>
     </DockPanel>

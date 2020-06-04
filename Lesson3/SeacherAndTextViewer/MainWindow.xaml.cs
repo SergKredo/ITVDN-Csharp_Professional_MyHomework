@@ -25,21 +25,28 @@ namespace SeacherAndTextViewer
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
+    /// 
+
+    public static class PathFile
+    {
+        public static string pathFile;
+    }
     public partial class MainWindow : System.Windows.Window
     {
         string nameFile;   // Имя файла, который нужно найти на компьютере
         string word;       // Номер файла в окне ResulttextBox, который был найден на компьютере
         string newWord;    // Номер файла в окне ResulttextBox, который был найден на компьютере
-
+        FileInfo delFileXps = null;
         bool DeleteTextINSearchBox = true;   // Поле определяет повторный доступ редактирования текста в окне SearchTextBox
         bool DeleteTextINFileNumberBox = true;   // Поле определяет повторный доступ редактирования текста в окне FileNumber
         List<string> listLookAt, listArchive;   // Объявление универсальной коллекции List<T>, в которой хранятся полные адреса найденных файлов
-
+ 
         public MainWindow()
         {
             InitializeComponent();   // Инициализация основных компонентов программы
-            //this.LookTextBox.IsReadOnly = true;   // TextBox только для чтения
             this.ResulttextBox.IsReadOnly = true;   // TextBox только для чтения
+            this.LookTextBox.Visibility = Visibility.Visible;
+            this.UserCont.Visibility = Visibility.Hidden;
         }
 
         private void DeleteText(object sender, MouseEventArgs e)  // Метод-обработчик события GotMouseCapture объекта SearchTextBox. Событие GotMouseCapture происходит при захвате мыши данным элементом.
@@ -48,7 +55,7 @@ namespace SeacherAndTextViewer
             {
                 this.SearchTextBox.Text = this.SearchTextBox.Text.Remove(0);   // При первом клике мыши по окну SearchTextBox происходит удаление информационного текста в окне
                 DeleteTextINSearchBox = false;
-            }
+            }         
         }
 
         private void DeleteTextINFileNumber(object sender, MouseEventArgs e)   // Метод-обработчик события GotMouseCapture объекта FileNumber. Событие GotMouseCapture происходит при захвате мыши данным элементом.
@@ -62,18 +69,30 @@ namespace SeacherAndTextViewer
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)   // Метод-обработчик события Click объекта SearchButton. Событие Click происходит при нажатии на кнопку.
         {
+            if (this.delFileXps != null)
+            {
+                delFileXps.Delete();
+            }
             nameFile = this.SearchTextBox.Text;
             SearchFiles();       // Вызывается метод, который реализует алгоритм поиска файлов на компьютере
         }
 
         private void LookButton_Click(object sender, RoutedEventArgs e)   // Метод-обработчик события Click объекта LookButton. Событие Click происходит при нажатии на кнопку.
         {
+            if (this.delFileXps != null)
+            {
+                delFileXps.Delete();
+            }
             word = this.FileNumber.Text;
             LookAtFile();    // Вызывается метод, который реализует алгоритм отображения информации выбранного файла в окне LookTextBox
         }
 
         private void ArchiveButton_Click(object sender, RoutedEventArgs e)   // Метод-обработчик события Click объекта ArchiveButton. Событие Click происходит при нажатии на кнопку.
         {
+            if (this.delFileXps != null)
+            {
+                delFileXps.Delete();
+            }
             newWord = this.FileNumber.Text;
             ArchiveFile();       // Вызывается метод, который реализует алгоритм компрессии (архивирования) информации выбранного файла
         }
@@ -232,40 +251,71 @@ namespace SeacherAndTextViewer
             try
             {
                 int numberOfFile = Convert.ToInt32(this.word);
-                string pathFile = listLookAt[--numberOfFile];
-                if (System.IO.Path.GetExtension(pathFile) != ".xps")
+                PathFile.pathFile = listLookAt[--numberOfFile];
+                string pathFileInsteadExtensXps, pathFileInsteadExtensPdf;
+
+                if (System.IO.Path.GetExtension(PathFile.pathFile) != ".xps" && System.IO.Path.GetExtension(PathFile.pathFile) != ".pdf")
                 {
-                    string path = @"D:\Dropbox\";
-                    Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application(); // создаём экземпляр приложения Word
-                    Document file = word.Documents.Open(path + "Skype_Яны.txt"); // создаём экземпляр документа и открываем word файл
-                    file.ExportAsFixedFormat(path + "Skype_Яны.pdf", WdExportFormat.wdExportFormatPDF); // преобразование файла в PDF формат
-                    file.ExportAsFixedFormat(path + "Skype_Яны.xps", WdExportFormat.wdExportFormatXPS); // преобразование файла в XPS формат
+                    try
+                    {
+                        Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application(); // создаём экземпляр приложения Word
+                        Document file = word.Documents.Open(PathFile.pathFile); // создаём экземпляр документа и открываем word файл
+                        //string pathFileInsteadExtensPdf = System.IO.Path.ChangeExtension(@pathFile, "pdf.pdf");
+                        pathFileInsteadExtensXps = System.IO.Path.ChangeExtension(@PathFile.pathFile, "xps.xps");
 
-                    word.Quit(); // закрываем Word
+                        //file.ExportAsFixedFormat(@pathFileInsteadExtensPdf, WdExportFormat.wdExportFormatPDF); // преобразование файла в PDF формат
+                        file.ExportAsFixedFormat(@pathFileInsteadExtensXps, WdExportFormat.wdExportFormatXPS); // преобразование файла в XPS формат
+                        word.Quit(); // закрываем Word
+                        this.LookTextBox.Visibility = Visibility.Visible;
+                        this.UserCont.Visibility = Visibility.Hidden;
+
+                        XpsDocument docXps = new XpsDocument(pathFileInsteadExtensXps, FileAccess.Read);
+                        LookTextBox.Document = docXps.GetFixedDocumentSequence();
+                        docXps.Close();
+                        delFileXps = new FileInfo(@pathFileInsteadExtensXps);
+                        delFileXps.Attributes = FileAttributes.Hidden;
+                    }
+                    catch (Exception)
+                    {
+                        this.ResulttextBox.Text += "The program does not support the viewing mode of this file!";
+                    }
+
                 }
-                XpsDocument doc = new XpsDocument(@pathFile, FileAccess.Read);
-                LookTextBox.Document = doc.GetFixedDocumentSequence();
-                doc.Close();
+                else if (System.IO.Path.GetExtension(@PathFile.pathFile) == ".pdf")
+                {
+                    UserControl1 instance = InfoAboatBotton.userControl;
+                    instance.LookPdfFile(InfoAboatBotton.sender, InfoAboatBotton.e);
+                    this.UserCont.Visibility = Visibility.Visible;
+                    this.LookTextBox.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    this.LookTextBox.Visibility = Visibility.Visible;
+                    this.UserCont.Visibility = Visibility.Hidden;
+                    XpsDocument doc = new XpsDocument(@PathFile.pathFile, FileAccess.Read);
+                    LookTextBox.Document = doc.GetFixedDocumentSequence();
+                    doc.Close();
+                }
 
-
-                this.UserCont.Visibility = Visibility.Hidden;
-
-                //int numberOfFile = Convert.ToInt32(word);
-                //string pathFile = listLookAt[--numberOfFile];
-                //FileStream fileOpen = File.OpenRead(@pathFile);     // Создание потока для чтения данных из файла
-                //StreamReader reader = new StreamReader(fileOpen, Encoding.Default);  // Класс StreamReader используется для чтения строк из потока. Кодировка по умолчанию.
-                //this.LookTextBox.Text = reader.ReadToEnd();
-                //reader.Close();                                     // Метод Close() закрывает текущий объект StreamReader и базовый поток.
-                //fileOpen.Close();
             }
             catch (Exception e)
             {
-                //this.LookTextBox.Text = string.Format(e.Message);
+                this.ResulttextBox.Text += "The program does not support the viewing mode of this file!";
             }
         }
 
+        private void Instance_Loaded(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
-
+        private void DeleteCreateFiles(object sender, EventArgs e)
+        {
+            if (this.delFileXps != null)
+            {
+                delFileXps.Delete();
+            }
+        }
 
         public void ArchiveFile()   // Метод архивирует выбранный файл
         {

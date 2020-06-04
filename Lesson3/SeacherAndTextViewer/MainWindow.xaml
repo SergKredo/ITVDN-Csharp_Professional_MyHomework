@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:SeacherAndTextViewer"
         mc:Ignorable="d"
-        Title="Search Engine &amp; File Archiver by SergKredo" MinWidth="1000" MinHeight="530" ScrollViewer.HorizontalScrollBarVisibility="Visible" Background="#FF233232" SnapsToDevicePixels="True" Cursor="Arrow" ScrollViewer.CanContentScroll="True" Height="768" Width="1366" BorderBrush="#FF3E3E42" BorderThickness="2" Closed="DeleteCreateFiles">
+        Title="File finder, editor, archiver, color constructor by SergKredo" MinWidth="1000" MinHeight="530" ScrollViewer.HorizontalScrollBarVisibility="Visible" Background="#FF233232" SnapsToDevicePixels="True" Cursor="Arrow" ScrollViewer.CanContentScroll="True" Height="768" Width="1366" BorderBrush="#FF3E3E42" BorderThickness="2" Closed="DeleteCreateFiles" Loaded="WindowsLoaded" Icon="D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson3\SeacherAndTextViewer\icons.ico">
     <Grid Margin="196,137,202,141">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="357*"/>

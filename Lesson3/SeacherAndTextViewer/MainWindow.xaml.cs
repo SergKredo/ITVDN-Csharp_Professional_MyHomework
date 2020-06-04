@@ -132,6 +132,101 @@ namespace SeacherAndTextViewer
             }
         }
 
+
+        private void WindowsLoaded(object sender, RoutedEventArgs e)
+        {
+            foreach (var item in pathColor)
+            {
+                if (isolateFile.FileExists(@item))
+                {
+                    file = isolateFile.OpenFile(@item, FileMode.Open, FileAccess.Read);
+                    reader = new StreamReader(file);
+                    BrushConverter converterColorReader;
+                    switch (@item)
+                    {
+                        case @"\ColorPickerSearcherApp\ColorMainWindowCP.txt":
+                            {
+                                saveColor = reader.ReadToEnd();
+                                saveColor = saveColor.Substring(0, saveColor.IndexOf('\r'));
+                                converterColorReader = new BrushConverter();
+                                this.MainWindowsMyApp.Background = (Brush)converterColorReader.ConvertFromString(saveColor);
+                                reader.Close();
+                            }
+                            break;
+                        case @"\ColorPickerSearcherApp\ColorSearchWindowCP.txt":
+                            {
+                                saveColor = reader.ReadToEnd();
+                                saveColor = saveColor.Substring(0, saveColor.IndexOf('\r'));
+                                converterColorReader = new BrushConverter();
+                                this.SearchTextBox.Background = (Brush)converterColorReader.ConvertFromString(saveColor);
+                                reader.Close();
+                            }
+                            break;
+                        case @"\ColorPickerSearcherApp\ColorSearchResultWindowCP.txt":
+                            {
+                                saveColor = reader.ReadToEnd();
+                                saveColor = saveColor.Substring(0, saveColor.IndexOf('\r'));
+                                converterColorReader = new BrushConverter();
+                                this.ResulttextBox.Background = (Brush)converterColorReader.ConvertFromString(saveColor);
+                                reader.Close();
+                            }
+                            break;
+                        case @"\ColorPickerSearcherApp\ColorButtonSEARCHCP.txt":
+                            {
+                                saveColor = reader.ReadToEnd();
+                                saveColor = saveColor.Substring(0, saveColor.IndexOf('\r'));
+                                converterColorReader = new BrushConverter();
+                                this.SearchButton.Background = (Brush)converterColorReader.ConvertFromString(saveColor);
+                                reader.Close();
+                            }
+                            break;
+                        case @"\ColorPickerSearcherApp\ColorButtonLOOKCP.txt":
+                            {
+                                saveColor = reader.ReadToEnd();
+                                saveColor = saveColor.Substring(0, saveColor.IndexOf('\r'));
+                                converterColorReader = new BrushConverter();
+                                this.LookButton.Background = (Brush)converterColorReader.ConvertFromString(saveColor);
+                                reader.Close();
+                            }
+                            break;
+                        case @"\ColorPickerSearcherApp\ColorButtonARCHIVECP.txt":
+                            {
+                                saveColor = reader.ReadToEnd();
+                                saveColor = saveColor.Substring(0, saveColor.IndexOf('\r'));
+                                converterColorReader = new BrushConverter();
+                                this.ArchiveButton.Background = (Brush)converterColorReader.ConvertFromString(saveColor);
+                                reader.Close();
+                            }
+                            break;
+                        case @"\ColorPickerSearcherApp\ColorFileNumberCP.txt":
+                            {
+                                saveColor = reader.ReadToEnd();
+                                saveColor = saveColor.Substring(0, saveColor.IndexOf('\r'));
+                                converterColorReader = new BrushConverter();
+                                this.FileNumber.Background = (Brush)converterColorReader.ConvertFromString(saveColor);
+                                reader.Close();
+                            }
+                            break;
+                        case @"\ColorPickerSearcherApp\ColorButtonColorchangeCP.txt":
+                            {
+                                saveColor = reader.ReadToEnd();
+                                saveColor = saveColor.Substring(0, saveColor.IndexOf('\r'));
+                                converterColorReader = new BrushConverter();
+                                this.ColorChangeCP.Background = (Brush)converterColorReader.ConvertFromString(saveColor);
+                                reader.Close();
+                            }
+                            break;
+                        default:
+                            {
+                                break;
+                            }
+                    }
+                    file.Close();
+                }
+            }
+        }
+
+
         private void DeleteText(object sender, MouseEventArgs e)  // Метод-обработчик события GotMouseCapture объекта SearchTextBox. Событие GotMouseCapture происходит при захвате мыши данным элементом.
         {
             if (DeleteTextINSearchBox)
@@ -360,7 +455,7 @@ namespace SeacherAndTextViewer
                     }
                     catch (Exception)
                     {
-                        this.ResulttextBox.Text += "The program does not support the viewing mode of this file!";
+                        this.ResulttextBox.Text += "The program does not support the viewing mode of this file!\n";
                     }
 
                 }
@@ -381,9 +476,9 @@ namespace SeacherAndTextViewer
                 }
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                this.ResulttextBox.Text += "The program does not support the viewing mode of this file!";
+                this.ResulttextBox.Text += "The program does not support the viewing mode of this file!\n";
             }
         }
 
@@ -496,7 +591,7 @@ namespace SeacherAndTextViewer
             string colorText = this.ButtonColorchangeCP.SelectedColorText;
             BrushConverter converterColor = new BrushConverter();
             this.ColorChangeCP.Background = (Brush)converterColor.ConvertFromString(colorText);
-            
+
             FileStream file = isolateFile.OpenFile(@"\ColorPickerSearcherApp\ColorButtonColorchangeCP.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
             StreamWriter writer = new StreamWriter(file);
             writer.WriteLine(colorText);
@@ -516,13 +611,15 @@ namespace SeacherAndTextViewer
             this.ArchiveButton.Background = (Brush)converterColor.ConvertFromString("#FFDBEC39");
             this.FileNumber.Background = (Brush)converterColor.ConvertFromString("#FFF0F0F0");
             this.ColorChangeCP.Background = (Brush)converterColor.ConvertFromString("#FFF0F0F0");
-            
+
             foreach (var item in pathColor)
             {
                 isolateFile.DeleteFile(@item);
             }
             isolateFile.Close();
         }
+
+
 
         public void ArchiveFile()   // Метод архивирует выбранный файл
         {

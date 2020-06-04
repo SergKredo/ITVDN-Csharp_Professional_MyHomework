@@ -72,11 +72,7 @@ namespace ColorPicker
             writer.WriteLine(this.label.Background.ToString());
             writer.Close();
             file.Close();
-            this.label.Content = string.Format(new string(" "[0], 14)+"Color {0}\n is stored in isolated storage.".ToUpper(), this.label.Background.ToString());
-            XpsDocument doc = new XpsDocument(@"D:\Dropbox\CV_Kredentser.xps", FileAccess.Read);
-            documentViewer.Document = doc.GetFixedDocumentSequence();
-            doc.Close();
-           
+            this.label.Content = string.Format(new string(" "[0], 14)+"Color {0}\n is stored in isolated storage.".ToUpper(), this.label.Background.ToString());         
         }
     }
 }

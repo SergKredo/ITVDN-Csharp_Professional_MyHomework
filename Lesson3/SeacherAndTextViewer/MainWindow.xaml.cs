@@ -20,6 +20,7 @@ using System.Windows.Xps;
 using Microsoft.Office.Interop.Word;
 using System.IO.Packaging;
 
+
 namespace SeacherAndTextViewer
 {
     /// <summary>
@@ -40,13 +41,95 @@ namespace SeacherAndTextViewer
         bool DeleteTextINSearchBox = true;   // Поле определяет повторный доступ редактирования текста в окне SearchTextBox
         bool DeleteTextINFileNumberBox = true;   // Поле определяет повторный доступ редактирования текста в окне FileNumber
         List<string> listLookAt, listArchive;   // Объявление универсальной коллекции List<T>, в которой хранятся полные адреса найденных файлов
- 
+
+        IsolatedStorageFile isolateFile;
+        FileStream file;
+        StreamWriter writer;
+        StreamReader reader;
+        string saveColor;
+        List<string> pathColor;
+
         public MainWindow()
         {
             InitializeComponent();   // Инициализация основных компонентов программы
             this.ResulttextBox.IsReadOnly = true;   // TextBox только для чтения
             this.LookTextBox.Visibility = Visibility.Visible;
             this.UserCont.Visibility = Visibility.Hidden;
+            pathColor = new List<string>()
+            {
+                @"\ColorPickerSearcherApp\ColorMainWindowCP.txt",
+                @"\ColorPickerSearcherApp\ColorSearchWindowCP.txt",
+                @"\ColorPickerSearcherApp\ColorSearchResultWindowCP.txt",
+                @"\ColorPickerSearcherApp\ColorButtonSEARCHCP.txt",
+                @"\ColorPickerSearcherApp\ColorButtonLOOKCP.txt",
+                @"\ColorPickerSearcherApp\ColorButtonARCHIVECP.txt",
+                @"\ColorPickerSearcherApp\ColorFileNumberCP.txt",
+                @"\ColorPickerSearcherApp\ColorButtonColorchangeCP.txt"
+            };
+
+            int countI = 0;
+            isolateFile = IsolatedStorageFile.GetUserStoreForAssembly();
+            foreach (var item in pathColor)
+            {
+                if (!(isolateFile.FileExists(@item)))
+                {
+                    if (countI++ == 0)
+                    {
+                        isolateFile.CreateDirectory(@"\ColorPickerSearcherApp");
+                    }
+                    file = isolateFile.CreateFile(@item);
+                    writer = new StreamWriter(file);
+                    switch (@item)
+                    {
+                        case @"\ColorPickerSearcherApp\ColorMainWindowCP.txt":
+                            {
+                                writer.WriteLine(this.MainWindowsMyApp.Background.ToString());
+                            }
+                            break;
+                        case @"\ColorPickerSearcherApp\ColorSearchWindowCP.txt":
+                            {
+                                writer.WriteLine(this.SearchTextBox.Background.ToString());
+                            }
+                            break;
+                        case @"\ColorPickerSearcherApp\ColorSearchResultWindowCP.txt":
+                            {
+                                writer.WriteLine(this.ResulttextBox.Background.ToString());
+                            }
+                            break;
+                        case @"\ColorPickerSearcherApp\ColorButtonSEARCHCP.txt":
+                            {
+                                writer.WriteLine(this.SearchButton.Background.ToString());
+                            }
+                            break;
+                        case @"\ColorPickerSearcherApp\ColorButtonLOOKCP.txt":
+                            {
+                                writer.WriteLine(this.LookButton.Background.ToString());
+                            }
+                            break;
+                        case @"\ColorPickerSearcherApp\ColorButtonARCHIVECP.txt":
+                            {
+                                writer.WriteLine(this.ArchiveButton.Background.ToString());
+                            }
+                            break;
+                        case @"\ColorPickerSearcherApp\ColorFileNumberCP.txt":
+                            {
+                                writer.WriteLine(this.FileNumber.Background.ToString());
+                            }
+                            break;
+                        case @"\ColorPickerSearcherApp\ColorButtonColorchangeCP.txt":
+                            {
+                                writer.WriteLine(this.ColorChangeCP.Background.ToString());
+                            }
+                            break;
+                        default:
+                            {
+                                break;
+                            }
+                    }
+                    writer.Close();
+                    file.Close();
+                }
+            }
         }
 
         private void DeleteText(object sender, MouseEventArgs e)  // Метод-обработчик события GotMouseCapture объекта SearchTextBox. Событие GotMouseCapture происходит при захвате мыши данным элементом.
@@ -55,7 +138,7 @@ namespace SeacherAndTextViewer
             {
                 this.SearchTextBox.Text = this.SearchTextBox.Text.Remove(0);   // При первом клике мыши по окну SearchTextBox происходит удаление информационного текста в окне
                 DeleteTextINSearchBox = false;
-            }         
+            }
         }
 
         private void DeleteTextINFileNumber(object sender, MouseEventArgs e)   // Метод-обработчик события GotMouseCapture объекта FileNumber. Событие GotMouseCapture происходит при захвате мыши данным элементом.
@@ -315,6 +398,130 @@ namespace SeacherAndTextViewer
             {
                 delFileXps.Delete();
             }
+        }
+
+        private void ChangeColorMainWindowsMyApp(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            string colorText = this.MainWindowCP.SelectedColorText;
+            BrushConverter converterColor = new BrushConverter();
+            this.MainWindowsMyApp.Background = (Brush)converterColor.ConvertFromString(colorText);
+
+            FileStream file = isolateFile.OpenFile(@"\ColorPickerSearcherApp\ColorMainWindowCP.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            StreamWriter writer = new StreamWriter(file);
+            writer.WriteLine(colorText);
+            writer.Close();
+            file.Close();
+        }
+
+        private void ChangeColorSearchWindowCP(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            string colorText = this.SearchWindowCP.SelectedColorText;
+            BrushConverter converterColor = new BrushConverter();
+            this.SearchTextBox.Background = (Brush)converterColor.ConvertFromString(colorText);
+
+            FileStream file = isolateFile.OpenFile(@"\ColorPickerSearcherApp\ColorSearchWindowCP.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            StreamWriter writer = new StreamWriter(file);
+            writer.WriteLine(colorText);
+            writer.Close();
+            file.Close();
+        }
+
+        private void ChangeColorSearchResultWindowCP(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            string colorText = this.SearchResultWindowCP.SelectedColorText;
+            BrushConverter converterColor = new BrushConverter();
+            this.ResulttextBox.Background = (Brush)converterColor.ConvertFromString(colorText);
+
+            FileStream file = isolateFile.OpenFile(@"\ColorPickerSearcherApp\ColorSearchResultWindowCP.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            StreamWriter writer = new StreamWriter(file);
+            writer.WriteLine(colorText);
+            writer.Close();
+            file.Close();
+        }
+
+        private void ChangeColorButtonSEARCHCP(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            string colorText = this.ButtonSEARCHCP.SelectedColorText;
+            BrushConverter converterColor = new BrushConverter();
+            this.SearchButton.Background = (Brush)converterColor.ConvertFromString(colorText);
+
+            FileStream file = isolateFile.OpenFile(@"\ColorPickerSearcherApp\ColorButtonSEARCHCP.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            StreamWriter writer = new StreamWriter(file);
+            writer.WriteLine(colorText);
+            writer.Close();
+            file.Close();
+        }
+
+        private void ChangeColorButtonLOOKCP(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            string colorText = this.ButtonLOOKCP.SelectedColorText;
+            BrushConverter converterColor = new BrushConverter();
+            this.LookButton.Background = (Brush)converterColor.ConvertFromString(colorText);
+
+            FileStream file = isolateFile.OpenFile(@"\ColorPickerSearcherApp\ColorButtonLOOKCP.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            StreamWriter writer = new StreamWriter(file);
+            writer.WriteLine(colorText);
+            writer.Close();
+            file.Close();
+        }
+
+        private void ChangeColorButtonARCHIVECP(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            string colorText = this.ButtonARCHIVECP.SelectedColorText;
+            BrushConverter converterColor = new BrushConverter();
+            this.ArchiveButton.Background = (Brush)converterColor.ConvertFromString(colorText);
+
+            FileStream file = isolateFile.OpenFile(@"\ColorPickerSearcherApp\ColorButtonARCHIVECP.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            StreamWriter writer = new StreamWriter(file);
+            writer.WriteLine(colorText);
+            writer.Close();
+            file.Close();
+        }
+
+        private void ChangeColorFileNumberCP(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            string colorText = this.FileNumberCP.SelectedColorText;
+            BrushConverter converterColor = new BrushConverter();
+            this.FileNumber.Background = (Brush)converterColor.ConvertFromString(colorText);
+
+            FileStream file = isolateFile.OpenFile(@"\ColorPickerSearcherApp\ColorFileNumberCP.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            StreamWriter writer = new StreamWriter(file);
+            writer.WriteLine(colorText);
+            writer.Close();
+            file.Close();
+        }
+
+        private void ChangeColorButtonColorchangeCP(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            string colorText = this.ButtonColorchangeCP.SelectedColorText;
+            BrushConverter converterColor = new BrushConverter();
+            this.ColorChangeCP.Background = (Brush)converterColor.ConvertFromString(colorText);
+            
+            FileStream file = isolateFile.OpenFile(@"\ColorPickerSearcherApp\ColorButtonColorchangeCP.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            StreamWriter writer = new StreamWriter(file);
+            writer.WriteLine(colorText);
+            writer.Close();
+            file.Close();
+        }
+
+        private void ChangeColorDefaultСolorCP(object sender, RoutedEventArgs e)
+        {
+            BrushConverter converterColor = new BrushConverter();
+
+            this.MainWindowsMyApp.Background = (Brush)converterColor.ConvertFromString("#FF233232");
+            this.SearchTextBox.Background = (Brush)converterColor.ConvertFromString("#FFF0F0F0");
+            this.ResulttextBox.Background = (Brush)converterColor.ConvertFromString("#FFF0F0F0");
+            this.SearchButton.Background = (Brush)converterColor.ConvertFromString("#FFDBEC39");
+            this.LookButton.Background = (Brush)converterColor.ConvertFromString("#FFDBEC39");
+            this.ArchiveButton.Background = (Brush)converterColor.ConvertFromString("#FFDBEC39");
+            this.FileNumber.Background = (Brush)converterColor.ConvertFromString("#FFF0F0F0");
+            this.ColorChangeCP.Background = (Brush)converterColor.ConvertFromString("#FFF0F0F0");
+            
+            foreach (var item in pathColor)
+            {
+                isolateFile.DeleteFile(@item);
+            }
+            isolateFile.Close();
         }
 
         public void ArchiveFile()   // Метод архивирует выбранный файл

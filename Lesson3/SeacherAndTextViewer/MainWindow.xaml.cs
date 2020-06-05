@@ -43,22 +43,22 @@ namespace SeacherAndTextViewer
         bool DeleteTextINFileNumberBox = true;   // Поле определяет повторный доступ редактирования текста в окне FileNumber
         List<string> listLookAt, listArchive;   // Объявление универсальной коллекции List<T>, в которой хранятся полные адреса найденных файлов
 
-        IsolatedStorageFile isolateFile;
-        FileStream file;
-        StreamWriter writer;
-        StreamReader reader;
-        string saveColor;
-        List<string> pathColor;
-        List<string> extentionsFiles;
-        Dictionary<string, bool?> limitedArea;
+        IsolatedStorageFile isolateFile;    // Область изолированного хранилища, в которой содержатся изолированные файлы и папки
+        FileStream file;    // Файловый поток для записи и чтения данных в файл и из файла
+        StreamWriter writer;   // Объект реализует TextWriter для записи в файловый поток символов в определенной кодировке
+        StreamReader reader;   // Объект реализует TextReader для чтения символов из файлового потока в определенной кодировке
+        string saveColor;   // Поле, определяющее название цвета элемента в программе
+        List<string> pathColor;   // Универсальная коллекция, хранящая адреса текстовых файлов. Файлы находятся в изолированном пространстве "песочнице" и содержат названия цветов элементов программы
+        List<string> extentionsFiles;  // Универсальная коллекция, хранящая завания всех основных расширений файлов, которые используются в Windows 10
+        Dictionary<string, bool?> limitedArea;  // Коллекция-словарь, в которой содержится информация о всех checkBox элементах, отвечающих за расширения файлов и их свойствах IsChecked данных объектов
 
         public MainWindow()
         {
             InitializeComponent();   // Инициализация основных компонентов программы
             this.ResulttextBox.IsReadOnly = true;   // TextBox только для чтения
-            this.LookTextBox.Visibility = Visibility.Visible;
+            this.LookTextBox.Visibility = Visibility.Visible;   // Получает или задает видимость данного элемента в пользовательский интерфейс.
             this.UserCont.Visibility = Visibility.Hidden;
-            pathColor = new List<string>()
+            pathColor = new List<string>()  // Инициализация элементов коллекции
             {
                 @"\ColorPickerSearcherApp\ColorMainWindowCP.txt",
                 @"\ColorPickerSearcherApp\ColorSearchWindowCP.txt",
@@ -70,7 +70,7 @@ namespace SeacherAndTextViewer
                 @"\ColorPickerSearcherApp\ColorButtonColorchangeCP.txt"
             };
 
-            extentionsFiles = new List<string>()
+            extentionsFiles = new List<string>()  // Инициализация элементов коллекции элементами с названиями расширений файлов
             {
                 "aac", "adt", "adts", "accdb", "accde","accdr", "accdt","aif","aifc","aiff","aspx","avi","bat",
                 "bin","bmp","cab","cda","csv","dif","dll","doc","docm","docx","dot","dotx","eml","eps","exe","flv","gif",
@@ -82,18 +82,18 @@ namespace SeacherAndTextViewer
             };
 
             int countI = 0;
-            isolateFile = IsolatedStorageFile.GetUserStoreForAssembly();
-            foreach (var item in pathColor)
+            isolateFile = IsolatedStorageFile.GetUserStoreForAssembly();  // Создание на компьютере пользовательской области для изолированного хранения файлов. Путь к изолированному пространству "C:\Users\Serg\AppData\Local\IsolatedStorage\"
+            foreach (var item in pathColor)  // Перебор всех названий адресов, файлы которых отвечают за хранение названия цвета элемента
             {
-                if (!(isolateFile.FileExists(@item)))
+                if (!(isolateFile.FileExists(@item)))  // Проверка на существование файла с таким адресом в "песочнице"
                 {
                     if (countI++ == 0)
                     {
-                        isolateFile.CreateDirectory(@"\ColorPickerSearcherApp");
+                        isolateFile.CreateDirectory(@"\ColorPickerSearcherApp");  // Создаем пользовательский каталог в "песочнице" для хранения всех текстовых файлов с названием цветов
                     }
-                    file = isolateFile.CreateFile(@item);
-                    writer = new StreamWriter(file);
-                    switch (@item)
+                    file = isolateFile.CreateFile(@item);  //Создаем файловый поток с конкретным текстовым файлом
+                    writer = new StreamWriter(file);   //  Создаем поток для записи названий цветов элементов в файлы
+                    switch (@item)   // Переключатель
                     {
                         case @"\ColorPickerSearcherApp\ColorMainWindowCP.txt":
                             {
@@ -140,22 +140,22 @@ namespace SeacherAndTextViewer
                                 break;
                             }
                     }
-                    writer.Close();
-                    file.Close();
+                    writer.Close();  // Закрываем поток записи в файловый поток
+                    file.Close();    // Закрываем файловый поток
                 }
             }
         }
 
 
-        private void WindowsLoaded(object sender, RoutedEventArgs e)
+        private void WindowsLoaded(object sender, RoutedEventArgs e)   // Метод-обработчик события Loaded объекта MainWindowsMyApp. Метод позволяет при запуске программы считывать с текстовых файлов названия цветов
         {
             foreach (var item in pathColor)
             {
                 if (isolateFile.FileExists(@item))
                 {
-                    file = isolateFile.OpenFile(@item, FileMode.Open, FileAccess.Read);
-                    reader = new StreamReader(file);
-                    BrushConverter converterColorReader;
+                    file = isolateFile.OpenFile(@item, FileMode.Open, FileAccess.Read);  // Открываем файловый поток текстового файла
+                    reader = new StreamReader(file);  // Создаем объект StreamReader. Поток отвечает за чтение символов из потока текстового файла
+                    BrushConverter converterColorReader;  // Используется для преобразования в System.Windows.Media.Brush объект.
                     switch (@item)
                     {
                         case @"\ColorPickerSearcherApp\ColorMainWindowCP.txt":
@@ -163,7 +163,7 @@ namespace SeacherAndTextViewer
                                 saveColor = reader.ReadToEnd();
                                 saveColor = saveColor.Substring(0, saveColor.IndexOf('\r'));
                                 converterColorReader = new BrushConverter();
-                                this.MainWindowsMyApp.Background = (Brush)converterColorReader.ConvertFromString(saveColor);
+                                this.MainWindowsMyApp.Background = (Brush)converterColorReader.ConvertFromString(saveColor);  // Конвертируем строковое название цвета элемента в тип Brush
                                 reader.Close();
                             }
                             break;
@@ -620,7 +620,10 @@ namespace SeacherAndTextViewer
                         this.LookTextBox.Visibility = Visibility.Visible;
                         this.UserCont.Visibility = Visibility.Hidden;
 
-                        XpsDocument docXps = new XpsDocument(pathFileInsteadExtensXps, FileAccess.Read);
+                        XpsDocument docXps = new XpsDocument(pathFileInsteadExtensXps, FileAccess.Read);  //     Инициализирует новый экземпляр класса System.Windows.Xps.Packaging.XpsDocument
+                                                                                                          //     с доступом к заданному Формат XPS (XML Paper Specification) System.IO.Packaging.Package
+                                                                                                          //     и со стандартными параметрами чередования, ресурсов и сжатия.
+                                                                                                          //
                         LookTextBox.Document = docXps.GetFixedDocumentSequence();
                         docXps.Close();
                         delFileXps = new FileInfo(@pathFileInsteadExtensXps);
@@ -660,7 +663,7 @@ namespace SeacherAndTextViewer
             throw new NotImplementedException();
         }
 
-        private void DeleteCreateFiles(object sender, EventArgs e)
+        private void DeleteCreateFiles(object sender, EventArgs e)  // Метод-обработчик события Closed объекта MainWindowsMyApp. Метод удаляет копию файла созданного с расширение xps
         {
             if (this.delFileXps != null)
             {
@@ -668,7 +671,7 @@ namespace SeacherAndTextViewer
             }
         }
 
-        private void ChangeColorMainWindowsMyApp(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        private void ChangeColorMainWindowsMyApp(object sender, RoutedPropertyChangedEventArgs<Color?> e)  // Метод обработчик события SelectedColorChanged объекта SearchResultWindowCP. Метод делает новую запись данных  в текстовый файл о цвете элемента
         {
             string colorText = this.MainWindowCP.SelectedColorText;
             BrushConverter converterColor = new BrushConverter();
@@ -772,7 +775,7 @@ namespace SeacherAndTextViewer
             file.Close();
         }
 
-        private void ChangeColorDefaultСolorCP(object sender, RoutedEventArgs e)
+        private void ChangeColorDefaultСolorCP(object sender, RoutedEventArgs e)  // Метод обработчик позволяет сбросить все цвета элементов интерфейса программы по умолчанию
         {
             BrushConverter converterColor = new BrushConverter();
 

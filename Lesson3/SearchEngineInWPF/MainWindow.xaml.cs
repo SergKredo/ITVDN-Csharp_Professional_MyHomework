@@ -17,9 +17,11 @@ using System.IO.Compression;
 
 namespace SearchEngineInWPF
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
+        /*Задание 3
+    Напишите приложение в WPF для поиска заданного файла на диске. Добавьте код, использующий
+    класс FileStream и позволяющий просматривать файл в текстовом окне. В заключение
+    добавьте возможность сжатия найденного файла.*/
+
     public partial class MainWindow : Window
     {
         string nameFile;   // Имя файла, который нужно найти на компьютере

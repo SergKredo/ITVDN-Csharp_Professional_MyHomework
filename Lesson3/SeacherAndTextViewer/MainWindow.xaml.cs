@@ -19,6 +19,7 @@ using System.Windows.Xps.Packaging;
 using System.Windows.Xps;
 using Microsoft.Office.Interop.Word;
 using System.IO.Packaging;
+using System.Collections;
 
 
 namespace SeacherAndTextViewer
@@ -48,6 +49,8 @@ namespace SeacherAndTextViewer
         StreamReader reader;
         string saveColor;
         List<string> pathColor;
+        List<string> extentionsFiles;
+        Dictionary<string, bool?> limitedArea;
 
         public MainWindow()
         {
@@ -65,6 +68,17 @@ namespace SeacherAndTextViewer
                 @"\ColorPickerSearcherApp\ColorButtonARCHIVECP.txt",
                 @"\ColorPickerSearcherApp\ColorFileNumberCP.txt",
                 @"\ColorPickerSearcherApp\ColorButtonColorchangeCP.txt"
+            };
+
+            extentionsFiles = new List<string>()
+            {
+                "aac", "adt", "adts", "accdb", "accde","accdr", "accdt","aif","aifc","aiff","aspx","avi","bat",
+                "bin","bmp","cab","cda","csv","dif","dll","doc","docm","docx","dot","dotx","eml","eps","exe","flv","gif",
+                "htm","html","ini","iso","jar","jpg","jpeg","m4a","mdb","mid","midi","mov","mp3","mp4","mpeg","mpg","msi",
+                "mui","pdf","png","pot","potm","potx","ppam","pps","ppsm","ppsx","ppt","pptm","pptx","psd","pst","pub",
+                "rar","rtf","sldm","sldx","swf","sys","tif","tiff","tmp","txt","vob","vsd","vsdm","vsdx","vss","vssm",
+                "vst","vstm","vstx","wav","wbk","wks","wma","wmd","wmv","wmz","wms","wpd","wp5","xla","xlam","xll","xlm",
+                "xls","xlsm","xlsx","xlt","xltm","xltx","xps","zip","mht","odt","xml"
             };
 
             int countI = 0;
@@ -283,6 +297,15 @@ namespace SeacherAndTextViewer
             int countFiles = 0;
             string fullName = null;
             DriveInfo[] drivers = DriveInfo.GetDrives();   // Объявление массива объектов типа DriveInfo. Присоение переменной массива всех существующих логических дисков компьютера
+            this.ResulttextBox.Text = null;
+            limitedArea = new Dictionary<string, bool?>()
+            {
+                {this.checkBox_txt.Content.ToString(), this.checkBox_txt.IsChecked}, {this.checkBox_pdf.Content.ToString(), this.checkBox_pdf.IsChecked}, {this.checkBox_doc.Content.ToString(), this.checkBox_doc.IsChecked}, {this.checkBox_rtf.Content.ToString(), this.checkBox_rtf.IsChecked}, {this.checkBox_docx.Content.ToString(), this.checkBox_docx.IsChecked},
+                {this.checkBox_xps.Content.ToString(), this.checkBox_xps.IsChecked}, {this.checkBox_data.Content.ToString(), this.checkBox_data.IsChecked}, {this.checkBox_xml.Content.ToString(), this.checkBox_xml.IsChecked}, {this.checkBox_odt.Content.ToString(), this.checkBox_odt.IsChecked}, {this.checkBox_html.Content.ToString(), this.checkBox_html.IsChecked},
+                {this.checkBox_log.Content.ToString(), this.checkBox_log.IsChecked}, {this.checkBox_mht.Content.ToString(), this.checkBox_mht.IsChecked}, {this.checkBox_avi.Content.ToString(), this.checkBox_avi.IsChecked}, {this.checkBox_bmp.Content.ToString(), this.checkBox_bmp.IsChecked}, {this.checkBox_dll.Content.ToString(), this.checkBox_dll.IsChecked},
+                {this.checkBox_eps.Content.ToString(), this.checkBox_eps.IsChecked}, {this.checkBox_flv.Content.ToString(), this.checkBox_flv.IsChecked}, {this.checkBox_exe.Content.ToString(), this.checkBox_exe.IsChecked}, {this.checkBox_gif.Content.ToString(), this.checkBox_gif.IsChecked}, {this.checkBox_jpg.Content.ToString(), this.checkBox_jpg.IsChecked},
+                {this.checkBox_jpeg.Content.ToString(), this.checkBox_jpeg.IsChecked}, {this.checkBox_tif.Content.ToString(), this.checkBox_tif.IsChecked}, {this.checkBox_mp3.Content.ToString(), this.checkBox_mp3.IsChecked}, {this.checkBox_mp4.Content.ToString(), this.checkBox_mp4.IsChecked}
+            };
             if (this.ResulttextBox.Text.Length != 0)
             {
                 this.ResulttextBox.Text = this.ResulttextBox.Text.Remove(0);
@@ -306,12 +329,37 @@ namespace SeacherAndTextViewer
                 try
                 {
                     DirectoryInfo searchFiels = new DirectoryInfo(@item.RootDirectory.FullName);     // Первый уровень расположения каталогов на диске. Создание переменной типа DirectoryInfo. Переменная хранит в себе информацию о всех каталогах и подкаталогах логического корневого диска
-                    FileInfo[] filesThour = searchFiels.GetFiles(@nameFile, SearchOption.TopDirectoryOnly); // Осуществляется поиск на совпадение имени введенного нами файла с именами файлов, которые расположены в каталогах диска
-                    if (filesThour.Length != 0)   // Заходим в блок условной конструкции, если произошло совпадение имен файлов в директории диска
+
+                    if (this.checkBox_all_extensions.IsChecked == true)
                     {
-                        list.Add(filesThour[0].FullName);
-                        this.ResulttextBox.Text = string.Format("[{0}] - " + filesThour[0].FullName + "\n", ++countFiles);   // Вывод в окне ResulttextBox полной информации о пути расположения файла на диске
+                        foreach (var per in extentionsFiles)   // Поиск по всем расширениям файлов
+                        {
+                            string pathWithOutExtension = System.IO.Path.GetFileNameWithoutExtension(@nameFile) + "." + per;
+                            FileInfo[] filesThour = searchFiels.GetFiles(@pathWithOutExtension, SearchOption.TopDirectoryOnly); // Осуществляется поиск на совпадение имени введенного нами файла с именами файлов, которые расположены в каталогах диска
+                            if (filesThour.Length != 0)   // Заходим в блок условной конструкции, если произошло совпадение имен файлов в директории диска
+                            {
+                                list.Add(filesThour[0].FullName);
+                                this.ResulttextBox.Text = string.Format("[{0}] - " + filesThour[0].FullName + "\n", ++countFiles);   // Вывод в окне ResulttextBox полной информации о пути расположения файла на диске
+                            }
+                        }
                     }
+                    else
+                    {
+                        foreach (KeyValuePair<string, bool?> parametr in limitedArea)
+                        {
+                            if (parametr.Value == true)
+                            {
+                                string pathWithOutExtension = System.IO.Path.GetFileNameWithoutExtension(@nameFile) + parametr.Key;
+                                FileInfo[] filesThour = searchFiels.GetFiles(@pathWithOutExtension, SearchOption.TopDirectoryOnly); // Осуществляется поиск на совпадение имени введенного нами файла с именами файлов, которые расположены в каталогах диска
+                                if (filesThour.Length != 0)   // Заходим в блок условной конструкции, если произошло совпадение имен файлов в директории диска
+                                {
+                                    list.Add(filesThour[0].FullName);
+                                    this.ResulttextBox.Text = string.Format("[{0}] - " + filesThour[0].FullName + "\n", ++countFiles);   // Вывод в окне ResulttextBox полной информации о пути расположения файла на диске
+                                }
+                            }
+                        }
+                    }
+
 
                     DirectoryInfo[] filesOne = searchFiels.GetDirectories();  // Массив всех существующих каталогов в данном логическом диске
 
@@ -335,14 +383,40 @@ namespace SeacherAndTextViewer
                                     {
                                         try
                                         {
-                                            // Четвертый уровень расположения каталогов на диске.  
-                                            FileInfo[] files = itemFive.GetFiles(@nameFile, SearchOption.AllDirectories); // Далее поиск файлов осуществляется во всех остальных каталогах и подкаталогах
-                                            if (files.Length != 0)
+                                            if (this.checkBox_all_extensions.IsChecked == true)
                                             {
-                                                list.Add(files[0].FullName);
-                                                fullName = files[0].FullName;
-                                                this.ResulttextBox.Text += string.Format("[{0}] - " + files[0].FullName + "\n", ++countFiles);
+                                                foreach (var per in extentionsFiles)   // Поиск по всем расширениям файлов
+                                                {
+                                                    string pathWithOutExtension = System.IO.Path.GetFileNameWithoutExtension(@nameFile) + "." + per;
+                                                    // Четвертый уровень расположения каталогов на диске.  
+                                                    FileInfo[] files = itemFive.GetFiles(@pathWithOutExtension, SearchOption.AllDirectories); // Далее поиск файлов осуществляется во всех остальных каталогах и подкаталогах
+                                                    if (files.Length != 0)
+                                                    {
+                                                        list.Add(files[0].FullName);
+                                                        fullName = files[0].FullName;
+                                                        this.ResulttextBox.Text += string.Format("[{0}] - " + files[0].FullName + "\n", ++countFiles);
+                                                    }
+                                                }
                                             }
+                                            else
+                                            {
+                                                foreach (KeyValuePair<string, bool?> parametr in limitedArea)
+                                                {
+                                                    if (parametr.Value == true)
+                                                    {
+                                                        string pathWithOutExtension = System.IO.Path.GetFileNameWithoutExtension(@nameFile) + parametr.Key;
+                                                        // Четвертый уровень расположения каталогов на диске.  
+                                                        FileInfo[] files = itemFive.GetFiles(@pathWithOutExtension, SearchOption.AllDirectories); // Далее поиск файлов осуществляется во всех остальных каталогах и подкаталогах
+                                                        if (files.Length != 0)
+                                                        {
+                                                            list.Add(files[0].FullName);
+                                                            fullName = files[0].FullName;
+                                                            this.ResulttextBox.Text += string.Format("[{0}] - " + files[0].FullName + "\n", ++countFiles);
+                                                        }
+                                                    }
+                                                }
+                                            }
+
                                         }
                                         catch (Exception) { }
 
@@ -350,15 +424,68 @@ namespace SeacherAndTextViewer
                                         DirectoryInfo searchOness = new DirectoryInfo(@nameDirectoryss);
                                         try
                                         {
-                                            FileInfo[] filesTHreesss = searchOness.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);   // Поиск имени файла на совпадение с файлами в корневом директории данного уровня вхождения
-                                            if (filesTHreesss.Length != 0)
+                                            if (this.checkBox_all_extensions.IsChecked == true)
                                             {
-                                                if (fullName == filesTHreesss[0].FullName)
+                                                foreach (var per in extentionsFiles)   // Поиск по всем расширениям файлов
                                                 {
-                                                    continue;
+                                                    string pathWithOutExtension = System.IO.Path.GetFileNameWithoutExtension(@nameFile) + "." + per;
+                                                    FileInfo[] filesTHreesss = searchOness.GetFiles(@pathWithOutExtension, SearchOption.TopDirectoryOnly);   // Поиск имени файла на совпадение с файлами в корневом директории данного уровня вхождения
+                                                    if (filesTHreesss.Length != 0)
+                                                    {
+                                                        if (fullName == filesTHreesss[0].FullName)
+                                                        {
+                                                            continue;
+                                                        }
+                                                        bool predic = false;
+                                                        foreach (var pred in list)
+                                                        {
+                                                            if (pred == filesTHreesss[0].FullName)
+                                                            {
+                                                                predic = true;
+                                                                break;
+                                                            }
+                                                        }
+                                                        if (predic)
+                                                        {
+                                                            continue;
+                                                        }
+                                                        list.Add(filesTHreesss[0].FullName);   // Если произошло совпадение имен файлов, то мы добавляем путь данного файла в список
+                                                        this.ResulttextBox.Text += string.Format("[{0}] - " + filesTHreesss[0].FullName + "\n", ++countFiles);
+                                                    }
                                                 }
-                                                list.Add(filesTHreesss[0].FullName);   // Если произошло совпадение имен файлов, то мы добавляем путь данного файла в список
-                                                this.ResulttextBox.Text += string.Format("[{0}] - " + filesTHreesss[0].FullName + "\n", ++countFiles);
+                                            }
+                                            else
+                                            {
+                                                foreach (KeyValuePair<string, bool?> parametr in limitedArea)
+                                                {
+                                                    if (parametr.Value == true)
+                                                    {
+                                                        string pathWithOutExtension = System.IO.Path.GetFileNameWithoutExtension(@nameFile) + parametr.Key;
+                                                        FileInfo[] filesTHreesss = searchOness.GetFiles(@pathWithOutExtension, SearchOption.TopDirectoryOnly);   // Поиск имени файла на совпадение с файлами в корневом директории данного уровня вхождения
+                                                        if (filesTHreesss.Length != 0)
+                                                        {
+                                                            if (fullName == filesTHreesss[0].FullName)
+                                                            {
+                                                                continue;
+                                                            }
+                                                            bool predic = false;
+                                                            foreach (var pred in list)
+                                                            {
+                                                                if (pred == filesTHreesss[0].FullName)
+                                                                {
+                                                                    predic = true;
+                                                                    break;
+                                                                }
+                                                            }
+                                                            if (predic)
+                                                            {
+                                                                continue;
+                                                            }
+                                                            list.Add(filesTHreesss[0].FullName);   // Если произошло совпадение имен файлов, то мы добавляем путь данного файла в список
+                                                            this.ResulttextBox.Text += string.Format("[{0}] - " + filesTHreesss[0].FullName + "\n", ++countFiles);
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                         catch (Exception)
@@ -373,11 +500,34 @@ namespace SeacherAndTextViewer
                                 DirectoryInfo searchOnesss = new DirectoryInfo(@nameDirectorysss);
                                 try
                                 {
-                                    FileInfo[] filesTHreessss = searchOnesss.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
-                                    if (filesTHreessss.Length != 0)
+                                    if (this.checkBox_all_extensions.IsChecked == true)
                                     {
-                                        list.Add(filesTHreessss[0].FullName);
-                                        this.ResulttextBox.Text += string.Format("[{0}] - " + filesTHreessss[0].FullName + "\n", ++countFiles);
+                                        foreach (var per in extentionsFiles)   // Поиск по всем расширениям файлов
+                                        {
+                                            string pathWithOutExtension = System.IO.Path.GetFileNameWithoutExtension(@nameFile) + "." + per;
+                                            FileInfo[] filesTHreessss = searchOnesss.GetFiles(@pathWithOutExtension, SearchOption.TopDirectoryOnly);
+                                            if (filesTHreessss.Length != 0)
+                                            {
+                                                list.Add(filesTHreessss[0].FullName);
+                                                this.ResulttextBox.Text += string.Format("[{0}] - " + filesTHreessss[0].FullName + "\n", ++countFiles);
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        foreach (KeyValuePair<string, bool?> parametr in limitedArea)
+                                        {
+                                            if (parametr.Value == true)
+                                            {
+                                                string pathWithOutExtension = System.IO.Path.GetFileNameWithoutExtension(@nameFile) + parametr.Key;
+                                                FileInfo[] filesTHreessss = searchOnesss.GetFiles(@pathWithOutExtension, SearchOption.TopDirectoryOnly);
+                                                if (filesTHreessss.Length != 0)
+                                                {
+                                                    list.Add(filesTHreessss[0].FullName);
+                                                    this.ResulttextBox.Text += string.Format("[{0}] - " + filesTHreessss[0].FullName + "\n", ++countFiles);
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                                 catch (Exception)
@@ -392,11 +542,34 @@ namespace SeacherAndTextViewer
                         DirectoryInfo searchOnes = new DirectoryInfo(@nameDirectorys);
                         try
                         {
-                            FileInfo[] filesTHreesh = searchOnes.GetFiles(@nameFile, SearchOption.TopDirectoryOnly);
-                            if (filesTHreesh.Length != 0)
+                            if (this.checkBox_all_extensions.IsChecked == true)
                             {
-                                list.Add(filesTHreesh[0].FullName);
-                                this.ResulttextBox.Text += string.Format("[{0}] - " + filesTHreesh[0].FullName + "\n", ++countFiles);
+                                foreach (var per in extentionsFiles)   // Поиск по всем расширениям файлов
+                                {
+                                    string pathWithOutExtension = System.IO.Path.GetFileNameWithoutExtension(@nameFile) + "." + per;
+                                    FileInfo[] filesTHreesh = searchOnes.GetFiles(@pathWithOutExtension, SearchOption.TopDirectoryOnly);
+                                    if (filesTHreesh.Length != 0)
+                                    {
+                                        list.Add(filesTHreesh[0].FullName);
+                                        this.ResulttextBox.Text += string.Format("[{0}] - " + filesTHreesh[0].FullName + "\n", ++countFiles);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                foreach (KeyValuePair<string, bool?> parametr in limitedArea)
+                                {
+                                    if (parametr.Value == true)
+                                    {
+                                        string pathWithOutExtension = System.IO.Path.GetFileNameWithoutExtension(@nameFile) + parametr.Key;
+                                        FileInfo[] filesTHreesh = searchOnes.GetFiles(@pathWithOutExtension, SearchOption.TopDirectoryOnly);
+                                        if (filesTHreesh.Length != 0)
+                                        {
+                                            list.Add(filesTHreesh[0].FullName);
+                                            this.ResulttextBox.Text += string.Format("[{0}] - " + filesTHreesh[0].FullName + "\n", ++countFiles);
+                                        }
+                                    }
+                                }
                             }
                         }
                         catch (Exception)

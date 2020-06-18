@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{09FA4864-8869-422B-8FDC-EFDBF9DCF43E}</ProjectGuid>
+    <ProjectGuid>{82FBB07B-92A5-4EC9-98F4-A88599DF2210}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Lesson4</RootNamespace>
-    <AssemblyName>Lesson4</AssemblyName>
+    <RootNamespace>Additional_Task</RootNamespace>
+    <AssemblyName>Additional Task</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

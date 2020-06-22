@@ -56,7 +56,7 @@ namespace Task2
                 }
 
                 Console.WriteLine(new string('-', 160));
-                pattern = @"(?<telephone>[+]{1}[\d+\s+\-]{10,})|(?<telephone>[38][0]{1}[\d]{9})";
+                pattern = @"(?<telephone>[+]{1}[\d+\s+\-]{10,})|(?<telephone>[38][0]{1}[\d]{9})|(?<telephone>[\(]{1}[\d*]{3}[\)]{1}[\s]{1}[\d*-]{8,})";
                 regex = new Regex(pattern);
                 List<string> item = new List<string>();
                 List<string> removeIT = new List<string>();
@@ -74,10 +74,10 @@ namespace Task2
                         {
                             pattern = @"\d+";
                             regex = new Regex(pattern);
-                            string word = removeIT[i].Replace("-", "").Replace(" ", "");
+                            string word = removeIT[i].Replace("-", "").Replace("(", "").Replace(")", "").Replace(" ", "");
                             word = regex.Match(word).Value;
                             word = word.Substring(word.Length - 7);
-                            string wordTwo = item[j].Replace("-", "").Replace(" ", "");
+                            string wordTwo = item[j].Replace("-", "").Replace("(", "").Replace(")", "").Replace(" ", "");
                             wordTwo = regex.Match(wordTwo).Value;
                             wordTwo = wordTwo.Substring(wordTwo.Length - 7);
                             if (wordTwo.Contains(word))
@@ -109,7 +109,7 @@ namespace Task2
                 }
                 Console.WriteLine(new string('-', 160));
 
-                pattern = @"(?<email>[\w]+@[\S]+\.[\w]+)'|(?<email>[\w]+@[\S]+\.[\w]+)<";
+                pattern = @"(?<email>[\w*\.]+@[\S]+\.[\w]+)'|(?<email>[\w*\.]+@[\S]+\.[\w]+)<";
                 regex = new Regex(pattern);
                 item = new List<string>();
                 removeIT = new List<string>();

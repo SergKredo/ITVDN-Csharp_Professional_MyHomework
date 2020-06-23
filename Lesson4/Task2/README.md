@@ -1,6 +1,6 @@
-Программа, которая бы позволила вам по указанному адресу web-страницы
-выбирать все ссылки на другие страницы, номера телефонов, почтовые адреса и сохраняла
-полученный результат в файл.
+п»їРџСЂРѕРіСЂР°РјРјР°, РєРѕС‚РѕСЂР°СЏ Р±С‹ РїРѕР·РІРѕР»РёР»Р° РІР°Рј РїРѕ СѓРєР°Р·Р°РЅРЅРѕРјСѓ Р°РґСЂРµСЃСѓ web-СЃС‚СЂР°РЅРёС†С‹
+РІС‹Р±РёСЂР°С‚СЊ РІСЃРµ СЃСЃС‹Р»РєРё РЅР° РґСЂСѓРіРёРµ СЃС‚СЂР°РЅРёС†С‹, РЅРѕРјРµСЂР° С‚РµР»РµС„РѕРЅРѕРІ, РїРѕС‡С‚РѕРІС‹Рµ Р°РґСЂРµСЃР° Рё СЃРѕС…СЂР°РЅСЏР»Р°
+РїРѕР»СѓС‡РµРЅРЅС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚ РІ С„Р°Р№Р».
 
 Result:
 
@@ -709,13 +709,13 @@ Link: https://avtoto.com.ua/zapchasti-na-izg/
 Link: https://avtoto.com.ua/zapchasti-na-moskvich/
 Link: https://avtoto.com.ua/zapchasti-na-uaz/
 Link: https://avtoto.com.ua/blog/poleznye-sovety-avtovladelcam/resurs-avtomobilya-kogda-uzhe-luchshe-ne-pokupat.html
-Link: https://avtoto.com.ua/blog/wp-content/uploads/2020/06/покупка-б-у-машины.jpeg
+Link: https://avtoto.com.ua/blog/wp-content/uploads/2020/06/РїРѕРєСѓРїРєР°-Р±-Сѓ-РјР°С€РёРЅС‹.jpeg
 Link: https://avtoto.com.ua/blog/poleznye-sovety-avtovladelcam/resurs-avtomobilya-kogda-uzhe-luchshe-ne-pokupat.html
 Link: https://avtoto.com.ua/blog/texnicheskoe-obsluzhivanie-avtomobilej/potek-radiator-chto-delat.html
-Link: https://avtoto.com.ua/blog/wp-content/uploads/2020/06/Радиатор.jpg
+Link: https://avtoto.com.ua/blog/wp-content/uploads/2020/06/Р Р°РґРёР°С‚РѕСЂ.jpg
 Link: https://avtoto.com.ua/blog/texnicheskoe-obsluzhivanie-avtomobilej/potek-radiator-chto-delat.html
 Link: https://avtoto.com.ua/blog/motornoe-maslo/zashhitite-dvigatel-originalnym-maslom-toyota.html
-Link: https://avtoto.com.ua/blog/wp-content/uploads/2020/06/1-тойота.jpg
+Link: https://avtoto.com.ua/blog/wp-content/uploads/2020/06/1-С‚РѕР№РѕС‚Р°.jpg
 Link: https://avtoto.com.ua/blog/motornoe-maslo/zashhitite-dvigatel-originalnym-maslom-toyota.html
 Link: https://avtoto.com.ua/blog/poleznye-sovety-avtovladelcam/nikogda-ne-chinite-eti-7-problem-sami.html
 Link: https://avtoto.com.ua/blog/wp-content/uploads/2020/05/Remont-avto-svoimi-rukami.jpg

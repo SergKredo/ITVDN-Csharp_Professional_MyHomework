@@ -15,36 +15,40 @@ namespace Task3
     {
         static void Main(string[] args)
         {
-            Stream stream = File.OpenRead(@"Prepositions.txt");
-            StreamReader streamReader = new StreamReader(stream);
-            string prepositions = streamReader.ReadToEnd();
-            string pattern = @"\s?\(\S*\s?\S*\)\s";
-            prepositions = Regex.Replace(prepositions, pattern, "");
+
+            /*
+             Создаем текстовый файл со всеми встречающимися в русском языке предлогами - их порядка 600 предлогов, которые были взяты из книги "Словарь предлогов русского языка".
+             */
+            Stream stream = File.OpenRead(@"Prepositions.txt");   // Создание файлового потока, в который будут записываться байтовые данные из файла
+            StreamReader streamReader = new StreamReader(stream);  // Объект StreamReader реализует возможность чтения символов из файлового потока посредством объекта TextReader
+            string prepositions = streamReader.ReadToEnd();  // Считывание всех символов, начиная с текущей позиции до конца потока
+            string pattern = @"\s?\(\S*\s?\S*\)\s";  // Задаем шаблон регулярного выражения, что соответствует частям выражений (слов в скобках, возле предлогов).
+            prepositions = Regex.Replace(prepositions, pattern, "");  // Замена всех строк в тексте, что соответствует указанному выражению шаблона регулярного выражения на пустое выражение
             
-            pattern = @"\,";
-            prepositions = Regex.Replace(prepositions, pattern, "\n");
-            
-            prepositions = prepositions.ToLowerInvariant();
-            pattern = @"\d";
-            prepositions = Regex.Replace(prepositions, pattern, "");
-            
-            List<string> words = new List<string>();
-            pattern = @"(?<words>\W?\S*\ *\S*\ *\S*\ *\S*)";
-            Regex regex = new Regex(pattern);
+            pattern = @"\,";   // Задаем шаблон регулярного выражения, что соответствует частям выражений (запятых после предлогов).
+            prepositions = Regex.Replace(prepositions, pattern, "\n");  // Замена всех строк в тексте, что соответствует указанному выражению шаблона регулярного выражения на новую строку
+
+            prepositions = prepositions.ToLowerInvariant();   // Приведение литералов текста в нижний регистр
+            pattern = @"\d";  // Задаем шаблон регулярного выражения, что соответствует частям выражений (цифрам вместе с предлогами).
+            prepositions = Regex.Replace(prepositions, pattern, "");   // Замена всех строк в тексте, что соответствует указанному выражению шаблона регулярного выражения на пустое выражение
+
+            List<string> words = new List<string>();  // Создаем строго типизированную коллекцию с указателем места заполнения T типа string.
+            pattern = @"(?<words>\W?\S*\ *\S*\ *\S*\ *\S*)";  // Задаем шаблон регулярного выражения, что соответствует частям выражений (каждый предлог по отдельности в тексте).
+            Regex regex = new Regex(pattern);  // Экземпляр объекта типа Regex позволяет осуществить поиск определенного выражения из массива символов текста по заданному шаблону регулярного выражения
             string newText = null;
-            foreach (Match item in regex.Matches(prepositions))
+            foreach (Match item in regex.Matches(prepositions))  // Осуществляем перебор всех вхождений регулярного выражения из указанной входной строки
             {
-                words.Add((item.Groups["words"].Value).Replace("\n", ""));
+                words.Add((item.Groups["words"].Value).Replace("\n", ""));  // Добавлем в коллекцию предлоги
                 newText += "\"" + item.Groups["words"].Value + "\"" + ",";
             }
-            words.RemoveAt(words.Count - 1);
+            words.RemoveAt(words.Count - 1);  // Удаляем последнюю строку в коллекции
             
-            StreamWriter streamWriter = new StreamWriter(@"Prepositions_redact.txt");
-            streamWriter.Write(newText);
-            streamWriter.Close();
+            StreamWriter streamWriter = new StreamWriter(@"Prepositions_redact.txt");  // Объект StreamWriter реализует возможность записи символов в файловый поток посредством объекта TextWriter
+            streamWriter.Write(newText);  // Запись в поток строки
+            streamWriter.Close();  // Закрываем поток
 
-            stream = File.OpenRead(@"Tolstoyi_L._Detstvootroche3._Yunost.txt");
-            streamReader = new StreamReader(stream);
+            stream = File.OpenRead(@"Tolstoyi_L._Detstvootroche3._Yunost.txt");  // Открываем файловый поток со ссылкой на текстовый файл. В качестве текстового файла приведен текст Толстого.
+            streamReader = new StreamReader(stream); 
             string text = streamReader.ReadToEnd();
             stream.Close();
             streamReader.Close();
@@ -54,10 +58,14 @@ namespace Task3
             Console.WriteLine(new string('-', 100));
             Console.WriteLine(new string('-', 100));
 
+
+            /*
+             В тексте книги Толстого ищем все предлоги. Заменяем их на слово <Квитонька>. Далее выводим все в консоли и записываем все в новый текстовый файл
+             */
             string patter = null;
             foreach (string item in words)
             {
-                patter += @"(?<prepositions>\W{1}" + item + @"\s)|";
+                patter += @"(?<prepositions>\W{1}" + item + @"\s)|";  // Создаем паттерн (шаблон регулярных выражений), который будет сопостовлять в тексте предлоги с паттерном
             }
             patter = patter.Substring(0, patter.Length - 1);
 
@@ -65,21 +73,21 @@ namespace Task3
             Regex regext = new Regex(patter);
             foreach (Match items in regext.Matches(text))
             {
-                prepor.Add(items.Groups["prepositions"].Value);
+                prepor.Add(items.Groups["prepositions"].Value);  // Добавляем в новую коллекцию предлоги
             }
-            text = Regex.Replace(text, patter, " <Квитонька> ");
+            text = Regex.Replace(text, patter, " <Квитонька> ");  // Замена всех предлогов, что встретились в тексте на слово <Квитонька>
 
             words = new List<string>();
             foreach (Match item in regex.Matches(prepositions))
             {
                 string word = ((item.Groups["words"].Value).Replace("\n", "") == "")? " ": (item.Groups["words"].Value).Replace("\n", "");
-                words.Add(word.Replace(word[0].ToString(), word[0].ToString().ToUpper()));
+                words.Add(word.Replace(word[0].ToString(), word[0].ToString().ToUpper()));  // Заменяем в прелогах первые буквы предлога на прописные буквы. Добавляем в коллекцию предлоги
             }
             words.RemoveAt(words.Count - 1);
             patter = null;
             foreach (string item in words)
             {
-                patter += @"(?<prepositions>\W{1}" + item + @"\s)|";
+                patter += @"(?<prepositions>\W{1}" + item + @"\s)|";  // Создаем шаблон со всеми возможными случаями вхождения предлогов в шаблон
             }
             patter = patter.Substring(0, patter.Length - 1);
             regext = new Regex(patter);
@@ -87,27 +95,24 @@ namespace Task3
             {
                 prepor.Add(items.Groups["prepositions"].Value);
             }
-            text = Regex.Replace(text, patter, " <Квитонька> ");
-            Console.WriteLine(text);
+            text = Regex.Replace(text, patter, " <Квитонька> ");  // Повторная замена всех предлогов (с первой прописной буквой в предлоге), что встретились в тексте на слово <Квитонька>
+            Console.WriteLine(text);  // Выводим форматированный текст в консоли
             Console.WriteLine(new string('-', 100));
             Console.WriteLine(new string('-', 100));
 
-            foreach (string ite in prepor)
+            foreach (string ite in prepor)  // Осуществляем перебор всех предлогов, что встретились в тексте Толстого
             {
-                Console.Write(ite+", ");
+                Console.Write(ite+", ");  // Выводим данные предлоги в консоли
             }
 
-            streamWriter = new StreamWriter(@"Tolstoyi_L._Detstvootroche3._Yunost_redact.txt");
-            streamWriter.Write(text);
-            streamWriter.Close();
+            streamWriter = new StreamWriter(@"Tolstoyi_L._Detstvootroche3._Yunost_redact.txt");  // Создаем поток для записи в файл
+            streamWriter.Write(text);  // Записываем наш форматированный текст в файл
+            streamWriter.Close();  // Закрываем потоки
             Console.ReadKey();
 
         }
     }
 }
-
-
-
 
 
 /*

@@ -261,16 +261,26 @@ US.*/
             //}
             string text = File.ReadAllText(@"The check.txt");
             Check check = new Check(text, currencyEUR, currencyRUB, currencyUSD);
-            Console.WriteLine("File locale:\n\n{0}", text);
-            Console.WriteLine(new string('-', 100));
-            Console.WriteLine("Russian locale:\n\n{0}", check.ToString("G", CultureInfo.CreateSpecificCulture("ru-RU")));
-            Console.WriteLine(new string('-', 100));
-            Console.WriteLine("USA locale:\n\n{0}", check.ToString("G", CultureInfo.CreateSpecificCulture("en-US")));
-            Console.WriteLine(new string('-', 100));
-            Console.WriteLine("Ukrainian locale:\n\n{0}", check.ToString("G", CultureInfo.CreateSpecificCulture("uk-UA")));
-            Console.WriteLine(new string('-', 100));
-            Console.WriteLine("Spanish locale:\n\n{0}", check.ToString("G", CultureInfo.CreateSpecificCulture("es-ES")));
-            Console.WriteLine(new string('-', 100));
+            StringBuilder builder = new StringBuilder();
+            builder.AppendFormat("File locale:\r\n{0}\n", text);
+            builder.AppendFormat(new string('-', 100)+"\n");
+            builder.AppendFormat(new string('-', 100) + "\r\n");
+            builder.AppendFormat("\r\nRussian locale:\r\n{0}\n", check.ToString("G", CultureInfo.CreateSpecificCulture("ru-RU")));
+            builder.AppendFormat(new string('-', 100) + "\n");
+            builder.AppendFormat(new string('-', 100) + "\r\n");
+            builder.AppendFormat("\r\nUSA locale:\r\n{0}\n", check.ToString("G", CultureInfo.CreateSpecificCulture("en-US")));
+            builder.AppendFormat(new string('-', 100) + "\n");
+            builder.AppendFormat(new string('-', 100) + "\r\n");
+            builder.AppendFormat("\r\nUkrainian locale:\r\n{0}\n", check.ToString("G", CultureInfo.CreateSpecificCulture("uk-UA")));
+            builder.AppendFormat(new string('-', 100) + "\n");
+            builder.AppendFormat(new string('-', 100) + "\r\n");
+            builder.AppendFormat("\r\nSpanish locale:\r\n{0}\n", check.ToString("G", CultureInfo.CreateSpecificCulture("es-ES")));
+            builder.AppendFormat(new string('-', 100) + "\n");
+            builder.AppendFormat(new string('-', 100) + "\r\n");
+            Console.WriteLine(builder);
+            StreamWriter streamWriter = new StreamWriter(@"The check with different locales.txt");  // Создаем поток для записи в файл
+            streamWriter.Write(builder);  // Записываем наш форматированный текст в файл
+            streamWriter.Close();  // Закрываем потоки
             Console.ReadKey();
         }
     }

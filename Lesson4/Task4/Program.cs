@@ -15,13 +15,15 @@ namespace Task4
 определенным количеством наименований товаров и датой совершения покупки. Выведите на
 экран информацию из чека в формате текущей локали пользователя и в формате локали en-
 US.*/
-    class Check : IFormattable
+    class Check : IFormattable   // Шаблон чека. Объект хранит все измененнные данные чека согласно локалям. Интерефейс IFormattable предоставляет функциональные возможности для форматирования значения объекта.
+    //     в представление строки.
     {
-        DateTime dateTime;
-        double number, currencyEUR, currencyRUB, currencyUSD;
+        DateTime dateTime;  // Время покупки
+        double number, currencyEUR, currencyRUB, currencyUSD;  
         long date;
+        bool local;
         string textUA, textUS, textRU, textEURO, textDate, text;
-        public Check(string text, double currencyEUR, double currencyRUB, double currencyUSD)
+        public Check(string text, double currencyEUR, double currencyRUB, double currencyUSD, bool local)  // Пользовательский конструктор. Инициализация полей экземпляра класса
         {
             this.textRU = text;
             this.textUA = text;
@@ -30,14 +32,15 @@ US.*/
             this.currencyEUR = currencyEUR;
             this.currencyRUB = currencyRUB;
             this.currencyUSD = currencyUSD;
+            this.local = local;
 
-            string pattern = @"[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}";
-            Regex regex = new Regex(pattern);
+            string pattern = @"[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}";  // Шаблон регулярных выражений для поиска в тексте даты и времени покупки
+            Regex regex = new Regex(pattern);  // Объект для поиска данных в тексте по регулярному шаблону
             textDate = regex.Match(text).Value;
             DateTime dateOne = DateTime.Parse(regex.Match(text).Value);
             this.date = dateOne.ToFileTimeUtc();
         }
-        public string ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)  // Реализация сигнатур метода интерфейса IFormattable. Метод форматирует значение текущего экземпляра, используя указанный формат.
         {
             string textWithSign = null;
             switch (provider.ToString())
@@ -65,16 +68,24 @@ US.*/
             }
 
 
-            string pattern = @"(?<numbers>\d+[\,*\.*]\d*)";
+            string pattern = @"(?<numbers>\d+[\,*\.*]\d*)";  // Шаблон регулярных выражений для поиска в тексте всех числовых данных
             Regex regex = new Regex(pattern);
             foreach (Match item in regex.Matches(this.text))
             {
-                textWithSign = item.Groups["numbers"].Value.Replace('.', ',');
+                if (!local)
+                {
+                    textWithSign = item.Groups["numbers"].Value.Replace('.', ',');
+                }
+                else
+                {
+                    textWithSign = item.Groups["numbers"].Value.Replace(',', '.');
+                }
                 this.number = Convert.ToDouble(textWithSign);
                 text = text.Replace(item.ToString(), number.ToString(format, provider));
             }
             text = text.Replace("гр.", "");
-            pattern = @"(?<gramm>\d+[.,]*\d*г)|(?<gramm>\d+[.,]*\d*кг)";
+
+            pattern = @"(?<gramm>\d+[.,]*\d*г)|(?<gramm>\d+[.,]*\d*кг)";   // Шаблон регулярных выражений для поиска в тексте числовых данных, соответствующих данным веса (грамм, килограмм)
             regex = new Regex(pattern);
             foreach (Match items in regex.Matches(text))
             {
@@ -89,14 +100,28 @@ US.*/
                             {
                                 case "г":
                                     {
-                                        this.number = Convert.ToDouble((items.Groups["gramm"].Value.Replace('.', ',')).Replace("г", ""));
+                                        if (!local)
+                                        {
+                                            this.number = Convert.ToDouble((items.Groups["gramm"].Value.Replace('.', ',')).Replace("г", ""));
+                                        }
+                                        else
+                                        {
+                                            this.number = Convert.ToDouble((items.Groups["gramm"].Value.Replace(',', '.')).Replace("г", ""));
+                                        }
                                         string gramm = (number / 1000).ToString("G", provider);
                                         text = text.Replace(items.ToString(), gramm + " кг");
                                         break;
                                     }
                                 case "кг":
                                     {
-                                        this.number = Convert.ToDouble((items.Groups["gramm"].Value.Replace('.', ',')).Replace("кг", ""));
+                                        if (!local)
+                                        {
+                                            this.number = Convert.ToDouble((items.Groups["gramm"].Value.Replace('.', ',')).Replace("кг", ""));
+                                        }
+                                        else
+                                        {
+                                            this.number = Convert.ToDouble((items.Groups["gramm"].Value.Replace(',', '.')).Replace("кг", ""));
+                                        }
                                         string gramm = number.ToString("G", provider);
                                         text = text.Replace(items.ToString(), gramm + " кг");
                                         break;
@@ -112,14 +137,28 @@ US.*/
                             {
                                 case "г":
                                     {
-                                        this.number = Convert.ToDouble((items.Groups["gramm"].Value.Replace('.', ',')).Replace("г", ""));
+                                        if (!local)
+                                        {
+                                            this.number = Convert.ToDouble((items.Groups["gramm"].Value.Replace('.', ',')).Replace("г", ""));
+                                        }
+                                        else
+                                        {
+                                            this.number = Convert.ToDouble((items.Groups["gramm"].Value.Replace(',', '.')).Replace("г", ""));
+                                        }
                                         string gramm = ((number / 1000) / 0.45359237).ToString("F3", provider);
                                         text = text.Replace(items.ToString(), gramm + " lb");
                                         break;
                                     }
                                 case "кг":
                                     {
-                                        this.number = Convert.ToDouble((items.Groups["gramm"].Value.Replace('.', ',')).Replace("кг", ""));
+                                        if (!local)
+                                        {
+                                            this.number = Convert.ToDouble((items.Groups["gramm"].Value.Replace('.', ',')).Replace("кг", ""));
+                                        }
+                                        else
+                                        {
+                                            this.number = Convert.ToDouble((items.Groups["gramm"].Value.Replace(',', '.')).Replace("кг", ""));
+                                        }
                                         string gramm = (number / 0.45359237).ToString("F3", provider);
                                         text = text.Replace(items.ToString(), gramm + " lb");
                                         break;
@@ -135,14 +174,28 @@ US.*/
                             {
                                 case "г":
                                     {
-                                        this.number = Convert.ToDouble((items.Groups["gramm"].Value.Replace('.', ',')).Replace("г", ""));
+                                        if (!local)
+                                        {
+                                            this.number = Convert.ToDouble((items.Groups["gramm"].Value.Replace('.', ',')).Replace("г", ""));
+                                        }
+                                        else
+                                        {
+                                            this.number = Convert.ToDouble((items.Groups["gramm"].Value.Replace(',', '.')).Replace("г", ""));
+                                        }
                                         string gramm = (number / 1000).ToString("G", provider);
                                         text = text.Replace(items.ToString(), gramm + " kg");
                                         break;
                                     }
                                 case "кг":
                                     {
-                                        this.number = Convert.ToDouble((items.Groups["gramm"].Value.Replace('.', ',')).Replace("кг", ""));
+                                        if (!local)
+                                        {
+                                            this.number = Convert.ToDouble((items.Groups["gramm"].Value.Replace('.', ',')).Replace("кг", ""));
+                                        }
+                                        else
+                                        {
+                                            this.number = Convert.ToDouble((items.Groups["gramm"].Value.Replace(',', '.')).Replace("кг", ""));
+                                        }
                                         string gramm = number.ToString("G", provider);
                                         text = text.Replace(items.ToString(), gramm + " kg");
                                         break;
@@ -152,7 +205,7 @@ US.*/
                         }
                 }
             }
-            pattern = @"(?<money>\-\ \d+[\,*\.*]\d*)";
+            pattern = @"(?<money>\-\ \d+[\,*\.*]\d*)";  // Шаблон регулярных выражений для поиска в тексте данных, соотвутсвующих числовым денежным данным (гривни)
             regex = new Regex(pattern);
             foreach (Match items in regex.Matches(text))
             {
@@ -160,36 +213,71 @@ US.*/
                 {
                     case "ru-RU":
                         {
-                            this.number = Convert.ToDouble((items.Groups["money"].Value.Replace('.', ',')).Replace("- ", ""));
-                            text = text.Replace(items.ToString(), "- "+(number/currencyRUB).ToString("C", provider));
+                            if (!local)
+                            {
+                                this.number = Convert.ToDouble((items.Groups["money"].Value.Replace('.', ',')).Replace("- ", ""));
+                            }
+                            else
+                            {
+                                this.number = Convert.ToDouble((items.Groups["money"].Value.Replace(',', '.')).Replace("- ", ""));
+                            }
+                            text = text.Replace(items.ToString(), "- " + (number / currencyRUB).ToString("C", provider));
                             break;
                         }
                     case "en-US":
                         {
-                            this.number = Convert.ToDouble((items.Groups["money"].Value.Replace('.', ',')).Replace("- ", ""));
-                            text = text.Replace(items.ToString(), "- " + (number/currencyUSD).ToString("C", provider));
+                            if (!local)
+                            {
+                                this.number = Convert.ToDouble((items.Groups["money"].Value.Replace('.', ',')).Replace("- ", ""));
+                            }
+                            else
+                            {
+                                this.number = Convert.ToDouble((items.Groups["money"].Value.Replace(',', '.')).Replace("- ", ""));
+                            }
+                            text = text.Replace(items.ToString(), "- " + (number / currencyUSD).ToString("C", provider));
                             break;
                         }
                     case "uk-UA":
                         {
-                            this.number = Convert.ToDouble((items.Groups["money"].Value.Replace('.', ',')).Replace("- ", ""));
+                            if (!local)
+                            {
+                                this.number = Convert.ToDouble((items.Groups["money"].Value.Replace('.', ',')).Replace("- ", ""));
+                            }
+                            else
+                            {
+                                this.number = Convert.ToDouble((items.Groups["money"].Value.Replace(',', '.')).Replace("- ", ""));
+                            }
                             text = text.Replace(items.ToString(), "- " + number.ToString("C", provider));
                             break;
                         }
                     case "es-ES":
                         {
-                            this.number = Convert.ToDouble((items.Groups["money"].Value.Replace('.', ',')).Replace("- ", ""));
-                            text = text.Replace(items.ToString(), "- " + (number/currencyEUR).ToString("C", provider));
+                            if (!local)
+                            { 
+                                this.number = Convert.ToDouble((items.Groups["money"].Value.Replace('.', ',')).Replace("- ", ""));
+                            }
+                            else
+                            {
+                                this.number = Convert.ToDouble((items.Groups["money"].Value.Replace(',', '.')).Replace("- ", ""));
+                            }
+                            text = text.Replace(items.ToString(), "- " + (number / currencyEUR).ToString("C", provider));
                             break;
                         }
-                }            
+                }
             }
 
-            pattern = @"(?<percent>\d*\W*\d*%)";
+            pattern = @"(?<percent>\d*\W*\d*%)";  // Шаблон регулярных выражений для поиска в тексте данных, соотвутсвующих числовым процентным данным (проценты)
             regex = new Regex(pattern);
             foreach (Match items in regex.Matches(text))
             {
-                this.number = Convert.ToDouble((items.Groups["percent"].Value.Replace('.', ',')).Replace("%", ""));
+                if (!local)
+                {
+                    this.number = Convert.ToDouble((items.Groups["percent"].Value.Replace('.', ',')).Replace("%", ""));
+                }
+                else
+                {
+                    this.number = Convert.ToDouble((items.Groups["percent"].Value.Replace(',', '.')).Replace("%", ""));
+                }
                 string percent = " " + (number * 0.01).ToString("P", provider);
                 text = text.Replace(items.ToString(), percent);
             }
@@ -201,41 +289,35 @@ US.*/
         }
 
     }
+
     class Program
     {
-        static void Main(string[] args)
+        static bool local = false;   // Булевая переменная (поле), которая определяет "знак разделителя целой и дробной части". True - точка, false - запятая.
+        static double FindToCurrencyUSD(string siteText, double currencyUSD)  // Метод для определения курса валют доллар к гривне (согласно последним данным при покупке доллара из сайта https://finance.i.ua/)
         {
-            Console.InputEncoding = Encoding.Unicode;
-            Console.OutputEncoding = Encoding.Unicode;
-
-            WebClient client = new WebClient(); // Создание экземпляра класса WebClient для обмена данными с ресурсом, заданным URI
-            client.Headers["User-Agent"] = "Mozilla / 5.0(Windows NT 6.1; Win64; x64; rv: 47.0) Gecko / 20100101 Firefox / 47.0"; // Автосвойство Headers возвращает или задает коллекцию пар "имя-значение" заголовков, связанных с запросом.
-            string siteText = client.DownloadString(@"https://finance.i.ua/").Replace('"', "'"[0]);
-            double currencyUSD = 0;
-            double currencyRUB = 0;
-            double currencyEUR = 0;
             string pattern = @"(?<currencyUSD>\'{1}USD\W{4}\w+\W+\d+\.*\d+)";
             Regex regex = new Regex(pattern);
             foreach (Match item in regex.Matches(siteText))
             {
                 string patter = @"\d+\.*\d+";
                 Regex regexCurrency = new Regex(patter);
-                currencyUSD += Convert.ToDouble(regexCurrency.Match(item.Groups["currencyUSD"].Value).Value.Replace('.', ','));
+                if (!local)
+                {
+                    currencyUSD += Convert.ToDouble(regexCurrency.Match(item.Groups["currencyUSD"].Value).Value.Replace('.', ','));
+                }
+                else
+                {
+                    currencyUSD += Convert.ToDouble(regexCurrency.Match(item.Groups["currencyUSD"].Value).Value.Replace(',', '.'));
+                }
             }
             currencyUSD /= regex.Matches(siteText).Count;
-            
-            pattern = @"(?<currencyEUR>\'{1}EUR\W{4}\w+\W+\d+\.*\d+)";
-            regex = new Regex(pattern);
-            foreach (Match item in regex.Matches(siteText))
-            {
-                string patter = @"\d+\.*\d+";
-                Regex regexCurrency = new Regex(patter);
-                currencyEUR += Convert.ToDouble(regexCurrency.Match(item.Groups["currencyEUR"].Value).Value.Replace('.', ','));
-            }
-            currencyEUR /= regex.Matches(siteText).Count;
-            
-            pattern = @"(?<currencyRUB>\'{1}RUB\W{4}\w+\W+\d+\.*\d+)";
-            regex = new Regex(pattern);
+            return currencyUSD;
+        }
+
+        static double FindToCurrencyRUB(string siteText, double currencyRUB)  // Метод для определения курса валют рубля к гривне (согласно последним данным при покупке рубля из сайта https://finance.i.ua/)
+        {
+            string pattern = @"(?<currencyRUB>\'{1}RUB\W{4}\w+\W+\d+\.*\d+)";
+            Regex regex = new Regex(pattern);
             int countRUB = 0;
             foreach (Match item in regex.Matches(siteText))
             {
@@ -243,41 +325,107 @@ US.*/
                 Regex regexCurrency = new Regex(patter);
                 if (regexCurrency.IsMatch(item.Groups["currencyRUB"].Value))
                 {
-                    currencyRUB += Convert.ToDouble(regexCurrency.Match(item.Groups["currencyRUB"].Value).Value.Replace('.', ','));
-                    countRUB++;
+                    if (!local)
+                    {
+                        currencyRUB += Convert.ToDouble(regexCurrency.Match(item.Groups["currencyRUB"].Value).Value.Replace('.', ','));
+                        countRUB++;
+                    }
+                    else
+                    {
+                        currencyRUB += Convert.ToDouble(regexCurrency.Match(item.Groups["currencyRUB"].Value).Value.Replace(',', '.'));
+                        countRUB++;
+                    }
                 }
             }
             currencyRUB /= countRUB;
-           
-            CultureInfo[] cultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures);
-            Console.InputEncoding = Encoding.Unicode;
-            Console.OutputEncoding = Encoding.Unicode;
+            return currencyRUB;
+        }
 
-            //foreach (var item in cultureInfos)
-            //{
-            //    Console.WriteLine(item.EnglishName + " - " + item.Name + " - " + item.NumberFormat.CurrencySymbol + 
-            //    " - " + (DateTimeFormatInfo.GetInstance(CultureInfo.CreateSpecificCulture(item.Name))).ShortDatePattern + 
-            //    " - "+(DateTimeFormatInfo.GetInstance(CultureInfo.CreateSpecificCulture(item.Name))).LongTimePattern);
-            //}
-            string text = File.ReadAllText(@"The check.txt");
-            Check check = new Check(text, currencyEUR, currencyRUB, currencyUSD);
+        static double FindToCurrencyEUR(string siteText, double currencyEUR)  // Метод для определения курса валют евро к гривне (согласно последним данным при покупке евро из сайта https://finance.i.ua/)
+        {
+            string pattern = @"(?<currencyEUR>\'{1}EUR\W{4}\w+\W+\d+\.*\d+)";
+            Regex regex = new Regex(pattern);
+            foreach (Match item in regex.Matches(siteText))
+            {
+                string patter = @"\d+\.*\d+";
+                Regex regexCurrency = new Regex(patter);
+                if (!local)
+                {
+                    currencyEUR += Convert.ToDouble(regexCurrency.Match(item.Groups["currencyEUR"].Value).Value.Replace('.', ','));
+                }
+                else
+                {
+                    currencyEUR += Convert.ToDouble(regexCurrency.Match(item.Groups["currencyEUR"].Value).Value.Replace(',', '.'));
+                }
+
+            }
+            currencyEUR /= regex.Matches(siteText).Count;
+            return currencyEUR;
+        }
+
+        static void GetCulturesData()  // Массив данных о всех существующих локалях, языках и региональных параметрах
+        {
+            CultureInfo[] cultureInfos = CultureInfo.GetCultures(CultureTypes.AllCultures);
             StringBuilder builder = new StringBuilder();
-            builder.AppendFormat("File locale:\r\n{0}\n", text);
-            builder.AppendFormat(new string('-', 100)+"\n");
-            builder.AppendFormat(new string('-', 100) + "\r\n");
-            builder.AppendFormat("\r\nRussian locale:\r\n{0}\n", check.ToString("G", CultureInfo.CreateSpecificCulture("ru-RU")));
+            foreach (var item in cultureInfos)
+            {
+                builder.AppendFormat(item.EnglishName + "\t - " + item.Name + "\t - " + item.NumberFormat.CurrencySymbol +
+                "\t - " + (DateTimeFormatInfo.GetInstance(CultureInfo.CreateSpecificCulture(item.Name))).ShortDatePattern +
+                "\t - " + (DateTimeFormatInfo.GetInstance(CultureInfo.CreateSpecificCulture(item.Name))).LongTimePattern+"\r\n");
+            }
+            StreamWriter streamWriter = new StreamWriter(@"All CultureTypes.txt");  // Создаем поток для записи в файл
+            streamWriter.Write(builder);  // Записываем наш форматированный текст в файл
+            streamWriter.Close();  // Закрываем потоки
+        }
+
+        static void Main(string[] args)
+        {
+            try    // Конструкция try-catch для проверки "знака разделителя целой и дробной части" в локали текущей системы (используется запятая или точка)
+            {
+                string oneNumber = "1.1";
+                string twoNumber = "2.3";
+                double test = Convert.ToDouble(oneNumber) / Convert.ToDouble(twoNumber);
+                local = true;
+            }
+            catch (Exception)
+            {
+                local = false;
+            }
+            Console.InputEncoding = Encoding.Unicode;   // Задание кодировки, используемую при чтении входных данных
+            Console.OutputEncoding = Encoding.Unicode;  // Задание кодировки, используемую при записи входных данных
+
+
+            //
+            // Проверка онлайн текущего курса валют.
+            //
+            WebClient client = new WebClient(); // Создание экземпляра класса WebClient для обмена данными с ресурсом, заданным URI
+            client.Headers["User-Agent"] = "Mozilla / 5.0(Windows NT 6.1; Win64; x64; rv: 47.0) Gecko / 20100101 Firefox / 47.0"; // Автосвойство Headers возвращает или задает коллекцию пар "имя-значение" заголовков, связанных с запросом.
+            string siteText = client.DownloadString(@"https://finance.i.ua/").Replace('"', "'"[0]); // Загрузка данных из сайта
+            double currencyUSD = FindToCurrencyUSD(siteText, currencyUSD = 0); // Курс валют доллара к гривне (покупка)
+            double currencyRUB = FindToCurrencyRUB(siteText, currencyRUB = 0); // Курс валют рубля к гривне (покупка)
+            double currencyEUR = FindToCurrencyEUR(siteText, currencyEUR = 0); // Курс валют евро к гривне (покупка)
+
+            GetCulturesData();  // Массив данных о всех существующих локалях, языках и региональных параметрах
+
+            string text = File.ReadAllText(@"The check.txt");  // Подгружаем данные чека из текстового файла, в котором все основные данные о покупке
+            Check check = new Check(text, currencyEUR, currencyRUB, currencyUSD, local);  // Создаем экземпляр объекта типа Check. В этом объекте будет хранится вся основная информация о чеке и возможность модификации его данных согласно выбранных локалей
+            StringBuilder builder = new StringBuilder();  // Создаем экземпляр объекта, который предоставляет изменяемую строку символов.
+            builder.AppendFormat("File locale:\r\n{0}\n", text); // Добавляем данные в объект. Выводим первоначальные данные из чека
             builder.AppendFormat(new string('-', 100) + "\n");
             builder.AppendFormat(new string('-', 100) + "\r\n");
-            builder.AppendFormat("\r\nUSA locale:\r\n{0}\n", check.ToString("G", CultureInfo.CreateSpecificCulture("en-US")));
+            builder.AppendFormat("\r\nRussian locale:\r\n{0}\n", check.ToString("G", CultureInfo.CreateSpecificCulture("ru-RU"))); // Форматируем данные чека, согласно локали русского языка
             builder.AppendFormat(new string('-', 100) + "\n");
             builder.AppendFormat(new string('-', 100) + "\r\n");
-            builder.AppendFormat("\r\nUkrainian locale:\r\n{0}\n", check.ToString("G", CultureInfo.CreateSpecificCulture("uk-UA")));
+            builder.AppendFormat("\r\nUSA locale:\r\n{0}\n", check.ToString("G", CultureInfo.CreateSpecificCulture("en-US")));   // Форматируем данные чека, согласно локали английского языка
             builder.AppendFormat(new string('-', 100) + "\n");
             builder.AppendFormat(new string('-', 100) + "\r\n");
-            builder.AppendFormat("\r\nSpanish locale:\r\n{0}\n", check.ToString("G", CultureInfo.CreateSpecificCulture("es-ES")));
+            builder.AppendFormat("\r\nUkrainian locale:\r\n{0}\n", check.ToString("G", CultureInfo.CreateSpecificCulture("uk-UA")));  // Форматируем данные чека, согласно локали украинского языка
             builder.AppendFormat(new string('-', 100) + "\n");
             builder.AppendFormat(new string('-', 100) + "\r\n");
-            Console.WriteLine(builder);
+            builder.AppendFormat("\r\nSpanish locale:\r\n{0}\n", check.ToString("G", CultureInfo.CreateSpecificCulture("es-ES")));   // Форматируем данные чека, согласно локали испанского языка
+            builder.AppendFormat(new string('-', 100) + "\n");
+            builder.AppendFormat(new string('-', 100) + "\r\n");
+            Console.WriteLine(builder);  // Выводим данные о всех изменениях чека согласно разных локалей в консоли
             StreamWriter streamWriter = new StreamWriter(@"The check with different locales.txt");  // Создаем поток для записи в файл
             streamWriter.Write(builder);  // Записываем наш форматированный текст в файл
             streamWriter.Close();  // Закрываем потоки

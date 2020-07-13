@@ -88,7 +88,6 @@ namespace Additional_Task
                     words = words.Insert(words.IndexOf('<') + 1, "ghtrjjtjuht");  // Вставляем ключевое слово "ghtrjjtjuht" в области нахождения в тексте следующего символа <
                     goto Again;
                 }
-
                 StringBuilder buildWords = new StringBuilder();
                 foreach (var it in informationAboutRerson)
                 {
@@ -102,7 +101,7 @@ namespace Additional_Task
                 if (regexNumber.IsMatch(word))
                 {
                     StringBuilder buildWordsAboutPerson = new StringBuilder();
-                    textWriter.WriteStartAttribute("Place of employment, academic degree, title");   // Создаем открывающийся атрибут в дочернем элементе
+                    textWriter.WriteStartAttribute("Place_of_employment_and_academic_degree_and_title");   // Создаем открывающийся атрибут в дочернем элементе
                     foreach (var ite in informationAboutRerson.GetRange(1, informationAboutRerson.Count - 3))
                     {
                         buildWordsAboutPerson.AppendFormat(ite + "; ");
@@ -119,7 +118,7 @@ namespace Additional_Task
                 else
                 {
                     StringBuilder buildWordsAboutPerson = new StringBuilder();
-                    textWriter.WriteStartAttribute("Place of employment, academic degree, title");
+                    textWriter.WriteStartAttribute("Place_of_employment_and_academic_degree_and_title");
                     foreach (var ite in informationAboutRerson.GetRange(1, informationAboutRerson.Count - 2))
                     {
                         buildWordsAboutPerson.AppendFormat(ite + "; ");

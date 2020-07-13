@@ -7,8 +7,8 @@
 --------------------------------------------------------------------------------------------------
 Results:
 --------------------------------------------------------------------------------------------------
-//<?xml version="1.0" encoding="utf-8"?>
-<MyContacts>
+//<?xml version="1.0" encoding="utf-8"?>//
+//<MyContacts>
 	<Contact Place of employment, academic degree, title="Інститут мовознавства ім. О.О.Потебні; наук.співр.; " Telephone="тел.: (044) 278-1924 с." Email="ALV_0511@ukr.net">Аніщенко Лілія Василівна</Contact>
 	<Contact Place of employment, academic degree, title="Голова Львівської регіональної організації; Інститут народознавства; кандидат історичних наук; ст.наук.співр.; " Telephone="тел.: (032) 297-0157 с." Email="balahutrak@ukr.net">Балагутрак Микола Петрович</Contact>
 	<Contact Place of employment, academic degree, title="Голова Комісії з соціальних питань та охорони праці; Науково-технологічний алмазний концерн „Алкон”; " Telephone="тел.: (044) 430-2346 с." Email="shana52@ukr.net">Білюба Анатолій Петрович</Contact>
@@ -47,4 +47,4 @@ Results:
 	<Contact Place of employment, academic degree, title="Інститут загальної та неорганічної хімії; доктор хімічних наук; завідувач відділом; " Telephone="тел.: (044) 424-2568 с." Email="trelkon@gmail.com">Трунова Олена Костянтинівна</Contact>
 	<Contact Place of employment, academic degree, title="Інститут ядерних досліджень; кандидат фізико-математичних наук; ст.науков. співр.; " Telephone="тел.: (044) 525-4464 с." Email="vuleshch@kinr.kiev.ua">Улещенко Володимир Васильович</Contact>
 	<Contact Place of employment, academic degree, title="Інститут біоколоїдної хімії; кандидат хімічних наук; ст.наук.співр.; " Telephone="тел.: (044) 424-1919 с." Email="050yln@gmail.com">Якубенко Людмила Миколаївна</Contact>
-//</MyContacts>
+</MyContacts>//

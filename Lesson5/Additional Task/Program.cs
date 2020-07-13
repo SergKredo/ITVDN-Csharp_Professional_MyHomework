@@ -88,6 +88,7 @@ namespace Additional_Task
                     words = words.Insert(words.IndexOf('<') + 1, "ghtrjjtjuht");  // Вставляем ключевое слово "ghtrjjtjuht" в области нахождения в тексте следующего символа <
                     goto Again;
                 }
+
                 StringBuilder buildWords = new StringBuilder();
                 foreach (var it in informationAboutRerson)
                 {

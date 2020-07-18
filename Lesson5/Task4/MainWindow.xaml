@@ -6,10 +6,10 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:Task4"
         mc:Ignorable="d"
-        Title="MainWindow" Height="456" Width="800" Loaded="Windows_Loading" MinWidth="800" MinHeight="456">
-    <Grid Background="#FF3F3F46">
-        <TextBox x:Name="Text" Margin="10,10,10,45" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Padding="5" HorizontalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
-        <TabControl Margin="329,0,-310,201" RenderTransformOrigin="0.623,-0.14" BorderBrush="{x:Null}" Background="#FF3F3F46" Height="42" VerticalAlignment="Bottom">
+        Title="MainWindow" Loaded="Windows_Loading" MinWidth="800" MinHeight="456" ResizeMode="NoResize" Width="1300" Height="700">
+    <Grid Background="#FFE5E5E5">
+        <TextBox x:Name="Text" Margin="10,10,10,45" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Padding="5" HorizontalScrollBarVisibility="Auto" TextWrapping="Wrap" Width="1278"/>
+        <!--<TabControl Margin="329,0,-310,201" RenderTransformOrigin="0.623,-0.14" BorderBrush="{x:Null}" Background="#FF3F3F46" Height="42" VerticalAlignment="Bottom">
             <TabControl.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -22,12 +22,17 @@
             <TabItem Header="Background color" Margin="481,4,-480,-4" Background="#FFACACAC" PreviewMouseLeftButtonDown="LookPanel" BorderBrush="#FF2D2D30"/>
             <TabItem Header="Font size" Margin="-168,4,169,-4" Background="#FFACACAC" PreviewMouseLeftButtonDown="LookPanel" BorderBrush="#FF2D2D30"/>
             <TabItem Header="Font style" Margin="132,4,-144,-4" Background="#FFACACAC" PreviewMouseLeftButtonDown="LookPanel" BorderBrush="#FF2D2D30"/>
-        </TabControl>
+        </TabControl>-->
         <Grid>
-            <xctk:ColorPicker x:Name="colorPicker" Margin="660,0,10,9" Background="White" Height="28" VerticalAlignment="Bottom"/>
-            <xctk:ColorPicker x:Name="colorPicker_Copy" Margin="240,0,0,9" Background="White" Height="28" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="122"/>
-            <ComboBox x:Name="TextFont" FontSize="16" VerticalContentAlignment="Center" Margin="70,0,0,9" RenderTransformOrigin="0.895,-1.556" Height="28" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="93"/>
-            <ComboBox x:Name="TextFont_Copy" FontSize="16" VerticalContentAlignment="Center" Margin="446,0,0,9" RenderTransformOrigin="1.753,-6.179" Height="28" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="93"/>
+            <xctk:ColorPicker x:Name="colorPicker" Margin="1001,0,10,9" Background="White" Height="28" VerticalAlignment="Bottom" SelectedColorChanged="ChangeColor"/>
+            <xctk:ColorPicker x:Name="colorPicker_TextColor" Margin="301,0,0,9" Background="White" Height="28" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="285" SelectedColorChanged="ChangeColorText"/>
+            <ComboBox x:Name="ComboBox_FontSize" FontSize="16" VerticalContentAlignment="Center" Margin="76,0,0,9" RenderTransformOrigin="0.895,-1.556" Height="28" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="140" SelectionChanged="ChangeToSizeText"/>
+            <ComboBox x:Name="ComboBox_FontStyle" FontSize="16" VerticalContentAlignment="Center" Margin="681,0,0,9" RenderTransformOrigin="1.753,-6.179" Height="28" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="187" SelectionChanged="ChangeToFontStyle"/>
+            <Label x:Name="Label_FontSize" Content="Font size" HorizontalAlignment="Left" Margin="13,0,0,10" VerticalAlignment="Bottom" RenderTransformOrigin="0.158,-0.545" Background="#FFEEEEEE"/>
+            <Label x:Name="Label_TextColor" Content="Text color" HorizontalAlignment="Left" Margin="229,0,0,10" Background="#FFEEEEEE" Height="26" VerticalAlignment="Bottom"/>
+            <Label x:Name="Label_FontStyle" Content="Font style" HorizontalAlignment="Left" Margin="610,0,0,10" VerticalAlignment="Bottom" Background="#FFEEEEEE"/>
+            <Label x:Name="Label_BackgroundColor" Content="Background color" HorizontalAlignment="Left" Margin="889,0,0,10" VerticalAlignment="Bottom" Background="#FFEEEEEE"/>
+
         </Grid>
     </Grid>
 </Window>

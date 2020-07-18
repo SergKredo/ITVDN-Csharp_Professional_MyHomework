@@ -52,12 +52,41 @@ namespace Task4
         {
             string text = File.ReadAllText(@"005_XML. Файлы конфигурации. Реестр_.txt");
             this.Text.Text = text;
+
+
+            this.ComboBox_FontSize.ItemsSource = this.ComboBox_FontStyle.ItemsSource = Fonts.SystemFontFamilies.OrderBy(x => x.Source);
+            this.ComboBox_FontSize.ItemsSource = new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+
         }
 
         private void LookPanel(object sender, MouseButtonEventArgs e)
         {
         }
 
-       
+        private void ChangeColor(object sender, RoutedPropertyChangedEventArgs<Color?> e)   // Метод обработчик позволяет изменять цвет элементов интерфейса программы
+        {
+            string colorText = this.colorPicker.SelectedColorText;
+            BrushConverter converterColor = new BrushConverter();
+            this.Label_BackgroundColor.Background = (Brush)converterColor.ConvertFromString(colorText);
+            this.Text.Background = (Brush)converterColor.ConvertFromString(colorText);
+        }
+
+        private void ChangeColorText(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            string colorText = this.colorPicker_TextColor.SelectedColorText;
+            BrushConverter converterColor = new BrushConverter();
+            this.Label_TextColor.Background = (Brush)converterColor.ConvertFromString(colorText);
+            this.Text.Foreground = (Brush)converterColor.ConvertFromString(colorText);
+        }
+
+        private void ChangeToFontStyle(object sender, SelectionChangedEventArgs e)
+        {
+            this.Text.FontFamily = this.ComboBox_FontStyle.SelectedItem as FontFamily;
+        }
+
+        private void ChangeToSizeText(object sender, SelectionChangedEventArgs e)
+        {
+            this.Text.FontSize = Convert.ToInt32(this.ComboBox_FontSize.SelectedItem);
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define RegistrySettings
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,7 +41,7 @@ namespace Task4
 
     public partial class MainWindow : Window
     {
-
+        ISetting setting;
 
         public MainWindow()
         {
@@ -53,9 +55,15 @@ namespace Task4
             string text = File.ReadAllText(@"005_XML. Файлы конфигурации. Реестр_.txt");
             this.Text.Text = text;
 
-
             this.ComboBox_FontSize.ItemsSource = this.ComboBox_FontStyle.ItemsSource = Fonts.SystemFontFamilies.OrderBy(x => x.Source);
-            this.ComboBox_FontSize.ItemsSource = new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+            this.ComboBox_FontSize.ItemsSource = new int[] { 1, 2, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 20, 22, 24, 26, 28, 30, 40, 50, 60 };
+
+#if ConfigFile
+            setting = new ConfigSettings();
+#else
+            setting = new RegistrySettings();
+#endif
+            SettingsFilling();
 
         }
 
@@ -63,7 +71,7 @@ namespace Task4
         {
         }
 
-        private void ChangeColor(object sender, RoutedPropertyChangedEventArgs<Color?> e)   // Метод обработчик позволяет изменять цвет элементов интерфейса программы
+        private void ChangeColorBackground(object sender, RoutedPropertyChangedEventArgs<Color?> e)   // Метод обработчик позволяет изменять цвет элементов интерфейса программы
         {
             string colorText = this.colorPicker.SelectedColorText;
             BrushConverter converterColor = new BrushConverter();
@@ -87,6 +95,11 @@ namespace Task4
         private void ChangeToSizeText(object sender, SelectionChangedEventArgs e)
         {
             this.Text.FontSize = Convert.ToInt32(this.ComboBox_FontSize.SelectedItem);
+        }
+
+        void SettingsFilling()
+        { 
+        
         }
     }
 }

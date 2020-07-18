@@ -14,7 +14,7 @@ namespace Task2
     {
         static void Main(string[] args)
         {
-            Console.Write("Enter the path to create or open the file file: ");
+            Console.Write("Enter the path to create or open the file: ");
             string path = Console.ReadLine();         // Указание в консоли адресной строки к файлу
 
             FileStream file = File.OpenWrite(@path);  // Создание потока данных через объявление переменной типа FileStream. Предоставляет System.IO.Stream в файле, поддерживая синхронные и асинхронные

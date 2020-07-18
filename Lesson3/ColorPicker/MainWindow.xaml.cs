@@ -17,6 +17,7 @@ using System.IO;
 using System.Windows.Xps.Packaging;
 using System.Windows.Xps;
 
+
 namespace ColorPicker
 {
         /*Задание 4

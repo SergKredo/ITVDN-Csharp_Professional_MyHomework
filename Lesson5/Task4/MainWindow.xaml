@@ -18,7 +18,7 @@
             <Label x:Name="Label_TextColor" Content="Text color" HorizontalAlignment="Left" Margin="227,0,0,10" Background="#FFEEEEEE" Height="26" VerticalAlignment="Bottom"/>
             <Label x:Name="Label_FontStyle" Content="Font style" HorizontalAlignment="Left" Margin="574,0,0,10" VerticalAlignment="Bottom" Background="#FFEEEEEE"/>
             <Label x:Name="Label_BackgroundColor" Content="Background color" HorizontalAlignment="Left" Margin="843,0,0,10" VerticalAlignment="Bottom" Background="#FFEEEEEE"/>
-            <CheckBox x:Name="CheckBoxSave" Content="Save" Margin="1226,0,4,11" VerticalAlignment="Bottom" Height="23" Padding="4,-1,3,0.8" VerticalContentAlignment="Center" Background="White"/>
+            <CheckBox x:Name="CheckBoxSave" Content="Save" Margin="1226,0,4,11" VerticalAlignment="Bottom" Height="23" Padding="4,-1,3,0.8" VerticalContentAlignment="Center" Background="White" Checked="SaveSettingsApp" IsChecked="True"/>
 
         </Grid>
     </Grid>

@@ -1,4 +1,5 @@
-﻿#define RegistrySettings
+﻿//#define RegistrySettings
+#define ConfigFile
 
 using System;
 using System.Collections.Generic;
@@ -41,12 +42,15 @@ namespace Task4
 
     public partial class MainWindow : Window
     {
+        public static bool Tag;
+        public static object checkBox;
+        public static RoutedEventArgs eCheckBox;
         ISetting setting;
 
         public MainWindow()
         {
             InitializeComponent();
-
+            Tag = true;
 
         }
 
@@ -67,16 +71,16 @@ namespace Task4
 
         }
 
-        private void LookPanel(object sender, MouseButtonEventArgs e)
-        {
-        }
-
         private void ChangeColorBackground(object sender, RoutedPropertyChangedEventArgs<Color?> e)   // Метод обработчик позволяет изменять цвет элементов интерфейса программы
         {
             string colorText = this.colorPicker.SelectedColorText;
             BrushConverter converterColor = new BrushConverter();
             this.Label_BackgroundColor.Background = (Brush)converterColor.ConvertFromString(colorText);
             this.Text.Background = (Brush)converterColor.ConvertFromString(colorText);
+            if (this.CheckBoxSave.IsChecked.Value)
+            {
+                SaveSettingsApp(checkBox, eCheckBox);
+            }
         }
 
         private void ChangeColorText(object sender, RoutedPropertyChangedEventArgs<Color?> e)
@@ -85,21 +89,78 @@ namespace Task4
             BrushConverter converterColor = new BrushConverter();
             this.Label_TextColor.Background = (Brush)converterColor.ConvertFromString(colorText);
             this.Text.Foreground = (Brush)converterColor.ConvertFromString(colorText);
+            if (this.CheckBoxSave.IsChecked.Value)
+            {
+                SaveSettingsApp(checkBox, eCheckBox);
+            }
         }
 
         private void ChangeToFontStyle(object sender, SelectionChangedEventArgs e)
         {
             this.Text.FontFamily = this.ComboBox_FontStyle.SelectedItem as FontFamily;
+            if (this.CheckBoxSave.IsChecked.Value)
+            {
+                SaveSettingsApp(checkBox, eCheckBox);
+            }
         }
 
         private void ChangeToSizeText(object sender, SelectionChangedEventArgs e)
         {
             this.Text.FontSize = Convert.ToInt32(this.ComboBox_FontSize.SelectedItem);
+            if (this.CheckBoxSave.IsChecked.Value)
+            {
+                SaveSettingsApp(checkBox, eCheckBox);
+            }
         }
 
         void SettingsFilling()
-        { 
-        
+        {
+            if (Tag)
+            {
+                this.Label_BackgroundColor.Background = this.Text.Background = setting.BackgroundColor;
+            }
+            else
+            {
+                this.Label_BackgroundColor.Background = (Brush)(new BrushConverter().ConvertFromString("#FFEEEEEE"));
+                this.Text.Background = setting.BackgroundColor;
+            }
+
+            if (Tag)
+            {
+                this.Text.Foreground = this.Label_TextColor.Background = setting.TextColor;
+            }
+            else
+            {
+                this.Label_TextColor.Background = (Brush)(new BrushConverter().ConvertFromString("#FFEEEEEE"));
+                this.Text.Foreground = setting.TextColor;
+            }
+            this.Text.FontFamily = setting.TextFontStyle;
+            this.Text.FontSize = setting.TextSize;
+        }
+
+        private void SaveSettingsApp(object sender, RoutedEventArgs e)
+        {
+            if (this.CheckBoxSave.IsChecked.Value)
+            {
+                if (setting == null)
+                {
+#if ConfigFile
+                    setting = new ConfigSettings();
+#else
+                    setting = new RegistrySettings();
+#endif
+                }
+                else
+                {
+                    setting.BackgroundColor = this.Text.Background;
+                    setting.TextColor = this.Text.Foreground;
+                    setting.TextFontStyle = this.Text.FontFamily;
+                    setting.TextSize = (int)this.Text.FontSize;
+                }
+                checkBox = sender;
+                eCheckBox = e;
+                setting.SaveSettings();
+            }
         }
     }
 }

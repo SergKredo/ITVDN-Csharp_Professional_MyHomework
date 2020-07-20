@@ -1,5 +1,5 @@
-﻿//#define RegistrySettings
-#define ConfigFile
+﻿//#define RegistrySettings   // Сохранение пользовательских параметров приложения в реестр
+#define ConfigFile          // Сохранение пользовательских параметров приложения в конфигурационный файл
 
 using System;
 using System.Collections.Generic;

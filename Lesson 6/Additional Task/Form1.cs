@@ -41,66 +41,98 @@ namespace Additional_Task
 
                 foreach (Type item in types)
                 {
-
-
-
                     this.textBox1.Text += (namespaces == null) ? "namespace " + item.Namespace + Environment.NewLine + "{" + Environment.NewLine : null;
                     namespaces = item.Namespace;
+                    string padding = new string(' ', 5);
                     if (item.IsClass)
                     {
-                        this.textBox1.Text += "class ";
+                        this.textBox1.Text += padding+"class ";
                     }
 
                     if (item.IsValueType)
-                    {
-                        this.textBox1.Text += "struct ";
+                    {                  
+                        this.textBox1.Text += padding + "struct ";
                     }
 
                     if (item.IsEnum)
                     {
-                        this.textBox1.Text += "enum ";
+                        padding = "";
+                        this.textBox1.Text += padding + "enum ";
+                        padding = new string(' ', 5);
                     }
 
                     if (item.IsInterface)
                     {
-                        this.textBox1.Text += "interface ";
+                        this.textBox1.Text += padding + "interface ";
                     }
-                    this.textBox1.Text += item.Name + Environment.NewLine + "{" + Environment.NewLine;
 
+                    
+                    this.textBox1.Text += item.Name + Environment.NewLine + padding+"{" + Environment.NewLine;
 
-                    this.textBox1.Text += "Methods:".ToUpper() + Environment.NewLine;
+                    padding = new string(' ', 15);
+                    this.textBox1.Text += padding+"Methods:".ToUpper() + Environment.NewLine;
 
                     foreach (MethodInfo items in item.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.IgnoreCase))
                     {
+                        bool enter = true;
+                        padding = new string(' ', 15);
                         if (items.IsPublic)
                         {
-                            this.textBox1.Text += "public ";
+                            padding = enter ? padding : "";
+                            enter = false;
+                            this.textBox1.Text += padding+"public ";
                         }
 
                         if (items.IsPrivate)
                         {
-                            this.textBox1.Text += "private ";
+                            padding = enter ? padding : "";
+                            enter = false;
+                            this.textBox1.Text += padding + "private ";
                         }
 
                         if (items.IsStatic)
                         {
-                            this.textBox1.Text += "static ";
+                            padding = enter ? padding : "";
+                            enter = false;
+                            this.textBox1.Text += padding + "static ";
                         }
 
                         if (items.IsAbstract)
                         {
-                            this.textBox1.Text += "abstract ";
+                            padding = enter ? padding : "";
+                            enter = false;
+                            this.textBox1.Text += padding + "abstract ";
                         }
 
                         if (items.IsVirtual)
                         {
-                            this.textBox1.Text += "virtual ";
+                            padding = enter ? padding : "";
+                            enter = false;
+                            this.textBox1.Text += padding + "virtual ";
+                        }
+                        if(enter)
+                        {
+                            this.textBox1.Text += padding;
                         }
 
-                        this.textBox1.Text += items.ReturnType.Name + " " + items.Name + Environment.NewLine;
+                        this.textBox1.Text += items.ReturnType.Name + " " + items.Name + "(";
+                        ParameterInfo[] parameters = items.GetParameters();
+                        string text = null;
+                        for (int i = 0; i < parameters.Length; i++)
+                        {
+                            this.textBox1.Text += parameters[i].ParameterType.Name +" "+ parameters[i].Name;
+                            text += parameters[i].ParameterType.Name + " " + parameters[i].Name;
+                            if (i + 1 < parameters.Length)
+                            {
+                                this.textBox1.Text += ", ";
+                                text+= ", ";
+                            }
+                        }
+                        this.textBox1.Text += ")" + Environment.NewLine;
                     }
 
-                    this.textBox1.Text += "}" + Environment.NewLine + "\r\n";
+                    padding = new string(' ', 5);
+                    this.textBox1.Text += padding+"}" + Environment.NewLine + "\r\n";
 
                 }
                 this.textBox1.Text += "}" + Environment.NewLine;

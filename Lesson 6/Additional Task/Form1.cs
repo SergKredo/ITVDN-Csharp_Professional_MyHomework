@@ -33,6 +33,7 @@ namespace Additional_Task
         {
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
+                this.textBox1.Text = null;
                 string path = openFileDialog.FileName;
 
                 Assembly assembly = Assembly.LoadFrom(@path);
@@ -46,11 +47,11 @@ namespace Additional_Task
                     string padding = new string(' ', 5);
                     if (item.IsClass)
                     {
-                        this.textBox1.Text += padding+"class ";
+                        this.textBox1.Text += padding + "class ";
                     }
 
                     if (item.IsValueType)
-                    {                  
+                    {
                         this.textBox1.Text += padding + "struct ";
                     }
 
@@ -66,21 +67,21 @@ namespace Additional_Task
                         this.textBox1.Text += padding + "interface ";
                     }
 
-                    
-                    this.textBox1.Text += item.Name + Environment.NewLine + padding+"{" + Environment.NewLine;
 
-                    padding = new string(' ', 15);
-                    this.textBox1.Text += padding+"Methods:".ToUpper() + Environment.NewLine;
+                    this.textBox1.Text += item.Name + Environment.NewLine + padding + "{" + Environment.NewLine;
+
+                    padding = new string(' ', 10);
+                    this.textBox1.Text += padding + "Methods:".ToUpper() + Environment.NewLine;
 
                     foreach (MethodInfo items in item.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.IgnoreCase))
                     {
                         bool enter = true;
-                        padding = new string(' ', 15);
+                        padding = new string(' ', 42);
                         if (items.IsPublic)
                         {
                             padding = enter ? padding : "";
                             enter = false;
-                            this.textBox1.Text += padding+"public ";
+                            this.textBox1.Text += padding + "public ";
                         }
 
                         if (items.IsPrivate)
@@ -110,7 +111,7 @@ namespace Additional_Task
                             enter = false;
                             this.textBox1.Text += padding + "virtual ";
                         }
-                        if(enter)
+                        if (enter)
                         {
                             this.textBox1.Text += padding;
                         }
@@ -120,19 +121,115 @@ namespace Additional_Task
                         string text = null;
                         for (int i = 0; i < parameters.Length; i++)
                         {
-                            this.textBox1.Text += parameters[i].ParameterType.Name +" "+ parameters[i].Name;
+                            this.textBox1.Text += parameters[i].ParameterType.Name + " " + parameters[i].Name;
                             text += parameters[i].ParameterType.Name + " " + parameters[i].Name;
                             if (i + 1 < parameters.Length)
                             {
                                 this.textBox1.Text += ", ";
-                                text+= ", ";
+                                text += ", ";
                             }
                         }
-                        this.textBox1.Text += ")" + Environment.NewLine;
+                        this.textBox1.Text += ");" + Environment.NewLine;
                     }
 
+
+                    padding = new string(' ', 10);
+                    this.textBox1.Text += padding + "Fields:".ToUpper() + Environment.NewLine;
+                    foreach (var field in item.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.IgnoreCase))
+                    {
+                        bool enter = true;
+                        padding = new string(' ', 42);
+                        if (field.IsPublic)
+                        {
+                            padding = enter ? padding : "";
+                            enter = false;
+                            this.textBox1.Text += padding + "public ";
+                        }
+
+                        if (field.IsPrivate)
+                        {
+                            padding = enter ? padding : "";
+                            enter = false;
+                            this.textBox1.Text += padding + "private ";
+                        }
+
+                        if (field.IsStatic)
+                        {
+                            padding = enter ? padding : "";
+                            enter = false;
+                            this.textBox1.Text += padding + "static ";
+                        }
+                        if (enter)
+                        {
+                            this.textBox1.Text += padding;
+                        }
+                        this.textBox1.Text += field.FieldType.Name + " " + field.Name + ";" + Environment.NewLine;
+                    }
+
+
+                    padding = new string(' ', 10);
+                    this.textBox1.Text += padding + "Properties:".ToUpper() + Environment.NewLine;
+                    foreach (var field in item.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.IgnoreCase))
+                    {
+                        bool enter = true;
+                        padding = new string(' ', 42);
+                        this.textBox1.Text += padding;
+
+                        this.textBox1.Text += field.PropertyType.Name + " " + field.Name + ";" + Environment.NewLine;
+                    }
+
+
+                    padding = new string(' ', 10);
+                    this.textBox1.Text += padding + "Constructors:".ToUpper() + Environment.NewLine;
+                    foreach (var field in item.GetConstructors(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.IgnoreCase))
+                    {
+                        bool enter = true;
+                        padding = new string(' ', 42);
+                        if (field.IsPublic)
+                        {
+                            padding = enter ? padding : "";
+                            enter = false;
+                            this.textBox1.Text += padding + "public ";
+                        }
+
+                        if (field.IsPrivate)
+                        {
+                            padding = enter ? padding : "";
+                            enter = false;
+                            this.textBox1.Text += padding + "private ";
+                        }
+
+                        if (field.IsStatic)
+                        {
+                            padding = enter ? padding : "";
+                            enter = false;
+                            this.textBox1.Text += padding + "static ";
+                        }
+
+                        if (enter)
+                        {
+                            this.textBox1.Text += padding;
+                        }
+
+                        this.textBox1.Text += field.Name + "(";
+                        ParameterInfo[] parameters = field.GetParameters();
+                        string text = null;
+                        for (int i = 0; i < parameters.Length; i++)
+                        {
+                            this.textBox1.Text += parameters[i].ParameterType.Name + " " + parameters[i].Name;
+                            text += parameters[i].ParameterType.Name + " " + parameters[i].Name;
+                            if (i + 1 < parameters.Length)
+                            {
+                                this.textBox1.Text += ", ";
+                                text += ", ";
+                            }
+                        }
+                        this.textBox1.Text += ");" + Environment.NewLine;
+                    }
+
+
                     padding = new string(' ', 5);
-                    this.textBox1.Text += padding+"}" + Environment.NewLine + "\r\n";
+                    this.textBox1.Text += padding + "}" + Environment.NewLine + "\r\n";
 
                 }
                 this.textBox1.Text += "}" + Environment.NewLine;

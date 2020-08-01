@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов для изменения сведений,
 // связанных со сборкой.
-[assembly: AssemblyTitle("Additional Task")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("C#/.Net Reflector by SergKredo")]
+[assembly: AssemblyDescription("C#/.Net Reflector")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Additional Task")]
+[assembly: AssemblyCompany("SergKredo")]
+[assembly: AssemblyProduct("C#/.Net Reflector by SergKredo")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

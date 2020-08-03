@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Additional Task", "Additional Task\Additional Task.csproj", "{8ACCC53F-208F-4492-95FA-FB72D9A85812}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task 2_Converter_Temperature", "Task 2_Converter_Temperature\Task 2_Converter_Temperature.csproj", "{635844AF-770D-4924-8BEF-F01A1448BDA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task3_ConverterTemperature", "Task3_ConverterTemperature\Task3_ConverterTemperature.csproj", "{B1EC32E4-3F35-43CA-99E2-51CF168FE858}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{8ACCC53F-208F-4492-95FA-FB72D9A85812}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ACCC53F-208F-4492-95FA-FB72D9A85812}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ACCC53F-208F-4492-95FA-FB72D9A85812}.Release|Any CPU.Build.0 = Release|Any CPU
+		{635844AF-770D-4924-8BEF-F01A1448BDA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{635844AF-770D-4924-8BEF-F01A1448BDA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{635844AF-770D-4924-8BEF-F01A1448BDA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{635844AF-770D-4924-8BEF-F01A1448BDA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1EC32E4-3F35-43CA-99E2-51CF168FE858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1EC32E4-3F35-43CA-99E2-51CF168FE858}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1EC32E4-3F35-43CA-99E2-51CF168FE858}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1EC32E4-3F35-43CA-99E2-51CF168FE858}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,34 +1,113 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Task3_ConverterTemperature
+namespace Task_2_Converter_Temperature
 {
-    public partial class Form1 : Form
+
+    class ConverterTemperature : BaseConverter
     {
-        char[] charMassive = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', ',' };
-        static double degreeCelcia = 0;
-        static double degreeKelvin = 0;
-        static double degreeFarinhate = 0;
-        static string textCelcia = "";
-        static string textKelvin = "";
-        static string textFarinhate = "";
-        bool kelvin = true;
-        bool farinhate = true;
-        bool celcia = true;
-        public Form1()
+        private TextBox textBox_Kelvine;
+        private TextBox textBox_Farinhate;
+        private TextBox textBox_Celcia;
+        public ConverterTemperature(TextBox textBox_Kelvine, TextBox textBox_Farinhate, TextBox textBox_Celcia)
+            : base(textBox_Kelvine, textBox_Farinhate, textBox_Celcia)
         {
-            InitializeComponent();
+            this.textBox_Kelvine = textBox_Kelvine;
+            this.textBox_Farinhate = textBox_Farinhate;
+            this.textBox_Celcia = textBox_Celcia;
         }
 
 
-        private void textBox_Kelvine_TextChanged(object sender, EventArgs e)
+        public override double ConvertCelciaToKelvine(double degree)
+        {
+            try
+            {
+                string grad = degree.ToString().Replace('.', ',');
+                return Convert.ToDouble(grad) + 273.15;
+            }
+            catch (Exception)
+            {
+                string grad = degree.ToString().Replace(',', '.');
+                return Convert.ToDouble(grad) + 273.15;
+            }
+        }
+
+        public override double ConvertCelciaToFarinhate(double degree)
+        {
+            try
+            {
+                string grad = degree.ToString().Replace('.', ',');
+                return (Convert.ToDouble(grad) * (9 / 5d)) + 32;
+            }
+            catch (Exception)
+            {
+                string grad = degree.ToString().Replace(',', '.');
+                return (Convert.ToDouble(grad) * (9 / 5d)) + 32;
+            }
+        }
+
+        public override double ConvertKelvineToCelcia(double degree)
+        {
+            try
+            {
+                string grad = degree.ToString().Replace('.', ',');
+                return Convert.ToDouble(grad) - 273.15;
+            }
+            catch (Exception)
+            {
+                string grad = degree.ToString().Replace(',', '.');
+                return Convert.ToDouble(grad) - 273.15;
+            }
+
+        }
+        public override double ConvertKelvineToFarinhate(double degree)
+        {
+            try
+            {
+                string grad = degree.ToString().Replace('.', ',');
+                return (Convert.ToDouble(grad) - 273.15) * (9 / 5d) + 32;
+            }
+            catch (Exception)
+            {
+                string grad = degree.ToString().Replace(',', '.');
+                return (Convert.ToDouble(grad) - 273.15) * (9 / 5d) + 32;
+            }
+        }
+
+        public override double ConvertFarinhateToCelcia(double degree)
+        {
+            try
+            {
+                string grad = degree.ToString().Replace('.', ',');
+                return (Convert.ToDouble(grad) - 32) * (5 / 9d);
+            }
+            catch (Exception)
+            {
+                string grad = degree.ToString().Replace(',', '.');
+                return (Convert.ToDouble(grad) - 32) * (5 / 9d);
+            }
+        }
+
+        public override double ConvertFarinhateToKelvine(double degree)
+        {
+            try
+            {
+                string grad = degree.ToString().Replace('.', ',');
+                return (Convert.ToDouble(grad) - 32) * (5 / 9d) + 273.15;
+            }
+            catch (Exception)
+            {
+                string grad = degree.ToString().Replace(',', '.');
+                return (Convert.ToDouble(grad) - 32) * (5 / 9d) + 273.15;
+            }
+        }
+
+
+        public override void textBox_Kelvine_TextChanged(object sender, EventArgs e)
         {
             var text = sender as TextBox;
             bool right = true;
@@ -89,7 +168,7 @@ namespace Task3_ConverterTemperature
             }
         }
 
-        private void textBox_Celcia_TextChanged(object sender, EventArgs e)
+        public override void textBox_Celcia_TextChanged(object sender, EventArgs e)
         {
             var text = sender as TextBox;
             bool right = true;
@@ -149,7 +228,8 @@ namespace Task3_ConverterTemperature
             }
         }
 
-        private void textBox_Farinhate_TextChanged(object sender, EventArgs e)
+
+        public override void textBox_Farinhate_TextChanged(object sender, EventArgs e)
         {
             var text = sender as TextBox;
             bool right = true;
@@ -207,95 +287,6 @@ namespace Task3_ConverterTemperature
                 textFarinhate = "";
                 degreeFarinhate = 0;
             }
-        }
-
-
-        public double ConvertCelciaToKelvine(double degree)
-        {
-            try
-            {
-                string grad = degree.ToString().Replace('.', ',');
-                return Convert.ToDouble(grad) + 273.15;
-            }
-            catch (Exception)
-            {
-                string grad = degree.ToString().Replace(',', '.');
-                return Convert.ToDouble(grad) + 273.15;
-            }
-        }
-        public double ConvertCelciaToFarinhate(double degree)
-        {
-            try
-            {
-                string grad = degree.ToString().Replace('.', ',');
-                return (Convert.ToDouble(grad) * (9 / 5d)) + 32;
-            }
-            catch (Exception)
-            {
-                string grad = degree.ToString().Replace(',', '.');
-                return (Convert.ToDouble(grad) * (9 / 5d)) + 32;
-            }
-
-        }
-
-        public double ConvertKelvineToCelcia(double degree)
-        {
-            try
-            {
-                string grad = degree.ToString().Replace('.', ',');
-                return Convert.ToDouble(grad) - 273.15;
-            }
-            catch (Exception)
-            {
-                string grad = degree.ToString().Replace(',', '.');
-                return Convert.ToDouble(grad) - 273.15;
-            }
-
-        }
-        public double ConvertKelvineToFarinhate(double degree)
-        {
-            try
-            {
-                string grad = degree.ToString().Replace('.', ',');
-                return (Convert.ToDouble(grad) - 273.15) * (9 / 5d) + 32;
-            }
-            catch (Exception)
-            {
-                string grad = degree.ToString().Replace(',', '.');
-                return (Convert.ToDouble(grad) - 273.15) * (9 / 5d) + 32;
-            }
-        }
-
-        public double ConvertFarinhateToCelcia(double degree)
-        {
-            try
-            {
-                string grad = degree.ToString().Replace('.', ',');
-                return (Convert.ToDouble(grad) - 32) * (5 / 9d);
-            }
-            catch (Exception)
-            {
-                string grad = degree.ToString().Replace(',', '.');
-                return (Convert.ToDouble(grad) - 32) * (5 / 9d);
-            }
-        }
-        public double ConvertFarinhateToKelvine(double degree)
-        {
-            try
-            {
-                string grad = degree.ToString().Replace('.', ',');
-                return (Convert.ToDouble(grad) - 32) * (5 / 9d) + 273.15;
-            }
-            catch (Exception)
-            {
-                string grad = degree.ToString().Replace(',', '.');
-                return (Convert.ToDouble(grad) - 32) * (5 / 9d) + 273.15;
-            }
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

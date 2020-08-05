@@ -7,8 +7,10 @@ using System.Windows.Forms;
 
 namespace Task_2_Converter_Temperature
 {
-
-    class ConverterTemperature : BaseConverter
+        /*Задание 2
+    Создайте свою пользовательскую сборку по примеру сборки CarLibrary из урока, сборка будет
+    использоваться для работы с конвертером температуры.*/
+    class ConverterTemperature : BaseConverter  // Объявление класса ConverterTemperature, который наследует члены абстрактного базового класса BaseConverter
     {
         private TextBox textBox_Kelvine;
         private TextBox textBox_Farinhate;
@@ -16,6 +18,7 @@ namespace Task_2_Converter_Temperature
         public ConverterTemperature(TextBox textBox_Kelvine, TextBox textBox_Farinhate, TextBox textBox_Celcia)
             : base(textBox_Kelvine, textBox_Farinhate, textBox_Celcia)
         {
+            // Присвоение параметров конструктора полям класса
             this.textBox_Kelvine = textBox_Kelvine;
             this.textBox_Farinhate = textBox_Farinhate;
             this.textBox_Celcia = textBox_Celcia;

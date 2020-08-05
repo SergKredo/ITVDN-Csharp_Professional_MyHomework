@@ -10,6 +10,11 @@ using System.Windows.Forms;
 
 namespace Task3_ConverterTemperature
 {
+
+    /*
+     1-й способ создания приложения конвертера температуры: Цельсии, Кельвин, Фарингейты путем компиляции
+     */
+
     public partial class Form1 : Form
     {
         char[] charMassive = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', ',' };
@@ -291,11 +296,6 @@ namespace Task3_ConverterTemperature
                 string grad = degree.ToString().Replace(',', '.');
                 return (Convert.ToDouble(grad) - 32) * (5 / 9d) + 273.15;
             }
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -101,7 +101,6 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "degree Kelvin (K)";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // Form1
             // 

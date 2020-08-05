@@ -27,16 +27,12 @@ namespace Task3_ConverterTemperature
             InitializeComponent();
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void textBox_Kelvine_TextChanged(object sender, EventArgs e)
         {
             var text = sender as TextBox;
             bool right = true;
-            
+
             if (text.Text != "" && kelvin && !text.Text.StartsWith(".") && !text.Text.StartsWith(",") && (!textKelvin.Contains(",") || (textKelvin.IndexOf(',') == text.Text.LastIndexOf(','))) && (!textKelvin.Contains(".") || (textKelvin.IndexOf('.') == text.Text.LastIndexOf('.'))))
             {
                 if (text.Text != "-")
@@ -58,7 +54,7 @@ namespace Task3_ConverterTemperature
                     {
                         foreach (char item in charMassive)
                         {
-                            if (text.Text.EndsWith(item.ToString()))
+                            if (text.Text.StartsWith(item.ToString()) && text.Text.EndsWith(item.ToString()))
                             {
                                 degreeKelvin = Convert.ToDouble(text.Text.Replace(',', '.'));
                                 textKelvin = text.Text;
@@ -86,7 +82,7 @@ namespace Task3_ConverterTemperature
                 this.textBox_Kelvine.Text = degreeKelvin.ToString();
                 textKelvin = degreeKelvin.ToString();
             }
-            else if(kelvin)
+            else if (kelvin)
             {
                 textKelvin = "";
                 degreeKelvin = 0;
@@ -118,7 +114,7 @@ namespace Task3_ConverterTemperature
                     {
                         foreach (char item in charMassive)
                         {
-                            if (text.Text.EndsWith(item.ToString()))
+                            if (text.Text.StartsWith(item.ToString()) && text.Text.EndsWith(item.ToString()))
                             {
                                 degreeCelcia = Convert.ToDouble(text.Text.Replace(',', '.'));
                                 textCelcia = text.Text;
@@ -146,7 +142,7 @@ namespace Task3_ConverterTemperature
                 this.textBox_Celcia.Text = degreeCelcia.ToString();
                 textCelcia = degreeCelcia.ToString();
             }
-            else if(celcia)
+            else if (celcia)
             {
                 textCelcia = "";
                 degreeCelcia = 0;
@@ -178,7 +174,7 @@ namespace Task3_ConverterTemperature
                     {
                         foreach (char item in charMassive)
                         {
-                            if (text.Text.EndsWith(item.ToString()))
+                            if (text.Text.StartsWith(item.ToString()) && text.Text.EndsWith(item.ToString()))
                             {
                                 degreeFarinhate = Convert.ToDouble(text.Text.Replace(',', '.'));
                                 textFarinhate = text.Text;
@@ -206,7 +202,7 @@ namespace Task3_ConverterTemperature
                 this.textBox_Farinhate.Text = degreeFarinhate.ToString();
                 textFarinhate = degreeFarinhate.ToString();
             }
-            else if(farinhate)
+            else if (farinhate)
             {
                 textFarinhate = "";
                 degreeFarinhate = 0;

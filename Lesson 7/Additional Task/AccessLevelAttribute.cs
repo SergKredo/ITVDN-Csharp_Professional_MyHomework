@@ -18,7 +18,7 @@ namespace Additional_Task
         {
             this.accessLevel = accessLevelControl;
             date = DateTime.Now;
-            FileInfo file = new FileInfo("Bank data.dat");
+            FileInfo file = new FileInfo("Accounting record.dat");
             writer = file.AppendText();
         }
 
@@ -31,7 +31,6 @@ namespace Additional_Task
                         writer.WriteLine(date + "\r\n");
                         writer.WriteLine("An employee {0} {1} with the 'manager' access level tried to access the company's bank database.\r\n", human.name, human.lastName);
                         writer.Close();
-                        Console.WriteLine("Unfortunately, access to the bank database for employees with the 'manager' access level is prohibited!");
                         break;
                     }
                 case AccessLevelControl.LowControlforProgrammer:
@@ -39,7 +38,6 @@ namespace Additional_Task
                         writer.WriteLine(date + "\r\n");
                         writer.WriteLine("An employee {0} {1} with the 'programmer' access level tried to access the company's bank database.\r\n", human.name, human.lastName);
                         writer.Close();
-                        Console.WriteLine("Unfortunately, access to the bank database for employees with the 'programmer' access level is prohibited!");
                         break;
                     }
                 case AccessLevelControl.FullControlforDirector:
@@ -47,7 +45,6 @@ namespace Additional_Task
                         writer.WriteLine(date + "\r\n");
                         writer.WriteLine("An employee {0} {1} with the 'director' access level has successfully accessed the company's bank database.\r\n", human.name, human.lastName);
                         writer.Close();
-                        Console.WriteLine("Access to the bank database for employees with 'director' access level is open!");
                         break;
                     }
                 default:
@@ -55,7 +52,6 @@ namespace Additional_Task
                         writer.WriteLine(date + "\r\n");
                         writer.WriteLine("Sided man with 'an unidentified user' access level tried to gain access to banking database company.\r\n");
                         writer.Close();
-                        Console.WriteLine("Access to the bank database for other categories of persons with the 'unidentified person' access level is prohibited!");
                         break;
                     }
             }
@@ -64,6 +60,6 @@ namespace Additional_Task
 
     enum AccessLevelControl
     {
-        FullControlforDirector, MiddleControlforManager, LowControlforProgrammer
+        FullControlforDirector, MiddleControlforManager, LowControlforProgrammer, AccessIsDenied
     }
 }

@@ -9,18 +9,50 @@ namespace Additional_Task
 {
     class Program
     {
+        [STAThread]
         static void Main(string[] args)
         {
-            Human human = new Programmer("Piter", "Ivanov");
-            human.OpenToBaseBankDate(human);
+            while (true)
+            {
+                Human human;
+                Console.WriteLine("Enter your details:".ToUpper());
+                Console.Write("Access level: ");
+                string accessLevel = Console.ReadLine();
 
-            human = new Director("Sergey", "Petrov");
-            human.OpenToBaseBankDate(human);
+                Console.Write("Username: ");
+                string userName = Console.ReadLine();
 
-            human = new Manager("Elena", "Hurova");
-            human.OpenToBaseBankDate(human);
+                Console.Write("User surname: ");
+                string userSurname = Console.ReadLine();
 
-            Console.ReadKey();
+                switch (accessLevel)
+                {
+                    case "Programmer":
+                        {
+                            human = new Programmer(userName, userSurname);
+                            human.OpenToBaseBankDate(human);
+                            break;
+                        }
+                    case "Director":
+                        {
+                            human = new Director(userName, userSurname);
+                            human.OpenToBaseBankDate(human);
+                            break;
+                        }
+                    case "Manager":
+                        {
+                            human = new Manager(userName, userSurname);
+                            human.OpenToBaseBankDate(human);
+                            break;
+                        }
+                    default:
+                        {
+                            human = new Other(userName, userSurname);
+                            human.OpenToBaseBankDate(human);
+                            break;
+                        }
+                }
+            }
         }
     }
 }

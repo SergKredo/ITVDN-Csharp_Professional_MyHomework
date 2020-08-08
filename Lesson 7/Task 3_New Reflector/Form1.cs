@@ -22,6 +22,7 @@ namespace Task_3_New_Reflector
      */
     public partial class Form1 : Form
     {
+        Assembly assembly;
         public Form1()
         {
             InitializeComponent();
@@ -46,50 +47,63 @@ namespace Task_3_New_Reflector
                     string path = openFileDialog.FileName;  // Строка полного адресного пути загружаемой нами сборки (exe, dll).
                     this.browser.Text = @path;
 
-
                     // При помощи класса Assembly - можно динамически загружать сборки, 
                     // обращаться к членам класса в процессе выполнения (ПОЗДНЕЕ СВЯЗЫВАНИЕ),
                     // а так же получать информацию о самой сборке.
 
-                    Assembly assembly = Assembly.LoadFrom(@path);
-                    Type[] types = assembly.GetTypes();   // Вывод информации о всех типах в сборке с помощью абстрактного класса Type.
-                    string namespaces = null;
-                    string loadAssembly = new string(' ', 90) + "The assembly was loaded successfully!".ToUpper() + "\r\n\r\n";
-                    this.textBox1.Text += loadAssembly;
-                    foreach (Type item in types)    // Перебор всех типов
+                    this.assembly = Assembly.LoadFrom(@path);
+                }
+            }
+            catch (Exception)  // Исключение срабатывает в случае ошибки при открытии иной сборки, которая не потдерживается платформой .Net framework
+            {
+                string loadAssembly = new string(' ', 90) + "Failed assembly loading!".ToUpper();
+                this.textBox1.Text = loadAssembly;
+            }
+        }
+
+        private void button_Display_Click(object sender, EventArgs e)
+        {
+            this.textBox1.Text = null;
+            int a = 1; int b = 1; int c = 1; int d = 1; int f = 0;
+            try
+            {
+                Type[] types = assembly.GetTypes();   // Вывод информации о всех типах в сборке с помощью абстрактного класса Type.
+                string namespaces = null;
+                string loadAssembly = new string(' ', 90) + "The assembly was loaded successfully!".ToUpper() + "\r\n\r\n";
+                this.textBox1.Text += loadAssembly;
+                foreach (Type item in types)    // Перебор всех типов
+                {
+                    f += 1;
+                    this.textBox1.Text += (namespaces == null) ? "namespace " + item.Namespace + Environment.NewLine + "{" + Environment.NewLine : null;
+                    namespaces = item.Namespace;
+                    string padding = new string(' ', 5);
+                    if (item.IsClass)  // Проверка, является ли данный тип классом
                     {
-                        this.textBox1.Text += (namespaces == null) ? "namespace " + item.Namespace + Environment.NewLine + "{" + Environment.NewLine : null;
-                        namespaces = item.Namespace;
-                        string padding = new string(' ', 5);
-                        if (item.IsClass)  // Проверка, является ли данный тип классом
-                        {
-                            this.textBox1.Text += padding + "class ";
-                        }
+                        this.textBox1.Text += padding + "class ";
+                    }
 
-                        if (item.IsValueType)  // Проверка, является ли данный тип структурой
-                        {
-                            this.textBox1.Text += padding + "struct ";
-                        }
+                    if (item.IsValueType)  // Проверка, является ли данный тип структурой
+                    {
+                        this.textBox1.Text += padding + "struct ";
+                    }
 
-                        if (item.IsEnum)   // Проверка, является ли данный тип перечислением
-                        {
-                            padding = "";
-                            this.textBox1.Text += padding + "enum ";
-                            padding = new string(' ', 5);
-                        }
+                    if (item.IsEnum)   // Проверка, является ли данный тип перечислением
+                    {
+                        padding = "";
+                        this.textBox1.Text += padding + "enum ";
+                        padding = new string(' ', 5);
+                    }
 
-                        if (item.IsInterface)  // Проверка, является ли данный тип интерфейсом
-                        {
-                            this.textBox1.Text += padding + "interface ";
-                        }
+                    if (item.IsInterface)  // Проверка, является ли данный тип интерфейсом
+                    {
+                        this.textBox1.Text += padding + "interface ";
+                    }
 
 
-                        this.textBox1.Text += item.Name + Environment.NewLine + padding + "{" + Environment.NewLine;
+                    this.textBox1.Text += item.Name + Environment.NewLine + padding + "{" + Environment.NewLine;
 
-                        padding = new string(' ', 10);
-                        this.textBox1.Text += padding + "Methods:".ToUpper() + Environment.NewLine;
-
-
+                    if (this.checkedListBox.CheckedIndices.Contains(10))
+                    {
                         /*Перечисление BindingFlags может принимать различные значения:
                             DeclaredOnly: получает только методы непосредственно данного класса, унаследованные методы не извлекаются
                             Instance: получает только методы экземпляра
@@ -99,6 +113,11 @@ namespace Task_3_New_Reflector
                         */
                         foreach (MethodInfo items in item.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.IgnoreCase))  // Перебор всех методов
                         {
+                            if (a++ == 1)
+                            {
+                                padding = new string(' ', 10);
+                                this.textBox1.Text += padding + "Methods:".ToUpper() + Environment.NewLine;
+                            }
                             bool enter = true;
                             padding = new string(' ', 42);
                             if (items.IsPublic)   // Проверка, является ли данный метод открытым
@@ -157,14 +176,19 @@ namespace Task_3_New_Reflector
                             }
                             this.textBox1.Text += ");" + Environment.NewLine;
                         }
+                    }
 
-
-                        padding = new string(' ', 10);
-                        this.textBox1.Text += padding + "Fields:".ToUpper() + Environment.NewLine;
+                    if (this.checkedListBox.CheckedIndices.Contains(8))
+                    {
 
                         // Перебор всех полей типа
                         foreach (var field in item.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.IgnoreCase))
                         {
+                            if (b++ == 1)
+                            {
+                                padding = new string(' ', 10);
+                                this.textBox1.Text += padding + "Fields:".ToUpper() + Environment.NewLine;
+                            }
                             bool enter = true;
                             padding = new string(' ', 42);
                             if (field.IsPublic)  // Проверка, является ли данное поле открытым
@@ -193,24 +217,36 @@ namespace Task_3_New_Reflector
                             }
                             this.textBox1.Text += field.FieldType.Name + " " + field.Name + ";" + Environment.NewLine;
                         }
+                    }
 
+                    if (this.checkedListBox.CheckedIndices.Contains(9))
+                    {
                         // Перебор всех свойств типа
-                        padding = new string(' ', 10);
-                        this.textBox1.Text += padding + "Properties:".ToUpper() + Environment.NewLine;
                         foreach (var field in item.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.IgnoreCase))
                         {
+                            if (c++ == 1)
+                            {
+                                padding = new string(' ', 10);
+                                this.textBox1.Text += padding + "Properties:".ToUpper() + Environment.NewLine;
+                            }
                             bool enter = true;
                             padding = new string(' ', 42);
                             this.textBox1.Text += padding;
 
                             this.textBox1.Text += field.PropertyType.Name + " " + field.Name + ";" + Environment.NewLine;
                         }
+                    }
 
+                    if (this.checkedListBox.CheckedIndices.Contains(11))
+                    {
                         // Перебор всех конструкторов типа
-                        padding = new string(' ', 10);
-                        this.textBox1.Text += padding + "Constructors:".ToUpper() + Environment.NewLine;
                         foreach (var field in item.GetConstructors(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.IgnoreCase))
                         {
+                            if (d++ == 1)
+                            {
+                                padding = new string(' ', 10);
+                                this.textBox1.Text += padding + "Constructors:".ToUpper() + Environment.NewLine;
+                            }
                             bool enter = true;
                             padding = new string(' ', 42);
                             if (field.IsPublic)  // Проверка, является ли данный конструктор открытым
@@ -256,20 +292,30 @@ namespace Task_3_New_Reflector
                             }
                             this.textBox1.Text += ");" + Environment.NewLine;
                         }
-
-
+                    }
+                    a = b = c = d = 1;
+                    if (this.checkedListBox.CheckedItems.Count != 0 && f != types.Length)
+                    {
                         padding = new string(' ', 5);
                         this.textBox1.Text += padding + "}" + Environment.NewLine + "\r\n";
-
                     }
-                    this.textBox1.Text += "}" + Environment.NewLine;
+                    else if (this.checkedListBox.CheckedItems.Count == 0 && f != types.Length)
+                    {
+                        this.textBox1.Text += padding + "}" + Environment.NewLine + "\r\n";
+                    }
+                    else if (this.checkedListBox.CheckedItems.Count == 0 && f == types.Length)
+                    {
+                        this.textBox1.Text += padding + "}" + Environment.NewLine;
+                    }
+                    else
+                    {
+                        padding = new string(' ', 5);
+                        this.textBox1.Text += padding + "}" + Environment.NewLine;
+                    }
                 }
+                this.textBox1.Text += "}" + Environment.NewLine;
             }
-            catch (Exception)  // Исключение срабатывает в случае ошибки при открытии иной сборки, которая не потдерживается платформой .Net framework
-            {
-                string loadAssembly = new string(' ', 90) + "Failed assembly loading!".ToUpper();
-                this.textBox1.Text = loadAssembly;
-            }
+            catch (Exception) { }
         }
     }
 }

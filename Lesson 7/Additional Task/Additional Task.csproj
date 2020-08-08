@@ -44,13 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessLevelAttribute.cs" />
-    <Compile Include="Director.cs" />
-    <Compile Include="Human.cs" />
-    <Compile Include="Manager.cs" />
-    <Compile Include="Other.cs" />
+    <Compile Include="Attributes\AccessLevelAttribute.cs" />
+    <Compile Include="Classes\Director.cs" />
+    <Compile Include="Classes\Human.cs" />
+    <Compile Include="Classes\Manager.cs" />
+    <Compile Include="Classes\Other.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Programmer.cs" />
+    <Compile Include="Classes\Programmer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

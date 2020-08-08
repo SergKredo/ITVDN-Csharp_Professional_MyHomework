@@ -7,22 +7,33 @@ using System.IO;
 
 namespace Additional_Task
 {
+    // Для создания атрибута необходимо создать класс производный от класса : System.Attribute.
+    // Атрибут - [AttributeUsage] - задает свойства пользовательских атрибутов.
+    // Позиционный параметр - AttributeTargets, определяет элементы программы, 
+    // для которых атрибут может быть применен.
+    // Параметр - AttributeTargets.All - позволяет использовать атрибут - MyAttribute, 
+    // для любого элемента.
+    // Именованный параметр - AllowMultiple = false, определяет сколько раз к одному элементу 
+    // можно применять атрибут.
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     class AccessLevelAttribute : Attribute
     {
-        Human human;
-        DateTime date;
-        StreamWriter writer;
+        // Именованные параметры задаются открытыми нестатическими полями или свойствами, класса атрибута.
+        Human human;  // Объявление экземпляра базового абстрактного класса Human
+        DateTime date;  // Время, когда пользователь выполняет запрос в системе
+        StreamWriter writer;  // Объект реализует TextWriter для записи символов в поток в определенной кодировке
         AccessLevelControl accessLevel;
-        public AccessLevelAttribute(AccessLevelControl accessLevelControl)
+
+        // Позиционные параметры задаются формальными параметрами - public конструктора, класса атрибута.
+        public AccessLevelAttribute(AccessLevelControl accessLevelControl)  // Инициализация полей в конструкторе
         {
             this.accessLevel = accessLevelControl;
             date = DateTime.Now;
-            FileInfo file = new FileInfo("Accounting record.dat");
+            FileInfo file = new FileInfo("Accounting record.dat");  // Открываем файловый поток
             writer = file.AppendText();
         }
 
-        public void Access(Human human)
+        public void Access(Human human)  // Метод проверяет доступ пользователя к банковской базе данных компании
         {
             switch (accessLevel)
             {
@@ -58,7 +69,7 @@ namespace Additional_Task
         }
     }
 
-    enum AccessLevelControl
+    enum AccessLevelControl   // Перечисление, которое задает параметры доступа к базе данных компании
     {
         FullControlforDirector, MiddleControlforManager, LowControlforProgrammer, AccessIsDenied
     }

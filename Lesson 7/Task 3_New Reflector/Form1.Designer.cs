@@ -92,7 +92,9 @@
             "Class",
             "Static Class",
             "Nested Class",
+            "Generics",
             "Struct",
+            "Enum",
             "Delegate",
             "Event",
             "Field",
@@ -105,8 +107,9 @@
             this.checkedListBox.MultiColumn = true;
             this.checkedListBox.Name = "checkedListBox";
             this.checkedListBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.checkedListBox.Size = new System.Drawing.Size(621, 79);
+            this.checkedListBox.Size = new System.Drawing.Size(621, 94);
             this.checkedListBox.TabIndex = 7;
+            this.checkedListBox.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_SelectedIndexChanged);
             // 
             // button_Display
             // 
@@ -114,7 +117,7 @@
             this.button_Display.Location = new System.Drawing.Point(638, 444);
             this.button_Display.Name = "button_Display";
             this.button_Display.Padding = new System.Windows.Forms.Padding(1);
-            this.button_Display.Size = new System.Drawing.Size(149, 79);
+            this.button_Display.Size = new System.Drawing.Size(149, 94);
             this.button_Display.TabIndex = 8;
             this.button_Display.Text = "Display";
             this.button_Display.UseVisualStyleBackColor = true;
@@ -124,7 +127,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 530);
+            this.ClientSize = new System.Drawing.Size(800, 546);
             this.Controls.Add(this.button_Display);
             this.Controls.Add(this.checkedListBox);
             this.Controls.Add(this.button_Search);

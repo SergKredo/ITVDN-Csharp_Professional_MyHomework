@@ -1,101 +1,78 @@
 ﻿Task1: Создайте пользовательский тип (например, класс) и выполните сериализацию объекта этого
 типа, учитывая тот факт, что состояние объекта необходимо будет передать по сети.
 -------------------------------------------------------------------------------------------------------------------------------------------------------
-Results:
--------------------------------------------------------------------------------------------------------------------------------------------------------
+ Results:
+-----------------------------------------------------------------------------------------------------------------------------------------
 SERIALIZABLE
 --------------------
 MyClass object 0:
-Name: Elena
-Surname: Ivanova
+Name: Piter
+Surname: Ibanov
 Age: 22
 --------------------
 --------------------
 MyClass object 1:
-Name: Petr
-Surname: Julai
-Age: 13
---------------------
---------------------
-MyClass object 2:
-Name: Oleg
-Surname: Gorobets
+Name: Ilia
+Surname: Heroi
 Age: 55
 --------------------
 --------------------
+MyClass object 2:
+Name: Lida
+Surname: Urova
+Age: 53
+--------------------
+--------------------
 MyClass object 3:
-Name: Yana
-Surname: Krug
-Age: 45
+Name: Jastin
+Surname: Hutov
+Age: 42
 --------------------
 --------------------
 MyClass object 4:
-Name: Igor
-Surname: Horoshun
-Age: 33
+Name: Petr
+Surname: Egorov
+Age: 12
 --------------------
 
 
 DESERIALIZABLE
 ********************
 MyClass object 0:
-Name: Elena;
-Surname: Ivanova;
+Name: Piter;
+Surname: Ibanov;
 Age: 22;
 ********************
 ********************
 MyClass object 1:
-Name: Petr;
-Surname: Julai;
-Age: 13;
-********************
-********************
-MyClass object 2:
-Name: Oleg;
-Surname: Gorobets;
+Name: Ilia;
+Surname: Heroi;
 Age: 55;
 ********************
 ********************
+MyClass object 2:
+Name: Lida;
+Surname: Urova;
+Age: 53;
+********************
+********************
 MyClass object 3:
-Name: Yana;
-Surname: Krug;
-Age: 45;
+Name: Jastin;
+Surname: Hutov;
+Age: 42;
 ********************
 ********************
 MyClass object 4:
-Name: Igor;
-Surname: Horoshun;
-Age: 33;
+Name: Petr;
+Surname: Egorov;
+Age: 12;
 ********************
 
 
-XML File:
+
+txt File:
 ---------------------------------------------------------------------------------------------------------------------------------------
-<?xml version="1.0"?>
-<ArrayOfMyClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <MyClass>
-    <Name>Elena</Name>
-    <Surname>Ivanova</Surname>
-    <Age>22</Age>
-  </MyClass>
-  <MyClass>
-    <Name>Petr</Name>
-    <Surname>Julai</Surname>
-    <Age>13</Age>
-  </MyClass>
-  <MyClass>
-    <Name>Oleg</Name>
-    <Surname>Gorobets</Surname>
-    <Age>55</Age>
-  </MyClass>
-  <MyClass>
-    <Name>Yana</Name>
-    <Surname>Krug</Surname>
-    <Age>45</Age>
-  </MyClass>
-  <MyClass>
-    <Name>Igor</Name>
-    <Surname>Horoshun</Surname>
-    <Age>33</Age>
-  </MyClass>
-</ArrayOfMyClass>
+    яяяя          FAdditional Task, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null   „System.Collections.Generic.List`1[[Additional_Task.MyClass, Additional Task, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]   _items_size_version  Additional_Task.MyClass[]   	                   Additional_Task.MyClass   	   	   	   	   	   
+   Additional_Task.MyClass   <Name>k__BackingField<Surname>k__BackingField<Age>k__BackingField    	   Piter
+   Ibanov            Ilia   Heroi7         
+   Lida   Urova5            Jastin   Hutov*            Petr   Egorov   

@@ -5,19 +5,19 @@
  Results:
 -----------------------------------------------------------------------------------------------------------------------------------------
 Serializing1.
-//<?xml version="1.0"?>
+<?xml version="1.0"?>
 <ArrayOfMyClass1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <MyClass1 Name="Igor" Surname="Petrov" Age="45" />
   <MyClass1 Name="Ilia" Surname="Ivanov" Age="48" />
   <MyClass1 Name="Kostantin" Surname="Romanov" Age="12" />
   <MyClass1 Name="Uliayana" Surname="Tubikova" Age="33" />
   <MyClass1 Name="Nina" Surname="Pogrebnaya" Age="40" />
-</ArrayOfMyClass1>//
+</ArrayOfMyClass1>
 
 ****************************************************************************************************************************************
 Serializing2.
 --------------------------------------------------------------------------------------------------------------------------------------
-//<?xml version="1.0"?>
+<?xml version="1.0"?>
 <ArrayOfMyClass2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <MyClass2>
     <Name>Zina</Name>
@@ -44,4 +44,4 @@ Serializing2.
     <Surname>Poltko</Surname>
     <Age>66</Age>
   </MyClass2>
-</ArrayOfMyClass2>//
+</ArrayOfMyClass2>

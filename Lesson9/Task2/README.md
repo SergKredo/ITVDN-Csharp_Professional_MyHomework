@@ -1,99 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
-
-namespace Task2
-{
-    /*
-         Создайте класс, который позволит выполнять мониторинг ресурсов, используемых программой.
+﻿Task2: Создайте класс, который позволит выполнять мониторинг ресурсов, используемых программой.
     Используйте его в целях наблюдения за работой программы, а именно: пользователь может
     указать приемлемые уровни потребления ресурсов (памяти), а методы класса позволят выдать
     предупреждение, когда количество реально используемых ресурсов приблизиться к
     максимально допустимому уровню.
-     */
-    public class MemoryLimitCheck   // Класс для учета памяти занимаемой квази-объектами в листе во время выполнения приложения
-    {
-        double totalMemory;  // Гранично-допустимая память, установленная пользователем
-        
-        public MemoryLimitCheck(double totalMemory)  // Конструктор по умолчанию для инициализации полей
-        {
-            this.totalMemory = totalMemory;
-        }
 
-        public void MemoryOverflowCheck(object state)  // Метод анализирует память, занимаемую приложением во время выполнения
-        {
-            if (this.totalMemory < GC.GetTotalMemory(false) / Math.Pow(1024, 2))
-            {
-                Console.WriteLine("\nIteration {0}: \tTotal memory: {1}   \tThe number of quasi-objects in the list:{2}\n", Program.count, (string)state, Program.countIteration);
-                Program.countIteration = 0;
-                Program.largeList.Clear();  // Очистка листа
-                GC.Collect();  // Принудительная сборка мусора для всех поколений
-            }
-            else
-            {
-                ++Program.countIteration;
-                Console.WriteLine("Iteration {0}: \tTotal memory: {1} MByte;", Program.count, GC.GetTotalMemory(false) / Math.Pow(1024, 2));
-            }
-        }
-
-    }
-
-    public class LargeObject  // Псевдо-объект, который выступает в качестве элементов в листе
-    {
-        long[] largeObject; // long - 64 bit = 8 byte; 1000000*8 byte = 8000000 byte = 8000000/1024 = 7812,5 kByte
-        Random random;
-        public LargeObject()
-        {
-            random = new Random();
-            largeObject = new long[random.Next(10000, 1000000)];  // Массив типа Int64 (long) c псевдослучайной размерностью
-        }
-    }
-
-
-    class Program
-    {
-        static public int countIteration;
-        static public long large;
-        static public LargeObject largeObjects;
-        static public int count;
-        static public List<LargeObject> largeList = new List<LargeObject>();  // Generic cписок типа List<T>
-      
-        static void Main(string[] args)
-        {
-            // 1-й способ:
-            
-            /*Timer timer = new Timer(new MemoryLimitCheck(50).MemoryOverflowCheck, "Memory overflow!", 0, 50);
-            for (count = 1; count < 1000; count++)
-            {
-                largeObjects = new LargeObject();
-                largeList.Add(largeObjects);
-                GC.SuppressFinalize(largeList);
-                //new MemoryLimitCheck(50).MemoryOverflowCheck("Memory overflow!");
-                Thread.Sleep(50);
-            }*/
-
-
-
-            // 2-й способ:
-            for (count = 1; count < 200; count++)
-            {
-                largeObjects = new LargeObject();  // Создаем псевдо-объект
-                largeList.Add(largeObjects);  // Добавляем псевдо-объект в список
-                GC.SuppressFinalize(largeList);  // Приостанавливаем вызов CLR метода Finalize для списка
-                new MemoryLimitCheck(50).MemoryOverflowCheck("Memory overflow!");  // Вызываем метод для анализа памяти
-                Thread.Sleep(50);  // Приостанавливаем поток на 50 миллисекунд
-            }
-
-            Console.ReadKey();
-        }
-    }
-}
-
-/*
- Results:
+Results:
 ------------------------------------------------------------------------------------------------------------------------------------
 Iteration 1:    Total memory: 3,48992538452148 MByte;
 Iteration 2:    Total memory: 9,90850448608398 MByte;
@@ -328,5 +239,3 @@ Iteration 197:  Total memory: 48,7679405212402 MByte;
 Iteration 198:  Total memory: Memory overflow!          The number of quasi-objects in the list:14
 
 Iteration 199:  Total memory: 8,20436477661133 MByte;
-
- */

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
+using System.IO;
 
 namespace Additional_Task
 {
@@ -11,8 +13,57 @@ namespace Additional_Task
     файл.*/
     class Program
     {
+        public static Semaphore semaphore;  // Объявление объекта синхронизации типа Semaphore, который ограничивает число потоков, 
+                                            //которые могут одновременно обращаться к ресурсу
+        static string text;
+        static StreamWriter writer = File.CreateText("LogDate.log");  // Создание файлового потока для записи данных в текстовый файл
+        public static void MyMethod(object number)  // Статический метод, сообщенный с пулом потоков
+        {
+            semaphore.WaitOne();  // Семафор блокирует текущий поток для получения сигнала объектом WaitHandle
+            text = String.Format("Поток {0} занял слот семафора", number);
+            writer.WriteLine(text); // Запись данных в текстовый файл
+            Console.WriteLine(text);
+            Thread.Sleep(300);  // Остановка потока на заданное количество миллисекунд
+            text = String.Format("Поток {0} освободил слот семафора", number);
+            writer.WriteLine(text);
+            Console.WriteLine(text);
+            semaphore.Release();  // Выход из семафора и возврат текущего состояния счетчика семафора
+        }
         static void Main(string[] args)
         {
+            semaphore = new Semaphore(3, 5, "MySemaforDataLog");  // Создание экземпляра объекта типа Cемафор
+            for (int i = 1; i <= 10; i++)  
+            {
+                ThreadPool.QueueUserWorkItem(MyMethod, i);  // Помещает метод в очередь на выполнение, содержащий данные для использования методом
+                // Метод выполняется, когда доступен поток из пула потоков
+            }
+            Thread.Sleep(2000); 
+            writer.Close();
+            Console.ReadKey();
         }
     }
 }
+        /*
+Results:
+----------------------------------------------------------------------------------------------------------------------------------------------------
+Поток 1 занял слот семафора
+Поток 2 занял слот семафора
+Поток 3 занял слот семафора
+Поток 1 освободил слот семафора
+Поток 4 занял слот семафора
+Поток 2 освободил слот семафора
+Поток 5 занял слот семафора
+Поток 3 освободил слот семафора
+Поток 6 занял слот семафора
+Поток 5 освободил слот семафора
+Поток 4 освободил слот семафора
+Поток 7 занял слот семафора
+Поток 8 занял слот семафора
+Поток 6 освободил слот семафора
+Поток 9 занял слот семафора
+Поток 7 освободил слот семафора
+Поток 10 занял слот семафора
+Поток 8 освободил слот семафора
+Поток 9 освободил слот семафора
+Поток 10 освободил слот семафора
+         */

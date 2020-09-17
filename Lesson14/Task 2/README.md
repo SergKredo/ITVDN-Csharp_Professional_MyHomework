@@ -1,85 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
-
-namespace Task_2
-{
-    /*Создайте два метода, которые будут выполняться в рамках параллельных задач. Организуйте
+﻿Task: Создайте два метода, которые будут выполняться в рамках параллельных задач. Организуйте
 вызов этих методов при помощи Invoke таким образом, чтобы основной поток программы
-(метод Main) не остановил свое выполнение.*/
-    class Program
-    {
-        static bool task1, task2, task3;  // Булевые переменные служат для приостановления первичного потока в цикле while
-        static void Task1()  // Задача 1
-        {
-            Console.WriteLine("Задача №{0} запущена!", Task.CurrentId);
-            for (int i = 0; i < 1000; i++)
-            {
-                Thread.Sleep(10);
-                Console.Write("+ ");
-            }
-            Console.WriteLine("\nЗадача №{0} завершена!", Task.CurrentId);
-            task1 = true;
-        }
-        static void Task2()  // Задача 2
-        {
-            Console.WriteLine("Задача №{0} запущена!", Task.CurrentId);
-            for (int i = 0; i < 1000; i++)
-            {
-                Thread.Sleep(10);
-                Console.Write("- ");
-            }
-            Console.WriteLine("\nЗадача №{0} завершена!", Task.CurrentId);
-            task2 = true;
-        }
-        static void Task3()  // Задача 3
-        {
-            Console.WriteLine("Задача №{0} запущена!", Task.CurrentId);
-            for (int i = 0; i < 1000; i++)
-            {
-                Thread.Sleep(10);
-                Console.Write("/ ");
-            }
-            Console.WriteLine("\nЗадача №{0} завершена!", Task.CurrentId);
-            task3 = true;
-        }
-        static void Main(string[] args)
-        {
-            ParallelOptions options = new ParallelOptions();  // Хранит параметры, настраивающие работу методов класса Parallel
-            options.MaxDegreeOfParallelism = Environment.ProcessorCount > 3 ? Environment.ProcessorCount - 1 : 1;  // Задаем максимальное количество выполняемых параллельных задач в заданный момент времени в нашем процессе
-            Console.WriteLine("Количество логических ядер CPU:" + Environment.ProcessorCount);  // Выводим в консоли количество логических ядер на компьютере
+(метод Main) не остановил свое выполнение.
 
-            // Первичный поток не ждет окончания выполнения задач в асинхронном режиме
-            #region Основной поток продолжает свою работу 
-            Console.WriteLine("Основной поток запущен.");
-            Task.Factory.StartNew(() => Parallel.Invoke(options, Task1, Task2, Task3));  // Запускаем задачи в параллельном режиме используя объект фабрика задач
-            Console.WriteLine("Основной поток завершен.");
-            
-            while (!(task1 & task2 & task3))  // Ловушка для первичного потока
-            {
-                Thread.Sleep(20);
-            }
-            #endregion
-
-            // Первичный поток приостанавливается и ждет окончания выполнения задач в асинхронном режиме
-            #region Основной поток ждет завершения задач выполняющих параллельно свою работу от первичного потока
-
-            Console.WriteLine("\n\nОсновной поток запущен.");
-            Parallel.Invoke(options, Task1, Task2, Task3); // Запуск задач в параллельном режиме
-            Console.WriteLine("Основной поток завершен.");
-
-            #endregion
-
-            Console.ReadKey();
-        }
-    }
-}
-/*
- Results:
-------------------------------------------------------------------------------------------------------------
+Results:
+-------------------------------------------------------------------------------------------------------------------------------------------------------
 Количество логических ядер CPU:4
 Основной поток запущен.
 Основной поток завершен.
@@ -105,5 +29,3 @@ namespace Task_2
 -
 Задача №6 завершена!
 Основной поток завершен.
-
- */

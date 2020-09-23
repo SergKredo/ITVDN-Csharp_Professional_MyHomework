@@ -60,6 +60,7 @@
     <Compile Include="ViewModels\Commands\AsyncCommand.cs" />
     <Compile Include="ViewModels\Commands\AsyncCommandBase.cs" />
     <Compile Include="ViewModels\Commands\IAsyncCommand.cs" />
+    <Compile Include="ViewModels\BankOrExchanger.cs" />
     <Compile Include="ViewModels\CurrencyViewModel.cs" />
     <Compile Include="ViewModels\InverseBooleanConverter.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

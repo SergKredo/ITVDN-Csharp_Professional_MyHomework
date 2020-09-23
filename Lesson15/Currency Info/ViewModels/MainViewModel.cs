@@ -6,14 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Currency_Info.Api.Model;
 
 namespace Currency_Info.ViewModels
 {
     class MainViewModel : ViewModelBase
     {
+        static public XmlModel result;
         bool isLoading;
         List<CurrencyViewModel> currencies;
         CurrencyViewModel currentCurrencies;
+
+        List<BankOrExchanger> bankOrExchangers;
+        BankOrExchanger bankOr;
 
         public List<CurrencyViewModel> Currencies
         {
@@ -31,10 +36,43 @@ namespace Currency_Info.ViewModels
             set
             {
                 currentCurrencies = value;
+                BankOrExchangers = new List<BankOrExchanger>(result.Org_Types.Select(o => new BankOrExchanger(o, result, currentCurrencies)));
                 OnPropertyChanged();
             }
         }
 
+        public List<BankOrExchanger> BankOrExchangers
+        {
+            get 
+            {
+                if (bankOrExchangers != null && bankOrExchangers[0].orgTypes == null)
+                { 
+                    bankOrExchangers.RemoveAt(0); 
+                }
+                return bankOrExchangers; 
+            }
+            set
+            {
+                bankOrExchangers = value;
+                OnPropertyChanged();
+            }
+        }
+        public BankOrExchanger BankOr
+        {
+            get
+            {
+                return bankOr;
+            }
+            set
+            {
+                bankOr = value;
+                if (bankOr.Org_Types == null)
+                {
+                    return;
+                }
+                OnPropertyChanged();
+            }
+        }
         public bool IsLoading
         {
             get { return isLoading; }
@@ -58,7 +96,7 @@ namespace Currency_Info.ViewModels
         {
             IsLoading = true;
             var api = new CurrencyApi();
-            var result = await api.GetXMLModel();
+            result = await api.GetXMLModel();
             Currencies = new List<CurrencyViewModel>(result.C.Select(o => new CurrencyViewModel(o)));
             IsLoading = false;
         }

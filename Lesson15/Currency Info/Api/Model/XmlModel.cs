@@ -21,6 +21,12 @@ namespace Currency_Info.Api.Model
         [XmlArrayItem("organization")]
         public List<Organization> Organization { get; set; }
 
+
+        [XmlArray("org_types")]
+        [XmlArrayItem("org_type")]
+        public List<Org_Types> Org_Types { get; set; }
+
+
         [XmlArray("currencies")]
         [XmlArrayItem("c")]
         public List<C> C { get; set; }
@@ -131,6 +137,15 @@ namespace Currency_Info.Api.Model
                 public string Ar { get; set; }
             }
         }
+    }
+
+    public class Org_Types
+    {
+        [XmlAttribute("id")]
+        public string ID { get; set; }
+
+        [XmlAttribute("title")]
+        public string Title { get; set; }
     }
 
     public class C

@@ -52,6 +52,11 @@
             SelectedValue="{Binding Region}"
             IsSynchronizedWithCurrentItem="True" Grid.Row="2" Height="25" VerticalAlignment="Bottom"/>
         <Label Content="Область" HorizontalAlignment="Left" Margin="32,0,0,246" VerticalAlignment="Bottom" Width="170" Height="34" Foreground="Black" FontSize="20" FontFamily="Calibri" Grid.Row="2"/>
+        <ComboBox x:Name="comboBoxCity" Margin="10,0,416,151" ItemsSource = "{Binding CityCurrencies}" 
+            DisplayMemberPath="City"
+            SelectedValue="{Binding City}"
+            IsSynchronizedWithCurrentItem="True" Grid.Row="2" Height="25" VerticalAlignment="Bottom"/>
+        <Label Content="Город" HorizontalAlignment="Left" Margin="32,0,0,179" VerticalAlignment="Bottom" Width="170" Height="34" Foreground="Black" FontSize="20" FontFamily="Calibri" Grid.Row="2"/>
 
     </Grid>
 </Window>

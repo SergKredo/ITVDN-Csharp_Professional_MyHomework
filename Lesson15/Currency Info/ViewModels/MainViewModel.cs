@@ -15,6 +15,8 @@ namespace Currency_Info.ViewModels
         static public XmlModel result;
         static public DictionaryRegion<string, string> iDBanksOrExchangers;
         static public DictionaryRegion<string, string> dictionaryCash;
+        static public List<Region> regions;
+        static public List<Region> regionsCash;
         bool isLoading;
         List<CurrencyViewModel> currencies;
         CurrencyViewModel currentCurrencies;
@@ -24,6 +26,51 @@ namespace Currency_Info.ViewModels
 
         List<RegionCurrencies> regionCurrencies;
         RegionCurrencies region;
+
+
+        List<CityCurrencies> cityCurrencies;
+        CityCurrencies city;
+
+        public List<CityCurrencies> CityCurrencies
+        {
+            get
+            {
+                List<CityCurrencies> cityCurrenciesNew = new List<CityCurrencies>();
+                if (cityCurrencies != null)
+                {
+                    for (int i = 0; i < cityCurrencies.Count; i++)
+                    {
+                        cityCurrenciesNew.Add(cityCurrencies[i]);
+                    }
+                    foreach (var item in cityCurrencies)
+                    {
+                        if (item.City == null)
+                        {
+                            cityCurrenciesNew.Remove(item);
+                        }
+                    }
+                    cityCurrencies = cityCurrenciesNew;
+                }
+
+                return cityCurrencies;
+            }
+            set
+            {
+                cityCurrencies = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public CityCurrencies City
+        {
+            get { return city; }
+            set
+            {
+                city = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public List<RegionCurrencies> RegionCurrencies
         {
@@ -56,7 +103,16 @@ namespace Currency_Info.ViewModels
 
         public RegionCurrencies Region
         {
-            get { return region; }
+            get
+            {
+                if (regionCurrencies != null)
+                {
+
+                    CityCurrencies = new List<CityCurrencies>(result.CitySource.Select(o => new CityCurrencies(o, region.region.Title)));
+
+                }
+                return region;
+            }
             set
             {
                 region = value;
@@ -82,9 +138,12 @@ namespace Currency_Info.ViewModels
                 currentCurrencies = value;
                 iDBanksOrExchangers = new DictionaryRegion<string, string>();
                 dictionaryCash = new DictionaryRegion<string, string>();
+                regions = new List<Region>();
+                regionsCash = new List<Region>();
+                regionsCash = result.RegionSource;
                 BankOrExchangers = new List<BankOrExchanger>(result.Org_Types.Select(o => new BankOrExchanger(o, result, currentCurrencies, ref iDBanksOrExchangers, ref dictionaryCash)));
                 RegionCurrencies = new List<RegionCurrencies>(result.RegionSource.Select(o => new RegionCurrencies(o, iDBanksOrExchangers)));
-                
+
                 OnPropertyChanged();
             }
         }

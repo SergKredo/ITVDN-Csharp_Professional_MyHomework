@@ -12,13 +12,16 @@ namespace Currency_Info.ViewModels
     {
         public Region region;
 
-        public RegionCurrencies(Region region, List<string> iDBanksOrExchangers)
+        public RegionCurrencies(Region region, MainViewModel.DictionaryRegion<string, string> iDBanksOrExchangers)
         {
             foreach (var item in iDBanksOrExchangers)
             {
-                if (item == region.ID)
+                foreach (var items in item.Value)
                 {
-                    this.region = region;
+                    if (items == region.ID)
+                    {
+                        this.region = region;
+                    }
                 }
             }
         }

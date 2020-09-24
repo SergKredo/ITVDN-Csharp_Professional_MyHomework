@@ -13,7 +13,8 @@ namespace Currency_Info.ViewModels
     class MainViewModel : ViewModelBase
     {
         static public XmlModel result;
-        static public List<string> iDBanksOrExchangers;
+        static public DictionaryRegion<string, string> iDBanksOrExchangers;
+        static public DictionaryRegion<string, string> dictionaryCash;
         bool isLoading;
         List<CurrencyViewModel> currencies;
         CurrencyViewModel currentCurrencies;
@@ -79,9 +80,11 @@ namespace Currency_Info.ViewModels
             set
             {
                 currentCurrencies = value;
-                iDBanksOrExchangers = new List<string>();
-                BankOrExchangers = new List<BankOrExchanger>(result.Org_Types.Select(o => new BankOrExchanger(o, result, currentCurrencies, ref iDBanksOrExchangers)));
+                iDBanksOrExchangers = new DictionaryRegion<string, string>();
+                dictionaryCash = new DictionaryRegion<string, string>();
+                BankOrExchangers = new List<BankOrExchanger>(result.Org_Types.Select(o => new BankOrExchanger(o, result, currentCurrencies, ref iDBanksOrExchangers, ref dictionaryCash)));
                 RegionCurrencies = new List<RegionCurrencies>(result.RegionSource.Select(o => new RegionCurrencies(o, iDBanksOrExchangers)));
+                
                 OnPropertyChanged();
             }
         }
@@ -106,6 +109,45 @@ namespace Currency_Info.ViewModels
         {
             get
             {
+                if (bankOr != null)
+                {
+                    switch (bankOr.orgTypes.ID)
+                    {
+                        case "1":
+                            {
+                                DictionaryRegion<string, string> dictionaryForOne = new DictionaryRegion<string, string>();
+                                foreach (var item in dictionaryCash)
+                                {
+                                    foreach (var items in item.Value)
+                                    {
+                                        dictionaryForOne.Add(item.Key, items);
+                                    }
+                                }
+                                iDBanksOrExchangers = dictionaryForOne;
+                                iDBanksOrExchangers.Remove("2");
+                                RegionCurrencies = new List<RegionCurrencies>(result.RegionSource.Select(o => new RegionCurrencies(o, iDBanksOrExchangers)));
+                                return bankOr;
+                            }
+
+                        case "2":
+                            {
+                                DictionaryRegion<string, string> dictionaryForTwo = new DictionaryRegion<string, string>();
+                                foreach (var item in dictionaryCash)
+                                {
+                                    foreach (var items in item.Value)
+                                    {
+                                        dictionaryForTwo.Add(item.Key, items);
+                                    }
+                                }
+                                iDBanksOrExchangers = dictionaryForTwo;
+                                iDBanksOrExchangers.Remove("1");
+                                RegionCurrencies = new List<RegionCurrencies>(result.RegionSource.Select(o => new RegionCurrencies(o, iDBanksOrExchangers)));
+                                return bankOr;
+                            }
+                        default:
+                            return bankOr;
+                    }
+                }
                 return bankOr;
             }
             set
@@ -136,6 +178,22 @@ namespace Currency_Info.ViewModels
                 return new AsyncCommand(GetCurrencies);
             }
         }
+
+        public class DictionaryRegion<TKey, TValue> : Dictionary<TKey, List<TValue>>
+        {
+            public void Add(TKey key, TValue value)
+            {
+                if (ContainsKey(key))
+                {
+                    this[key].Add(value);
+                }
+                else
+                {
+                    Add(key, new List<TValue> { value });
+                }
+            }
+        }
+
 
         public async Task GetCurrencies()
         {

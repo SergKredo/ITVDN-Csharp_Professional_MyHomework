@@ -296,6 +296,7 @@ namespace Currency_Info.ViewModels
             }
         }
 
+
         public async Task GetCurrencies()
         {
             IsLoading = true;

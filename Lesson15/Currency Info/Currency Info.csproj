@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Api\CurrencyApi.cs" />
     <Compile Include="Api\Model\XmlModel.cs" />
+    <Compile Include="ViewModels\RegionCurrencies.cs" />
     <Compile Include="ViewModels\Commands\AsyncCommand.cs" />
     <Compile Include="ViewModels\Commands\AsyncCommandBase.cs" />
     <Compile Include="ViewModels\Commands\IAsyncCommand.cs" />

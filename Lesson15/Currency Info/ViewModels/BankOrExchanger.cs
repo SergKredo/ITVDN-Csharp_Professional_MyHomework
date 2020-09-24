@@ -12,13 +12,15 @@ namespace Currency_Info.ViewModels
     {
         public Org_Types orgTypes;
 
-        public BankOrExchanger(Org_Types org_Types, XmlModel result, CurrencyViewModel currentCurrencies)
+        public BankOrExchanger(Org_Types org_Types, XmlModel result, CurrencyViewModel currentCurrencies, ref List<string> iDBanksOrExchangers)
         {
             string IdOrg;
-
+            string IdRegionOrganization;
+          
             foreach (var item in result.Organization)
             {
                 var items = item.CurrenciesOrganization;
+                IdRegionOrganization = (item.RegionOrganization[0] as Organization.RegionOrg).ID;
                 IdOrg = item.Org_type;
                 foreach (var iten in items)
                 {
@@ -28,6 +30,7 @@ namespace Currency_Info.ViewModels
                         if (iter.ID == currentCurrencies.currencies.ID && org_Types.ID == IdOrg)
                         {
                             this.orgTypes = org_Types;
+                            iDBanksOrExchangers.Add(IdRegionOrganization);
                         }
                     }
                 }

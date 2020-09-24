@@ -15,7 +15,7 @@ namespace Currency_Info.ViewModels
         public CityCurrencies(City city, string regions)
         {
 
-            if (regions.StartsWith(city.Title))
+            if (regions.Contains(city.Title.Substring(0, 4)))
             {
                 this.city = city;
             }

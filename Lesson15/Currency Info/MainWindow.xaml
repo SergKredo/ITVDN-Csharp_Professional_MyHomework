@@ -26,7 +26,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="139"/>
+            <ColumnDefinition Width="144"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -35,28 +35,33 @@
         </Grid.RowDefinitions>
         <Border BorderBrush="#FF595757" BorderThickness="0,0,2,0" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="271" Grid.RowSpan="3" Background="#FFEEEEEE" Margin="0,1,0,-1"/>
 
-        <Button x:Name="updateButton" Content="Обновить" Grid.Column="1" Margin="10,9,10.2,9" Command="{Binding GetCurrenciesCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanConverter}}"/>
-        <ProgressBar Grid.Column="1" Grid.Row="1" Margin="10,0,10.2,0" Visibility ="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}" IsIndeterminate="True"/>
-        <ComboBox x:Name="comboBoxOrgTipes" Margin="10,0,416,285" ItemsSource = "{Binding BankOrExchangers}" 
+        <Button x:Name="updateButton" Content="Курс валют" Margin="61,306,452,0" Command="{Binding GetCurrenciesCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanConverter}}" Grid.Row="2" FontSize="20" Background="#FFC5C5C5" Height="38" VerticalAlignment="Top" Foreground="#FF0A0A0A"/>
+        
+        <ComboBox x:Name="comboBoxOrgTipes" Margin="17,0,409,285" ItemsSource = "{Binding BankOrExchangers}" 
             DisplayMemberPath="Org_Types"
             SelectedValue="{Binding BankOr}"
             IsSynchronizedWithCurrentItem="True" Grid.Row="2" Height="25" VerticalAlignment="Bottom"/>
-        <ComboBox x:Name="comboBoxCurrencies" Margin="10,0,416,347" ItemsSource = "{Binding Currencies}" 
+        <ComboBox x:Name="comboBoxCurrencies" Margin="17,0,409,347" ItemsSource = "{Binding Currencies}" 
             DisplayMemberPath="CurrentCurrencies"
             SelectedValue="{Binding CurrentCurrencies}"
             IsSynchronizedWithCurrentItem="True" Grid.RowSpan="2" Grid.Row="1"/>
-        <Label Content="Валюта" HorizontalAlignment="Left" Margin="61,7,0,13" Width="111" Foreground="Black" FontSize="20" FontFamily="Calibri" Grid.RowSpan="2"/>
-        <Label Content="Банк|Обменник" HorizontalAlignment="Left" Margin="41,0,0,311" VerticalAlignment="Bottom" Width="170" Height="34" Foreground="Black" FontSize="20" FontFamily="Calibri" Grid.Row="2"/>
-        <ComboBox x:Name="comboBoxRegion" Margin="10,0,416,218" ItemsSource = "{Binding RegionCurrencies}" 
+        <Label Content="Валюта" HorizontalAlignment="Left" Margin="66,7,0,13" Width="111" Foreground="Black" FontSize="20" FontFamily="Calibri" Grid.RowSpan="2"/>
+        <Label Content="Фин.учреждение" HorizontalAlignment="Left" Margin="45,0,0,311" VerticalAlignment="Bottom" Width="170" Height="34" Foreground="Black" FontSize="20" FontFamily="Calibri" Grid.Row="2"/>
+        <ComboBox x:Name="comboBoxRegion" Margin="17,0,409,218" ItemsSource = "{Binding RegionCurrencies}" 
             DisplayMemberPath="Region"
             SelectedValue="{Binding Region}"
             IsSynchronizedWithCurrentItem="True" Grid.Row="2" Height="25" VerticalAlignment="Bottom"/>
-        <Label Content="Область" HorizontalAlignment="Left" Margin="32,0,0,246" VerticalAlignment="Bottom" Width="170" Height="34" Foreground="Black" FontSize="20" FontFamily="Calibri" Grid.Row="2"/>
-        <ComboBox x:Name="comboBoxCity" Margin="10,0,416,151" ItemsSource = "{Binding CityCurrencies}" 
+        <Label Content="Область" HorizontalAlignment="Left" Margin="36,0,0,246" VerticalAlignment="Bottom" Width="170" Height="34" Foreground="Black" FontSize="20" FontFamily="Calibri" Grid.Row="2"/>
+        <ComboBox x:Name="comboBoxCity" Margin="17,0,409,151" ItemsSource = "{Binding CityCurrencies}" 
             DisplayMemberPath="City"
             SelectedValue="{Binding City}"
             IsSynchronizedWithCurrentItem="True" Grid.Row="2" Height="25" VerticalAlignment="Bottom"/>
-        <Label Content="Город" HorizontalAlignment="Left" Margin="32,0,0,179" VerticalAlignment="Bottom" Width="170" Height="34" Foreground="Black" FontSize="20" FontFamily="Calibri" Grid.Row="2"/>
+        <Label Content="Город" HorizontalAlignment="Left" Margin="36,0,0,179" VerticalAlignment="Bottom" Width="170" Height="34" Foreground="Black" FontSize="20" FontFamily="Calibri" Grid.Row="2"/>
+        <ComboBox x:Name="comboBoxListOfBanks" Margin="17,0,409,80" ItemsSource = "{Binding ListOfBanksOrExchangers}" 
+            DisplayMemberPath="ListBanksOrExchangers"
+            SelectedValue="{Binding ListOfBanksOr}"
+            IsSynchronizedWithCurrentItem="True" Grid.Row="2" Height="25" VerticalAlignment="Bottom"/>
+        <Label Content="Банк|Обменник" HorizontalAlignment="Left" Margin="3,0,0,108" VerticalAlignment="Bottom" Width="250" Height="34" Foreground="Black" FontSize="20" FontFamily="Calibri" Grid.Row="2"/>
 
     </Grid>
 </Window>

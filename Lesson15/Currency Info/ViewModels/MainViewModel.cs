@@ -31,6 +31,50 @@ namespace Currency_Info.ViewModels
         List<CityCurrencies> cityCurrencies;
         CityCurrencies city;
 
+
+        List<ListOfBanksOrExchangers> listOfBanksOrExchangers;
+        ListOfBanksOrExchangers exchangers;
+
+        public List<ListOfBanksOrExchangers> ListOfBanksOrExchangers
+        {
+            get
+            {
+                List<ListOfBanksOrExchangers> listOfBanksOrNew = new List<ListOfBanksOrExchangers>();
+                if (listOfBanksOrExchangers != null)
+                {
+                    for (int i = 0; i < listOfBanksOrExchangers.Count; i++)
+                    {
+                        listOfBanksOrNew.Add(listOfBanksOrExchangers[i]);
+                    }
+                    foreach (var item in listOfBanksOrExchangers)
+                    {
+                        if (item.ListBanksOrExchangers == null)
+                        {
+                            listOfBanksOrNew.Remove(item);
+                        }
+                    }
+                    listOfBanksOrExchangers = listOfBanksOrNew;
+                }
+                return listOfBanksOrExchangers;
+            }
+            set
+            {
+                listOfBanksOrExchangers = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ListOfBanksOrExchangers ListOfBanksOr
+        {
+            get { return exchangers; }
+            set
+            {
+                exchangers = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public List<CityCurrencies> CityCurrencies
         {
             get
@@ -107,9 +151,8 @@ namespace Currency_Info.ViewModels
             {
                 if (regionCurrencies != null)
                 {
-
                     CityCurrencies = new List<CityCurrencies>(result.CitySource.Select(o => new CityCurrencies(o, region.region.Title)));
-
+                    ListOfBanksOrExchangers = new List<ListOfBanksOrExchangers>(result.Organization.Select(o => new ListOfBanksOrExchangers(o, currentCurrencies.currencies.ID, bankOr.orgTypes.ID, city.city.ID)));
                 }
                 return region;
             }

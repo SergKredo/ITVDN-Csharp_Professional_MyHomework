@@ -23,6 +23,7 @@
     <Window.DataContext>
         <c:MainViewModel/>
     </Window.DataContext>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -36,7 +37,7 @@
         <Border BorderBrush="#FF595757" BorderThickness="0,0,2,0" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="271" Grid.RowSpan="3" Background="#FFEEEEEE" Margin="0,1,0,-1"/>
 
         <Button x:Name="updateButton" Content="Курс валют" Margin="61,306,452,0" Command="{Binding GetCurrenciesCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanConverter}}" Grid.Row="2" FontSize="20" Background="#FFC5C5C5" Height="38" VerticalAlignment="Top" Foreground="#FF0A0A0A"/>
-        
+
         <ComboBox x:Name="comboBoxOrgTipes" Margin="17,0,409,285" ItemsSource = "{Binding BankOrExchangers}" 
             DisplayMemberPath="Org_Types"
             SelectedValue="{Binding BankOr}"
@@ -62,6 +63,7 @@
             SelectedValue="{Binding ListOfBanksOr}"
             IsSynchronizedWithCurrentItem="True" Grid.Row="2" Height="25" VerticalAlignment="Bottom"/>
         <Label Content="Банк|Обменник" HorizontalAlignment="Left" Margin="3,0,0,108" VerticalAlignment="Bottom" Width="250" Height="34" Foreground="Black" FontSize="20" FontFamily="Calibri" Grid.Row="2"/>
+        <Label x:Name="Date" Content="{Binding DateSourceXml.Date}" HorizontalAlignment="Left" Margin="328,2,0,0" VerticalAlignment="Top" Width="406" Height="54" FontFamily="Segoe UI" FontSize="18" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
 
     </Grid>
 </Window>

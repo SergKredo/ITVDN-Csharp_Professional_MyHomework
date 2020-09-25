@@ -24,7 +24,6 @@ namespace Currency_Info
         public MainWindow()
         {
             InitializeComponent();
-
         }
     }
 }

@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Currency_Info.Api.Model;
+using System.Windows;
+using System.Threading;
 
 namespace Currency_Info.ViewModels
 {
@@ -35,6 +37,33 @@ namespace Currency_Info.ViewModels
         List<ListOfBanksOrExchangers> listOfBanksOrExchangers;
         ListOfBanksOrExchangers exchangers;
 
+
+        List<Organizations> listOfOrganizations;
+        Organizations organizations;
+
+        List<DateSource> listDateXml;
+        DateSource xmlModelDate;
+
+        public DateSource DateSourceXml
+        {
+            get { return xmlModelDate; }
+            set
+            {
+                xmlModelDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Organizations Organizations
+        {
+            get { return organizations; }
+            set
+            {
+                organizations = value;
+                OnPropertyChanged();
+            }
+        }
+
         public List<ListOfBanksOrExchangers> ListOfBanksOrExchangers
         {
             get
@@ -57,6 +86,7 @@ namespace Currency_Info.ViewModels
                 }
                 return listOfBanksOrExchangers;
             }
+
             set
             {
                 listOfBanksOrExchangers = value;
@@ -302,6 +332,7 @@ namespace Currency_Info.ViewModels
             IsLoading = true;
             var api = new CurrencyApi();
             result = await api.GetXMLModel();
+            DateSourceXml = new DateSource(result);
             Currencies = new List<CurrencyViewModel>(result.C.Select(o => new CurrencyViewModel(o)));
             IsLoading = false;
         }

@@ -57,6 +57,8 @@
     </ApplicationDefinition>
     <Compile Include="Api\CurrencyApi.cs" />
     <Compile Include="Api\Model\XmlModel.cs" />
+    <Compile Include="ViewModels\DateSource.cs" />
+    <Compile Include="ViewModels\Organizations.cs" />
     <Compile Include="ViewModels\ListOfBanksOrExchangers.cs" />
     <Compile Include="ViewModels\CityCurrencies.cs" />
     <Compile Include="ViewModels\RegionCurrencies.cs" />

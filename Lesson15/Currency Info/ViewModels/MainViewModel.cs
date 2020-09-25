@@ -38,8 +38,8 @@ namespace Currency_Info.ViewModels
         ListOfBanksOrExchangers exchangers;
 
 
-        List<Organizations> listOfOrganizations;
-        Organizations organizations;
+        List<OrganizationsData> listOfOrganizations;
+        OrganizationsData organizations;
 
         List<DateSource> listDateXml;
         DateSource xmlModelDate;
@@ -54,7 +54,7 @@ namespace Currency_Info.ViewModels
             }
         }
 
-        public Organizations Organizations
+        public OrganizationsData Organizations
         {
             get { return organizations; }
             set
@@ -96,7 +96,14 @@ namespace Currency_Info.ViewModels
 
         public ListOfBanksOrExchangers ListOfBanksOr
         {
-            get { return exchangers; }
+            get
+            {
+                if (exchangers != null)
+                {
+                    Organizations = new OrganizationsData(exchangers, currentCurrencies);
+                }
+                return exchangers;
+            }
             set
             {
                 exchangers = value;

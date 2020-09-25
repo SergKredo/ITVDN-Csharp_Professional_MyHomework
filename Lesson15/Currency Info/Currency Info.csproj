@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>kisspng-ukraine-clip-art-ukrainian-hryvnia-hryvnia-sign-5bf0beb99de3c0.8688716915425041216467.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -58,7 +61,7 @@
     <Compile Include="Api\CurrencyApi.cs" />
     <Compile Include="Api\Model\XmlModel.cs" />
     <Compile Include="ViewModels\DateSource.cs" />
-    <Compile Include="ViewModels\Organizations.cs" />
+    <Compile Include="ViewModels\OrganizationsData.cs" />
     <Compile Include="ViewModels\ListOfBanksOrExchangers.cs" />
     <Compile Include="ViewModels\CityCurrencies.cs" />
     <Compile Include="ViewModels\RegionCurrencies.cs" />
@@ -109,6 +112,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="kisspng-ukraine-clip-art-ukrainian-hryvnia-hryvnia-sign-5bf0beb99de3c0.8688716915425041216467.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

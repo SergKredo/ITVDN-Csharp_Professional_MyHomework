@@ -34,9 +34,11 @@
             <RowDefinition Height="5*"/>
             <RowDefinition Height="128*"/>
         </Grid.RowDefinitions>
+        <Border BorderBrush="#FF8F8F8F" BorderThickness="2" HorizontalAlignment="Left" Height="150" Margin="296,12,0,0" Grid.Row="2" VerticalAlignment="Top" Width="476" Grid.ColumnSpan="2" Background="White"/>
+
         <Border BorderBrush="#FF595757" BorderThickness="0,0,2,0" HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="271" Grid.RowSpan="3" Background="#FFEEEEEE" Margin="0,1,0,-1"/>
 
-        <Button x:Name="updateButton" Content="Курс валют" Margin="61,306,452,0" Command="{Binding GetCurrenciesCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanConverter}}" Grid.Row="2" FontSize="20" Background="#FFC5C5C5" Height="38" VerticalAlignment="Top" Foreground="#FF0A0A0A"/>
+        <Button x:Name="updateButton" Content="Загрузить" Margin="59,306,445,0" Command="{Binding GetCurrenciesCommand}" IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanConverter}}" Grid.Row="2" FontSize="20" Background="#FFC5C5C5" Height="38" VerticalAlignment="Top" Foreground="#FF0A0A0A"/>
 
         <ComboBox x:Name="comboBoxOrgTipes" Margin="17,0,409,285" ItemsSource = "{Binding BankOrExchangers}" 
             DisplayMemberPath="Org_Types"
@@ -64,6 +66,21 @@
             IsSynchronizedWithCurrentItem="True" Grid.Row="2" Height="25" VerticalAlignment="Bottom"/>
         <Label Content="Банк|Обменник" HorizontalAlignment="Left" Margin="3,0,0,108" VerticalAlignment="Bottom" Width="250" Height="34" Foreground="Black" FontSize="20" FontFamily="Calibri" Grid.Row="2"/>
         <Label x:Name="Date" Content="{Binding DateSourceXml.Date}" HorizontalAlignment="Left" Margin="328,2,0,0" VerticalAlignment="Top" Width="406" Height="54" FontFamily="Segoe UI" FontSize="18" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
+        <Grid HorizontalAlignment="Left" Height="166" Margin="308,12,0,0" Grid.Row="2" VerticalAlignment="Top" Width="456" Grid.ColumnSpan="2" Background="White">
+            <Label x:Name="BankOrExchanger_Name" Content="Банк" HorizontalAlignment="Left" Margin="166,0,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="Adress" Content="Адрес:" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <Label x:Name="Phone" Content="Телефон:" HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <Label x:Name="Data_Adress" Content="Label" HorizontalAlignment="Left" Margin="103,39,0,0" VerticalAlignment="Top" Width="343" ScrollViewer.VerticalScrollBarVisibility="Disabled" FontSize="18"/>
+            <Label x:Name="Data_Phone" Content="Label" HorizontalAlignment="Left" Margin="113,81,0,0" VerticalAlignment="Top" Width="343" ScrollViewer.VerticalScrollBarVisibility="Disabled" FontSize="18"/>
+            <Border BorderBrush="#FF8F8F8F" BorderThickness="2" HorizontalAlignment="Left" Height="150" Margin="-12,176,-8,-160" VerticalAlignment="Top" Width="476" Background="White"/>
+            <Grid HorizontalAlignment="Left" Height="166" Margin="0,176,0,-176" VerticalAlignment="Top" Width="456" Background="White" RenderTransformOrigin="0.004,0.943">
+                <Label x:Name="Currency_ID" Content="?" HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" Width="68"/>
+                <Label x:Name="Sell" Content="Продажа" HorizontalAlignment="Left" Margin="252,14,0,0" VerticalAlignment="Top" Width="168" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                <Label x:Name="Buy" Content="Покупка" HorizontalAlignment="Left" Margin="113,14,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="Sell_Data" Content="?" HorizontalAlignment="Left" Margin="252,81,0,0" VerticalAlignment="Top" Width="168" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                <Label x:Name="Buy_Data" Content="?" HorizontalAlignment="Left" Margin="113,81,0,0" VerticalAlignment="Top"/>
+            </Grid>
+        </Grid>
 
     </Grid>
 </Window>

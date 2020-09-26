@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid HorizontalAlignment="Left" Width="792">
-        <TextBox x:Name="TextData" Height="362" Margin="10,10,15,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Padding="2"/>
-        <Button x:Name="BottonConnect" Content="Connect" HorizontalAlignment="Left" Margin="223,381,0,8" Width="137"/>
-        <Button x:Name="BottonDisconnect" Content="Connect" HorizontalAlignment="Left" Margin="425,381,0,8" Width="137"/>
+        <TextBox x:Name="TextData" Height="362" Margin="10,10,15,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Padding="2"/>
+        <Button x:Name="BottonConnect" Content="Connect" HorizontalAlignment="Left" Margin="223,381,0,8" Width="137" Click="BottonConnect_Click"/>
+        <Button x:Name="BottonDisconnect" Content="Disconnect" HorizontalAlignment="Left" Margin="425,381,0,8" Width="137" Click="BottonDisconnect_Click"/>
 
     </Grid>
 </Window>

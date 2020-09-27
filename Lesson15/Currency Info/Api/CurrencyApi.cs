@@ -12,18 +12,27 @@ using Currency_Info.ViewModels;
 
 namespace Currency_Info.Api
 {
-    public class CurrencyApi
-    {
-        public string ApiUrl { get; set; } = @"http://resources.finance.ua/ru/public/currency-cash.xml";
 
-        public async Task<XmlModel> GetXMLModel()
+    /*
+    ***************** MODEL **********************************************************************
+    Модель описывает используемые в приложении данные. Модели могут содержать логику, непосредственно связанную этими данными, например, 
+    логику валидации свойств модели. В то же время модель не должна содержать никакой логики, связанной с отображением данных и 
+    взаимодействием с визуальными элементами управления.  
+    Нередко модель реализует интерфейсы INotifyPropertyChanged или INotifyCollectionChanged, которые позволяют уведомлять систему об 
+    изменениях свойств модели. Благодаря этому облегчается привязка к представлению, хотя опять же прямое взаимодействие между моделью и представлением отсутствует.
+     */
+    public class CurrencyApi  // Класс реализует шаблон "MODEL"
+    {
+        public string ApiUrl { get; set; } = @"http://resources.finance.ua/ru/public/currency-cash.xml";  // База данных курса валют в виде XML документа
+
+        public async Task<XmlModel> GetXMLModel() // Асинхронный метод реализует возврат задачи Task с возвращаемым типом XMLModel из базы XML
         {
             WebClient client = new WebClient();
             var stream = await client.OpenReadTaskAsync(ApiUrl);
             return await ConvertFromStreamAsync(stream);
         }
 
-        private async Task<XmlModel> ConvertFromStreamAsync(Stream stream)
+        private async Task<XmlModel> ConvertFromStreamAsync(Stream stream)  // Асинхронный метод реализует процесс десиреализации данных из базы данных в объект типа XmlModel
         {
             return await Task.Run(() =>
             {

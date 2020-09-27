@@ -12,6 +12,20 @@ using System.Threading;
 
 namespace Currency_Info.ViewModels
 {
+    /*
+     ********************VIEWMODEL*********************************************
+ViewModel или модель представления связывает модель и представление через механизм привязки данных. 
+Если в модели изменяются значения свойств, при реализации моделью интерфейса INotifyPropertyChanged автоматически идет изменение 
+отображаемых данных в представлении, хотя напрямую модель и представление не связаны.
+ViewModel также содержит логику по получению данных из модели, которые потом передаются в представление. И также VewModel определяет логику 
+по обновлению данных в модели.
+Поскольку элементы представления, то есть визуальные компоненты типа кнопок, не используют события, то представление взаимодействует с ViewModel посредством команд.
+Например, пользователь хочет сохранить введенные в текстовое поле данные. Он нажимает на кнопку и тем самым отправляет команду во ViewModel. А ViewModel уже получает
+переданные данные и в соответствии с ними обновляет модель.
+Итогом применения паттерна MVVM является функциональное разделение приложения на три компонента, которые проще разрабатывать и тестировать, а также в
+дальнейшем модифицировать и поддерживать.
+     */
+
     class MainViewModel : ViewModelBase
     {
         static public XmlModel result;
@@ -310,7 +324,7 @@ namespace Currency_Info.ViewModels
         }
 
 
-        public ICommand GetCurrenciesCommand
+        public ICommand GetCurrenciesCommand  // Использование команд для реализации шаблона MVVM
         {
             get
             {
@@ -318,7 +332,7 @@ namespace Currency_Info.ViewModels
             }
         }
 
-        public class DictionaryRegion<TKey, TValue> : Dictionary<TKey, List<TValue>>
+        public class DictionaryRegion<TKey, TValue> : Dictionary<TKey, List<TValue>>  // Пользовательский класс типа Dictionary<TKey, TValue>. Класс позволяет хранить несколько значений одинаковых ключей
         {
             public void Add(TKey key, TValue value)
             {

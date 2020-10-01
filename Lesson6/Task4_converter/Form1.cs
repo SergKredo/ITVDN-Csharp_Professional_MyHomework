@@ -50,5 +50,10 @@ namespace Task4_converter
         {
             converterTemperature.textBox_Farinhate_TextChanged(sender, e);  // На экземпляре созданного объекта вызываем метод и передаем параметры
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

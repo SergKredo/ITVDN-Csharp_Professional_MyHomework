@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
 
 namespace Task2
 {
@@ -25,9 +26,52 @@ namespace Task2
      */
     public partial class MainWindow : Window
     {
+        System.Windows.Forms.Timer timer;
         public MainWindow()
         {
             InitializeComponent();
+            timer = new Timer();
+            timer.Interval = 50;
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private async void Timer_Tick(object sender, EventArgs e)
+        {
+            this.TextLog.Text += await TextAsyncResult();
+        }
+
+        private void BrowseBotton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void InstallBotton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void UninstallButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void StartButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void StopButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        async Task<string> TextAsyncResult()
+        {
+            return await Task<string>.Run(() => 
+            {
+                return "Hello";
+            });
         }
     }
 }

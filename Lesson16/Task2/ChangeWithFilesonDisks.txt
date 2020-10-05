@@ -142,3 +142,13 @@
 
 18:38:41  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Local\Google\Drive\user_default\sync_config.db-wal
 
+19:23:01  5 жовтня 2020 р.(Created): C:\ProgramData\Dropbox\Update\Log\DropboxUpdate.log-2020-10-05-16-23-01-051-19904
+
+19:23:04  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Local\Google\Drive\user_default\sync_config.db-wal
+
+19:23:04  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Local\Google\Drive\user_default\sync_config.db-shm
+
+19:23:04  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Local\Google\Drive\user_default\sync_config.db-shm
+
+19:23:04  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Local\Google\Drive\user_default\sync_config.db-wal
+

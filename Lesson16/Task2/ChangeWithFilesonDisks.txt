@@ -1,0 +1,144 @@
+18:37:59  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\default\moz-extension+++09cd77a0-7b7d-41ef-83a9-1ae368d70fbb^userContextId=4294967295\idb\3647222921wleabcEoxlt-eengsairo.sqlite-wal
+
+18:37:59  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\default\moz-extension+++09cd77a0-7b7d-41ef-83a9-1ae368d70fbb^userContextId=4294967295\idb\3647222921wleabcEoxlt-eengsairo.sqlite-shm
+
+18:38:05  5 жовтня 2020 р.(Renamed): C:\ProgramData\Dropbox\Update\Log\DropboxUpdate.log-2020-10-05-15-34-08-659-15576-finished
+
+18:38:06  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\datareporting\aborted-session-ping.tmp
+
+18:38:06  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\datareporting\aborted-session-ping
+
+18:38:06  5 жовтня 2020 р.(Renamed): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\datareporting\aborted-session-ping
+
+18:38:07  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\default\moz-extension+++c05a5384-4624-464f-a046-4c1b5b881b4f^userContextId=4294967295\idb\3647222921wleabcEoxlt-eengsairo.sqlite-wal
+
+18:38:07  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\default\moz-extension+++c05a5384-4624-464f-a046-4c1b5b881b4f^userContextId=4294967295\idb\3647222921wleabcEoxlt-eengsairo.sqlite-shm
+
+18:38:07  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\default\https+++mail.google.com\idb\953658429glmaaviyle-ks-w.sqlite-wal
+
+18:38:07  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\default\https+++mail.google.com\idb\953658429glmaaviyle-ks-w.sqlite-shm
+
+18:38:07  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\default\https+++mail.google.com\idb\953658429glmaaviyle-ks-w.sqlite-shm
+
+18:38:07  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\default\https+++mail.google.com\idb\953658429glmaaviyle-ks-w.sqlite-wal
+
+18:38:07  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\default\https+++mail.google.com\idb\953658429GLMAAVIYLE-KS-W.SQLITE-SHM.tmp
+
+18:38:07  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\default\https+++mail.google.com\idb\953658429GLMAAVIYLE-KS-W.SQLITE-SHM.tmp
+
+18:38:08  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\permanent\chrome\idb\1657114595AmcateirvtiSty.sqlite-shm
+
+18:38:08  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\permanent\chrome\idb\1657114595AmcateirvtiSty.sqlite-wal
+
+18:38:08  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\permanent\chrome\idb\3870112724rsegmnoittet-es.sqlite-shm
+
+18:38:08  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\permanent\chrome\idb\3870112724rsegmnoittet-es.sqlite-wal
+
+18:38:08  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\permanent\chrome\idb\1657114595AMCATEIRVTISTY.SQLITE-SHM.tmp
+
+18:38:08  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\permanent\chrome\idb\1657114595AMCATEIRVTISTY.SQLITE-SHM.tmp
+
+18:38:08  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\permanent\chrome\idb\1657114595AMCATEIRVTISTY.SQLITE-WAL.tmp
+
+18:38:08  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\permanent\chrome\idb\1657114595AMCATEIRVTISTY.SQLITE-WAL.tmp
+
+18:38:08  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\permanent\chrome\idb\3870112724RSEGMNOITTET-ES.SQLITE-SHM.tmp
+
+18:38:08  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\permanent\chrome\idb\3870112724RSEGMNOITTET-ES.SQLITE-SHM.tmp
+
+18:38:09  5 жовтня 2020 р.(Created): C:\ProgramData\Connectify\cache\natstats.sqlite-journal
+
+18:38:09  5 жовтня 2020 р.(Deleted): C:\ProgramData\Connectify\cache\natstats.sqlite-journal
+
+18:38:09  5 жовтня 2020 р.(Created): C:\ProgramData\Connectify\cache\natstats.sqlite-journal
+
+18:38:09  5 жовтня 2020 р.(Deleted): C:\ProgramData\Connectify\cache\natstats.sqlite-journal
+
+18:38:09  5 жовтня 2020 р.(Created): C:\ProgramData\Connectify\cache\natstats.sqlite-journal
+
+18:38:09  5 жовтня 2020 р.(Deleted): C:\ProgramData\Connectify\cache\natstats.sqlite-journal
+
+18:38:09  5 жовтня 2020 р.(Created): C:\ProgramData\Connectify\cache\natstats.sqlite-journal
+
+18:38:09  5 жовтня 2020 р.(Deleted): C:\ProgramData\Connectify\cache\natstats.sqlite-journal
+
+18:38:09  5 жовтня 2020 р.(Created): C:\ProgramData\Connectify\cache\natstats.sqlite-journal
+
+18:38:09  5 жовтня 2020 р.(Deleted): C:\ProgramData\Connectify\cache\natstats.sqlite-journal
+
+18:38:11  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\default\moz-extension+++09cd77a0-7b7d-41ef-83a9-1ae368d70fbb^userContextId=4294967295\idb\3647222921wleabcEoxlt-eengsairo.sqlite-shm
+
+18:38:11  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\default\moz-extension+++09cd77a0-7b7d-41ef-83a9-1ae368d70fbb^userContextId=4294967295\idb\3647222921wleabcEoxlt-eengsairo.sqlite-wal
+
+18:38:11  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\default\moz-extension+++09cd77a0-7b7d-41ef-83a9-1ae368d70fbb^userContextId=4294967295\idb\3647222921WLEABCEOXLT-EENGSAIRO.SQLITE-SHM.tmp
+
+18:38:11  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\default\moz-extension+++09cd77a0-7b7d-41ef-83a9-1ae368d70fbb^userContextId=4294967295\idb\3647222921WLEABCEOXLT-EENGSAIRO.SQLITE-SHM.tmp
+
+18:38:11  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Local\Google\Drive\user_default\sync_config.db-wal
+
+18:38:11  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Local\Google\Drive\user_default\sync_config.db-shm
+
+18:38:11  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Local\Google\Drive\user_default\sync_config.db-shm
+
+18:38:11  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Local\Google\Drive\user_default\sync_config.db-wal
+
+18:38:17  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Local\Microsoft\VSApplicationInsights\vstelAIF-312cbd79-9dbb-4c48-a7da-3cc2a931cb70\20201005153817_bb964b6a8ece4e0382bef5f9650ea336.tmp
+
+18:38:17  5 жовтня 2020 р.(Renamed): C:\Users\Work\AppData\Local\Microsoft\VSApplicationInsights\vstelAIF-312cbd79-9dbb-4c48-a7da-3cc2a931cb70\20201005153817_bb964b6a8ece4e0382bef5f9650ea336.trn
+
+18:38:19  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\default\moz-extension+++c05a5384-4624-464f-a046-4c1b5b881b4f^userContextId=4294967295\idb\3647222921wleabcEoxlt-eengsairo.sqlite-shm
+
+18:38:19  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\default\moz-extension+++c05a5384-4624-464f-a046-4c1b5b881b4f^userContextId=4294967295\idb\3647222921wleabcEoxlt-eengsairo.sqlite-wal
+
+18:38:19  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\default\moz-extension+++c05a5384-4624-464f-a046-4c1b5b881b4f^userContextId=4294967295\idb\3647222921WLEABCEOXLT-EENGSAIRO.SQLITE-SHM.tmp
+
+18:38:19  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Mozilla\Firefox\Profiles\d2qa4im4.default\storage\default\moz-extension+++c05a5384-4624-464f-a046-4c1b5b881b4f^userContextId=4294967295\idb\3647222921WLEABCEOXLT-EENGSAIRO.SQLITE-SHM.tmp
+
+18:38:20  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Local\Google\Drive\user_default\cloud_graph\cloud_graph.db-wal
+
+18:38:20  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Local\Google\Drive\user_default\cloud_graph\cloud_graph.db-shm
+
+18:38:20  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Roaming\Microsoft\Skype for Desktop\9618295e-b540-4d98-a889-3ff23c27956b.tmp
+
+18:38:20  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Roaming\Microsoft\Skype for Desktop\TransportSecurity~RF20608e1.TMP
+
+18:38:20  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Microsoft\Skype for Desktop\TransportSecurity
+
+18:38:20  5 жовтня 2020 р.(Renamed): C:\Users\Work\AppData\Roaming\Microsoft\Skype for Desktop\TransportSecurity
+
+18:38:20  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Roaming\Microsoft\Skype for Desktop\TransportSecurity~RF20608e1.TMP
+
+18:38:20  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Local\Google\Drive\user_default\cloud_graph\cloud_graph.db-shm
+
+18:38:20  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Local\Google\Drive\user_default\cloud_graph\cloud_graph.db-wal
+
+18:38:21  5 жовтня 2020 р.(Renamed): C:\Users\Work\AppData\Local\Microsoft\VSApplicationInsights\vstelAIF-312cbd79-9dbb-4c48-a7da-3cc2a931cb70\20201005153817_b5478b39c9f04306bb3d0c2c486c299a.trn
+
+18:38:21  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Local\Microsoft\VSApplicationInsights\vstelAIF-312cbd79-9dbb-4c48-a7da-3cc2a931cb70\20201005153817_b5478b39c9f04306bb3d0c2c486c299a.trn
+
+18:38:26  5 жовтня 2020 р.(Deleted): C:\ProgramData\Dropbox\Update\Log\DropboxUpdate.log-2020-10-05-10-24-55-785-1388-finished
+
+18:38:33  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Local\Google\Drive\user_default\sync_config.db-wal
+
+18:38:33  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Local\Google\Drive\user_default\sync_config.db-shm
+
+18:38:33  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Local\Google\Drive\user_default\sync_config.db-shm
+
+18:38:33  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Local\Google\Drive\user_default\sync_config.db-wal
+
+18:38:41  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Local\Google\Drive\user_default\uploader.db-wal
+
+18:38:41  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Local\Google\Drive\user_default\uploader.db-shm
+
+18:38:41  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Local\Google\Drive\user_default\uploader.db-shm
+
+18:38:41  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Local\Google\Drive\user_default\uploader.db-wal
+
+18:38:41  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Local\Google\Drive\user_default\sync_config.db-wal
+
+18:38:41  5 жовтня 2020 р.(Created): C:\Users\Work\AppData\Local\Google\Drive\user_default\sync_config.db-shm
+
+18:38:41  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Local\Google\Drive\user_default\sync_config.db-shm
+
+18:38:41  5 жовтня 2020 р.(Deleted): C:\Users\Work\AppData\Local\Google\Drive\user_default\sync_config.db-wal
+

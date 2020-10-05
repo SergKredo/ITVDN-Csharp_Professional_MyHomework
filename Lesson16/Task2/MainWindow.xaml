@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="460" Width="635">
+        Title="File change tracking NT-service by Serg Kredo" Height="623.875" Width="877.458" Closed="Window_Closed" MinWidth="877.458" MinHeight="623.875" MaxHeight="624" MaxWidth="877.458" WindowStartupLocation="CenterScreen">
     <Grid Background="#FFF1F1F1">
-        <TextBox x:Name="FilePath" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="478" Background="White" RenderTransformOrigin="0.418,0.565"/>
-        <Button x:Name="BrowseBotton" Content="Browse" HorizontalAlignment="Left" Margin="506,10,0,0" VerticalAlignment="Top" Width="96" Height="23" Click="BrowseBotton_Click"/>
-        <Button x:Name="InstallBotton" Content="Install" HorizontalAlignment="Left" Margin="506,50,0,0" VerticalAlignment="Top" Width="96" Click="InstallBotton_Click"/>
-        <Button x:Name="UninstallButton" Content="Uninstall" HorizontalAlignment="Left" Margin="506,89,0,0" VerticalAlignment="Top" Width="96" Click="UninstallButton_Click"/>
-        <Button x:Name="StartButton" Content="Start" HorizontalAlignment="Left" Margin="506,129,0,0" VerticalAlignment="Top" Width="96" Click="StartButton_Click"/>
-        <Button x:Name="StopButton" Content="Stop" HorizontalAlignment="Left" Margin="506,169,0,0" VerticalAlignment="Top" Width="96" Click="StopButton_Click"/>
-        <TextBox x:Name="TextLog" HorizontalAlignment="Left" Height="362" Margin="10,47,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="478" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto"/>
+        <TextBox x:Name="FilePath" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="724" Background="White" RenderTransformOrigin="0.418,0.565"/>
+        <Button x:Name="BrowseBotton" Content="Browse" HorizontalAlignment="Left" Margin="753,10,0,0" VerticalAlignment="Top" Width="96" Height="23" Click="BrowseBotton_Click"/>
+        <Button x:Name="InstallBotton" Content="Install" HorizontalAlignment="Left" Margin="752,58,0,0" VerticalAlignment="Top" Width="96" Click="InstallBotton_Click"/>
+        <Button x:Name="UninstallButton" Content="Uninstall" HorizontalAlignment="Left" Margin="752,97,0,0" VerticalAlignment="Top" Width="96" Click="UninstallButton_Click"/>
+        <Button x:Name="StartButton" Content="Start" HorizontalAlignment="Left" Margin="752,137,0,0" VerticalAlignment="Top" Width="96" Click="StartButton_Click"/>
+        <Button x:Name="StopButton" Content="Stop" HorizontalAlignment="Left" Margin="752,177,0,0" VerticalAlignment="Top" Width="96" Click="StopButton_Click"/>
+        <TextBox x:Name="TextLog" HorizontalAlignment="Left" Height="536" Margin="10,47,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="724" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto"/>
 
     </Grid>
 </Window>

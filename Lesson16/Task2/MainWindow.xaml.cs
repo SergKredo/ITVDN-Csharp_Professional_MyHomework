@@ -31,56 +31,56 @@ namespace Task2
      */
     public partial class MainWindow : Window
     {
-        System.Windows.Forms.Timer timer;
-        Microsoft.Win32.OpenFileDialog openFileDialog;
-        Assembly assembly;
-        string serviceNameAssebbly;
-        ServiceController controller;
-        string filePath;
+        System.Windows.Forms.Timer timer; // Таймер для циклического повторения однотипных действий
+        Microsoft.Win32.OpenFileDialog openFileDialog;  // Диалоговое окно для поиска на компьютере пользователя NT-службы
+        Assembly assembly;  // Объект представляет возможность получить расширенный доступ к определенной сборке
+        string serviceNameAssebbly;  // Имя для идентификации службы в системе
+        ServiceController controller;  // Объект представляет службу Windows и позволяет подключаться к запущенной или остановленной службе, управлять работой службы и получать сведения о ней
+        string filePath;  // Полный путь расположения NT-службы на компьютере
 
         public MainWindow()
         {
             InitializeComponent();
-            openFileDialog = new Microsoft.Win32.OpenFileDialog();
-            timer = new Timer();
-            timer.Interval = 1000;
-            timer.Tick += Timer_Tick;
-            timer.Start();
+            openFileDialog = new Microsoft.Win32.OpenFileDialog();  // Инстранцирование класса
+            timer = new Timer();  
+            timer.Interval = 1000;  // Интервал повторного вызова события timer.Tick
+            timer.Tick += Timer_Tick;  // Сообщаем метод обработчик Timer_Tick с событием timer.Tick
+            timer.Start();  // Запуск таймера
         }
 
-        private async void Timer_Tick(object sender, EventArgs e)
+        private async void Timer_Tick(object sender, EventArgs e)  // Асинхронный метод-обработчик события timer.Tick
         {
             try
             {
-                this.TextLog.Text += await TextAsyncResult();
-                this.TextLog.ScrollToEnd();
+                this.TextLog.Text += await TextAsyncResult();  // Асинхронное присваивание значения свойству Text объекта TextLog
+                this.TextLog.ScrollToEnd();  // Автоматическое прокручивание представления элемента управления в конец содержимого
             }
             catch (Exception exp)
             {
-                timer.Stop();
+                timer.Stop();  // Остановка таймера
             }
         }
 
-        private void BrowseBotton_Click(object sender, RoutedEventArgs e)
+        private void BrowseBotton_Click(object sender, RoutedEventArgs e)  // Метод обработчик события Click объекта BrowseBotton
         {
             if (openFileDialog.ShowDialog() == true)
             {
                 FilePath.Text = openFileDialog.SafeFileName;
-                assembly = Assembly.LoadFrom(openFileDialog.FileName);
-                Type[] types = assembly.GetTypes();
+                assembly = Assembly.LoadFrom(openFileDialog.FileName);  // Загружаем сборку
+                Type[] types = assembly.GetTypes();  // Получаем массив типов определенных в этой сборке
 
-                foreach (var item in types)
+                foreach (var item in types)  // Перебор типов из сборки
                 {
                     try
                     {
-                        dynamic instance = Activator.CreateInstance(item);
+                        dynamic instance = Activator.CreateInstance(item);  // Позднее связывание (динамическое инстанцирование объекта для данного типа)
                         try
                         {
-                            filePath = instance.FilePath;
+                            filePath = instance.FilePath;  // Получаем доступ к свойству созданного нами экземпляра объекта типа item
                         }
                         catch { }
                         
-                        foreach (var items in instance.Installers)
+                        foreach (var items in instance.Installers) // Перебор свойств 
                         {
                             try
                             {
@@ -88,8 +88,8 @@ namespace Task2
                                 if (flag)
                                 {
                                     serviceNameAssebbly = items.ServiceName;
-                                    controller = new ServiceController { ServiceName = serviceNameAssebbly };
-                                    timer.Start();
+                                    controller = new ServiceController { ServiceName = serviceNameAssebbly }; // Инстанцируем объект типа ServiceController с определенным именем для идентификации службы в системе
+                                    timer.Start(); // Запускаем таймер
                                 }
                             }
                             catch
@@ -106,28 +106,28 @@ namespace Task2
             }
         }
 
-        private async void InstallBotton_Click(object sender, RoutedEventArgs e)
+        private async void InstallBotton_Click(object sender, RoutedEventArgs e)  // Метод обработчик события Click объекта InstallBotton
         {
-            InstallBotton.IsEnabled = false;
-            await Task.Factory.StartNew(InstallService);
-            UninstallButton.IsEnabled = true;
+            InstallBotton.IsEnabled = false;  // Отключаем в интерфейсе приложения доступ к кнопке
+            await Task.Factory.StartNew(InstallService); // Асинхронный запуск задачи (Task) с последующим вызовом метода InstallService
+            UninstallButton.IsEnabled = true;  // Делаем активной доступ к кнопке в интерфейсе приложения 
             StartButton.IsEnabled = true;
         }
 
-        private async void UninstallButton_Click(object sender, RoutedEventArgs e)
+        private async void UninstallButton_Click(object sender, RoutedEventArgs e)  // Метод обработчик события Click объекта UninstallButton
         {
             UninstallButton.IsEnabled = false;
             StartButton.IsEnabled = false;
-            await Task.Run(() => UninstallService());
+            await Task.Run(() => UninstallService());  // Асинхронный запуск задачи (Task) с последующим вызовом метода UninstallService
             InstallBotton.IsEnabled = true;
         }
 
-        private void StartButton_Click(object sender, RoutedEventArgs e)
+        private void StartButton_Click(object sender, RoutedEventArgs e)  // Метод обработчик события Click объекта StartButton
         {
             try
             {
                 controller.Start();
-                System.Windows.Forms.MessageBox.Show("Service started");
+                System.Windows.Forms.MessageBox.Show("Service started");  // Отображение окна-сообщения об успешном старте NT-службы
                 StartButton.IsEnabled = false;
                 StopButton.IsEnabled = true;
             }
@@ -137,12 +137,12 @@ namespace Task2
             }
         }
 
-        private void StopButton_Click(object sender, RoutedEventArgs e)
+        private void StopButton_Click(object sender, RoutedEventArgs e)  // Метод обработчик события Click объекта StopButton
         {
             try
             {
                 controller.Stop();
-                System.Windows.Forms.MessageBox.Show("Service stopped");
+                System.Windows.Forms.MessageBox.Show("Service stopped");  // Отображение окна-сообщения об успешной остановке NT-службы
                 StopButton.IsEnabled = true;
                 StartButton.IsEnabled = true;
                 UninstallButton.IsEnabled = true;
@@ -153,10 +153,10 @@ namespace Task2
             }
         }
 
-        async Task<string> TextAsyncResult()
+        async Task<string> TextAsyncResult()  // Асинхронный метод
         {
-
-            using (var stream = File.Open(filePath, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite))
+            // С помощью параметра FileShare.Read разрешаем открытие файла для чтения из другого потока
+            using (var stream = File.Open(filePath, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite)) 
             {
                 using (var streamReader = new StreamReader(stream))
                 {
@@ -166,7 +166,7 @@ namespace Task2
             }
         }
 
-        private void InstallService()
+        private void InstallService()  // Установка NT-службы
         {
             try
             {
@@ -179,7 +179,7 @@ namespace Task2
             }
         }
 
-        private void UninstallService()
+        private void UninstallService()  // Удаление NT-службы
         {
             if (!IsServiceInstalled(serviceNameAssebbly)) return;
 
@@ -194,7 +194,7 @@ namespace Task2
             }
         }
 
-        private bool IsServiceInstalled(string serviceName)
+        private bool IsServiceInstalled(string serviceName)  // Проверка на наличие данной службы в менеджере служб операционной системы
         {
             var controller = ServiceController.GetServices().FirstOrDefault<ServiceController>(s => s.ServiceName == serviceName);
             if (controller == null)
@@ -204,7 +204,7 @@ namespace Task2
             return true;
         }
 
-        private void Window_Closed(object sender, EventArgs e)
+        private void Window_Closed(object sender, EventArgs e)  // При закрытии приложения метод останавливает таймер и деинсталлирует NT-службу
         {
             if (timer.Enabled)
             {

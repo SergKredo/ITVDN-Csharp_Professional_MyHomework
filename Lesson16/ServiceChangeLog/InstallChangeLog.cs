@@ -13,6 +13,8 @@ namespace ServiceChangeLog
 
         public ProjectInstaller()
         {
+
+            // Оснавная информация о свойствах NT-службы
             processInstaller = new ServiceProcessInstaller();
             processInstaller.Account = ServiceAccount.LocalSystem;
 

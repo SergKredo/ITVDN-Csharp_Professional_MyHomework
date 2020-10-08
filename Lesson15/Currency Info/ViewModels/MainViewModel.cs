@@ -58,6 +58,18 @@ ViewModel также содержит логику по получению да�
         List<DateSource> listDateXml;
         DateSource xmlModelDate;
 
+        ErrorServer errorServer;
+
+        public ErrorServer ErrorServer
+        {
+            get { return errorServer; }
+            set
+            {
+                errorServer = value;
+                OnPropertyChanged();
+            }
+        }
+
         public DateSource DateSourceXml
         {
             get { return xmlModelDate; }
@@ -354,7 +366,17 @@ ViewModel также содержит логику по получению да�
             var api = new CurrencyApi();
             result = await api.GetXMLModel();
             DateSourceXml = new DateSource(result);
-            Currencies = new List<CurrencyViewModel>(result.C.Select(o => new CurrencyViewModel(o)));
+            try
+            {
+                Currencies = new List<CurrencyViewModel>(result.C.Select(o => new CurrencyViewModel(o)));
+                ErrorServer = new ErrorServer();
+                ErrorServer.ErrorServ = null;
+            }
+            catch
+            {
+                Currencies = null;
+                ErrorServer = new ErrorServer();
+            }
             IsLoading = false;
         }
     }

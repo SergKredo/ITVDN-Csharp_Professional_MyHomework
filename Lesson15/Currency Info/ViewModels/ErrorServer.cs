@@ -9,7 +9,7 @@ namespace Currency_Info.ViewModels
 {
     class ErrorServer: ViewModelBase
     {
-        string error = "Сервер не работает. Попробуйте позже!";
+        string error = "Сервер не обновляет базу данных! Попробуйте позже!";
         public string ErrorServ
         {
             get 

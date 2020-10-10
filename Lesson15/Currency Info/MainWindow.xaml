@@ -65,9 +65,9 @@
             SelectedValue="{Binding ListOfBanksOr}"
             IsSynchronizedWithCurrentItem="True" Grid.Row="2" Height="25" VerticalAlignment="Bottom"/>
         <Label Content="Банк|Обменник" HorizontalAlignment="Left" Margin="3,0,0,108" VerticalAlignment="Bottom" Width="250" Height="34" Foreground="Black" FontSize="20" FontFamily="Calibri" Grid.Row="2"/>
-        <Label x:Name="Date" Content="{Binding DateSourceXml.Date}" HorizontalAlignment="Left" Margin="328,2,0,0" VerticalAlignment="Top" Width="406" Height="54" FontFamily="Segoe UI" FontSize="18" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
+        <Label x:Name="Date" Content="{Binding DateSourceXml.Date}" HorizontalAlignment="Left" Margin="328,22,0,0" VerticalAlignment="Top" Width="406" Height="34" FontFamily="Segoe UI" FontSize="18" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
         <Border x:Name="ErrorBorder" BorderBrush="#FF595757" BorderThickness="0,2,0,0" HorizontalAlignment="Left" Height="56" Margin="271,1,0,0" Grid.RowSpan="3" VerticalAlignment="Top" Width="521" Grid.ColumnSpan="2">
-            <Label x:Name="ErrorServer" Content="{Binding ErrorServer.ErrorServ}" Foreground="#FFFD0000"/>
+            <Label x:Name="ErrorServer" Content="{Binding ErrorServer.ErrorServ}" Foreground="#FFFD0000" FontSize="12" FontStyle="Italic" VerticalAlignment="Top" Height="26"/>
         </Border>
         <Border BorderBrush="#FF595757" BorderThickness="0,2,0,0" HorizontalAlignment="Left" Height="176" Margin="271,189,0,0" Grid.Row="2" VerticalAlignment="Top" Width="521" Grid.ColumnSpan="2"/>
         <Grid HorizontalAlignment="Left" Height="166" Margin="308,12,0,0" Grid.Row="2" VerticalAlignment="Top" Width="452" Grid.ColumnSpan="2" Background="White">

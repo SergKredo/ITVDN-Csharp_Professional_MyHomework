@@ -368,9 +368,17 @@ ViewModel также содержит логику по получению да�
             DateSourceXml = new DateSource(result);
             try
             {
-                Currencies = new List<CurrencyViewModel>(result.C.Select(o => new CurrencyViewModel(o)));
-                ErrorServer = new ErrorServer();
-                ErrorServer.ErrorServ = null;
+                if (!Trig.Triger)
+                {
+                    Currencies = new List<CurrencyViewModel>(result.C.Select(o => new CurrencyViewModel(o)));
+                    ErrorServer = new ErrorServer();
+                    ErrorServer.ErrorServ = null;
+                }
+                else
+                {
+                    Currencies = new List<CurrencyViewModel>(result.C.Select(o => new CurrencyViewModel(o)));
+                    ErrorServer = new ErrorServer();
+                }
             }
             catch
             {

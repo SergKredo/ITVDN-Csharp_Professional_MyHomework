@@ -12,7 +12,10 @@ using Currency_Info.ViewModels;
 
 namespace Currency_Info.Api
 {
-
+    public static class Trig  // Триггер для доступа к элементам класса XmlModel и вывод сообщения  при Triger = true (база данных не обновляется!)
+    {
+        public static bool Triger = false;
+    }
     /*
     ***************** MODEL **********************************************************************
     Модель описывает используемые в приложении данные. Модели могут содержать логику, непосредственно связанную этими данными, например, 
@@ -25,18 +28,32 @@ namespace Currency_Info.Api
     {
         public string ApiUrl { get; set; } = @"http://resources.finance.ua/ru/public/currency-cash.xml";  // База данных курса валют в виде XML документа
 
+
         public async Task<XmlModel> GetXMLModel() // Асинхронный метод реализует возврат задачи Task с возвращаемым типом XMLModel из базы XML
         {
-            WebClient client = new WebClient();
+            WebClient client = new WebClient();  // Ипользование объекта WebClient для онлайн соединения с базой данных на сервере
             try
             {
+                Trig.Triger = false;  
                 var stream = await client.OpenReadTaskAsync(ApiUrl);
                 return await ConvertFromStreamAsync(stream);
             }
             catch
             {
-                return await ConvertFromStreamAsync(null);
+                Trig.Triger = true;
+                ApiUrl = "TestCurrencyInfo.xml";
+                var stream = await StreamFileOpenAsync(ApiUrl);
+                return await ConvertFromStreamAsync(stream);
             }
+        }
+
+        private async Task<FileStream> StreamFileOpenAsync(string ApiUrl)  // Асинхронный вызов в файловый поток из Offline базы данных для курса валют банков Украины в формате xml
+        {
+            return await Task.Run(() =>
+            {
+                return File.OpenRead(ApiUrl);
+            }
+            );
         }
 
         private async Task<XmlModel> ConvertFromStreamAsync(Stream stream)  // Асинхронный метод реализует процесс десиреализации данных из базы данных в объект типа XmlModel

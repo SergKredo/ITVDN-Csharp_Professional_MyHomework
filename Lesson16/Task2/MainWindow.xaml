@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task2"
         mc:Ignorable="d"
-        Title="File change tracking NT-service by Serg Kredo" Height="623.875" Width="877.458" Closed="Window_Closed" MinWidth="877.458" MinHeight="623.875" MaxHeight="624" MaxWidth="877.458" WindowStartupLocation="CenterScreen">
+        Title="File change tracking NT-service by Serg Kredo" Height="623.875" Width="877.458" Closed="Window_Closed" MinWidth="877.458" MinHeight="623.875" MaxHeight="624" MaxWidth="877.458" WindowStartupLocation="CenterScreen" Icon="pngwing.com.png">
     <Grid Background="#FFF1F1F1">
         <TextBox x:Name="FilePath" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="724" Background="White" RenderTransformOrigin="0.418,0.565"/>
         <Button x:Name="BrowseBotton" Content="Browse" HorizontalAlignment="Left" Margin="753,10,0,0" VerticalAlignment="Top" Width="96" Height="23" Click="BrowseBotton_Click"/>

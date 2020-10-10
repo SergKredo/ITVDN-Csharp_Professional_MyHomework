@@ -18,7 +18,7 @@ namespace ServiceChangeLog
     public partial class Service1 : ServiceBase
     {
         DriveInfo[] drives;  // Массив дисков или томов диска
-        static readonly string filePath = @"C:\Users\Work\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\Task2\ChangeWithFilesonDisks.txt";
+        static readonly string filePath = @"D:\ChangeWithFilesonDisks.txt";
         FileSystemWatcher watcher;  // Объект ожидает уведомления файловой системы об изменениях в каталогах или файлах каталогов
         public string FilePath { get; }  // Путь к файлу логирования информаци об изменениях в системе
         public Service1()

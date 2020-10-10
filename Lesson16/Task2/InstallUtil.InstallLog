@@ -36,3 +36,24 @@ System.Security.SecurityException: Источник не найден, но не
 Данный файл находится в C:\Users\Work\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\bin\Release\ServiceChangeLog.InstallLog.
 
 Удаление из системы выполнено.
+
+Выполняется групповая операция установки.
+
+Начинается этап установки процедуры установки.
+См. файл журнала выполнения операция для сборки D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\bin\Release\ServiceChangeLog.exe.
+Данный файл находится в D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\bin\Release\ServiceChangeLog.InstallLog.
+
+Этап установки успешно выполнен, начинается этап фиксации.
+См. файл журнала выполнения операция для сборки D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\bin\Release\ServiceChangeLog.exe.
+Данный файл находится в D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\bin\Release\ServiceChangeLog.InstallLog.
+
+Этап фиксации выполнен успешно.
+
+Групповая операция установки выполнена.
+
+
+Начинается установка.
+См. файл журнала выполнения операция для сборки D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\bin\Release\ServiceChangeLog.exe.
+Данный файл находится в D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\bin\Release\ServiceChangeLog.InstallLog.
+
+Удаление из системы выполнено.

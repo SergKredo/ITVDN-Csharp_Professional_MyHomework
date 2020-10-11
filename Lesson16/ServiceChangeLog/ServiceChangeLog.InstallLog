@@ -1,0 +1,42 @@
+﻿Выполняется установка сборки 'D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\ServiceChangeLog.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\ServiceChangeLog.InstallLog
+   assemblypath = D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\ServiceChangeLog.exe
+Устанавливается служба [==== ServiceChangeLogDisks ====]...
+Служба [==== ServiceChangeLogDisks ====] успешно установлена.
+Создается исходный EventLog [==== ServiceChangeLogDisks ====] в журнале Application...
+Выполняется фиксация сборки 'D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\ServiceChangeLog.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\ServiceChangeLog.InstallLog
+   assemblypath = D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\ServiceChangeLog.exe
+Выполняется удаление сборки 'D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\ServiceChangeLog.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\ServiceChangeLog.InstallLog
+   assemblypath = D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\ServiceChangeLog.exe
+Выполняется удаление источника EventLog [==== ServiceChangeLogDisks ====].
+Выполняется удаление службы [==== ServiceChangeLogDisks ====] из системы...
+Служба [==== ServiceChangeLogDisks ====] успешно удалена из системы.
+Выполняется установка сборки 'D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\ServiceChangeLog.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\ServiceChangeLog.InstallLog
+   assemblypath = D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\ServiceChangeLog.exe
+Устанавливается служба [==== ServiceChangeLogDisks ====]...
+Служба [==== ServiceChangeLogDisks ====] успешно установлена.
+Создается исходный EventLog [==== ServiceChangeLogDisks ====] в журнале Application...
+Выполняется фиксация сборки 'D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\ServiceChangeLog.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\ServiceChangeLog.InstallLog
+   assemblypath = D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\ServiceChangeLog.exe
+Выполняется удаление сборки 'D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\ServiceChangeLog.exe'.
+Затронуты следующие параметры:
+   logtoconsole = 
+   logfile = D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\ServiceChangeLog.InstallLog
+   assemblypath = D:\Dropbox\Программирование на С#_ITVDN\csharp-professional-materials_homeworks\ITVDN-Csharp_Professional_MyHomework\Lesson16\ServiceChangeLog\ServiceChangeLog.exe
+Выполняется удаление источника EventLog [==== ServiceChangeLogDisks ====].
+Выполняется удаление службы [==== ServiceChangeLogDisks ====] из системы...
+Служба [==== ServiceChangeLogDisks ====] успешно удалена из системы.
